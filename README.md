@@ -29,7 +29,7 @@ The game is planned to be implemented in Java by using JavaFX library.
 RISK is a multiplayer game, where each user has control of their army. Player's objection is surviving until all other opponents are destroyed or conquered. 
 
 ### Controls:
-??
+We are still considering our approach on how to implement a board game to a digital setting.
 
 ### Gameplay:
   Differing from the original game’s design we are planning on implementing an in game battle sequence to immerse the player more with the game instead of just showing the dice rolls.
