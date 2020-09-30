@@ -10,13 +10,13 @@
 ## Group Members
 Emre Derman		      21703508
 
-Kamil Kaan Erkan		
+Kamil Kaan Erkan		21601166
 
 Rüzgar Ayan			    21801984	
 
 Cankat Anday Kadim	21802988
 
-Umut Ada Yürüten		
+Umut Ada Yürüten		21802410
 
 Kaan Atakan Aray   	21703187
 
