@@ -8,17 +8,15 @@
 * [License](#license)
 
 ## Group Members
-Emre Derman		      21703508
+| Member | Student ID |
+| ----------- | ----------- |
+|Kaan Atakan Aray | 21703187|
+|Rüzgar Ayan | 21801984|
+|Emre Derman	| 21703508|
+|Kamil Kaan Erkan | 21601166|
+|Cankat Anday Kadim | 21802988|
+|Umut Ada Yürüten | 21802410|
 
-Kamil Kaan Erkan		21601166
-
-Rüzgar Ayan			    21801984	
-
-Cankat Anday Kadim	21802988
-
-Umut Ada Yürüten		21802410
-
-Kaan Atakan Aray   	21703187
 
 ## Description of Project
 In this project, we are going to digitize and upgrade Risk which is a strategy board game of diplomacy, conflict and conquest.
