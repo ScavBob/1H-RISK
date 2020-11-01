@@ -4,6 +4,7 @@
 * [Group Members](#group-members)
 * [Description](#description-of-project)
 * [Modifications](#modifications)
+* [Reports](#reports)
 * [References](#references)
 * [License](#license)
 
@@ -38,6 +39,11 @@ We are still considering our approach on how to implement a board game to a digi
 1. In game footage (battle scenes)
 2. Different countries with individual starting bonuses instead of basic teams teams (clans, different symbols for each team)
 3. Adding different maps to the game (Bilkent University map)
+
+## Reports
+###   Iteration 1:
+- - -
++ [Analysis Report](Reports/Iteration_1/CS319_1-H_RISK_SRS_I1.pdf)
 
 ## References:
 Reference link to original Risk :  
