@@ -1,4 +1,5 @@
-import java.lang.String;
+package Application;
+
 public class Region{
     private int regionID;
     private String regionName;
