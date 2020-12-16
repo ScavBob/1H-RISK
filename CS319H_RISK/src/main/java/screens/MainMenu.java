@@ -18,7 +18,7 @@ public class MainMenu extends Menu {
 		addTransitionButton(root, "", 100, 100, 75, 439, "img.png", null);
 		addTransitionButton(root, "Load Game", 300, 300, 160, 40,"img.png", null);
 		addTransitionButton(root, "Learn to Conquer", 300, 400, 160, 40,"img.png", null);
-		addTransitionButton(root, "Settings", 300, 450, 160, 40,"img.png", null);
+		addTransitionButton(root, "Settings", 300, 450, 160, 40,"img.png", new OptionsMenu());
 		addTransitionButton(root, "Exit", 300, 500, 160, 40,"img.png", null);
 	}
 }
