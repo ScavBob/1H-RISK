@@ -7,8 +7,10 @@ import javafx.stage.Stage;
 import managers.GameManager;
 import screens.Screen;
 
-public class Game{
+public class Game {
 
+    private static int WINDOW_WIDTH = 1280;
+    private static int WINDOW_HEIGHT = 720;
     private static Game gameInstance = null;
     private static Stage gameStage = null;
     private GameManager gameManager = null;
@@ -30,13 +32,14 @@ public class Game{
         return gameManager;
     }
 
+    public void setScene(Scene scene)
+    {
+        gameStage.setScene(scene);
+    }
+
     public void setScreen(Screen screen)
     {
         gameStage.setScene(screen.getScene());
-    }
-
-    public Stage getStage() {
-        return gameStage;
     }
 
     public void gameInit(Stage primaryStage){
