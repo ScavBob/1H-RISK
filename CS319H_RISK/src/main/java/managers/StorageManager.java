@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class StorageManager
 {
-    public static final String RESOURCES_FOLDER_NAME = "CS319H_RISK\\resources\\";
+    public static final String RESOURCES_FOLDER_NAME = "resources\\";
     private static final String STORAGE_FOLDER_NAME = "Risk";
     private static final String SAVE_FOLDER_NAME = "Saves";
     private static final String PROPERTIES_FILE_NAME = "Properties.txt";

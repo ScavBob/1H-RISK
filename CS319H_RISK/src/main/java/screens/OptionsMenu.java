@@ -22,6 +22,6 @@ public class OptionsMenu extends Menu {
     }
 
     public void addButtons(Group root){
-        addTransitionButton(root, "", 495, 511, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", new MainMenu());
+        addTransitionButton(root, "", 495, 561, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", new MainMenu());
     }
 }
