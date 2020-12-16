@@ -1,26 +1,29 @@
-package main.java.managers;
+package managers;
 
-import main.java.game.Game;
+import game.Game;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.*;
-import java.nio.file.Files;
 import java.util.Properties;
 
 public class StorageManager
 {
     private static final String STORAGE_FOLDER_NAME = "Risk";
+    private static final String SAVE_FOLDER_NAME = "Saves";
     private static final String PROPERTIES_FILE_NAME = "Properties.txt";
 
     public StorageManager()
     {
+        createDirectories();
     }
 
-    public boolean saveGame()
+    /*
+    public boolean saveGame(Match matchToSave, String saveName)
     {
         //TODO
         return true;
     }
+    */
 
     /*
     public Match readGame()
@@ -55,13 +58,6 @@ public class StorageManager
 
         if (!propertiesFile.exists())
         {
-            File directory = new File(getStorageFolder());
-            if (!directory.exists())
-            {
-                if (!directory.mkdir())
-                    return false;
-            }
-
             try {
                 if (!propertiesFile.createNewFile())
                     return false;
@@ -88,6 +84,35 @@ public class StorageManager
     private String getDocumentsDirectory()
     {
         return FileSystemView.getFileSystemView().getDefaultDirectory().getPath();
+    }
+
+    public String defaultGameSaveDirectory()
+    {
+        return getStorageFolder() + File.separator + SAVE_FOLDER_NAME;
+    }
+
+    private File getGameSaveFolder()
+    {
+        return Game.getInstance().getGameManager().getSettingsManager().getSaveLocation();
+    }
+
+    private boolean createDirectories()
+    {
+        File mainDirectory = new File(getStorageFolder());
+        if (!mainDirectory.exists())
+        {
+            if (!mainDirectory.mkdir())
+                return false;
+        }
+
+        File saveDirectory = getGameSaveFolder();
+        if (!saveDirectory.exists())
+        {
+            if (!saveDirectory.mkdir())
+                return false;
+        }
+
+        return true;
     }
 
     public static void main(String[] args)
