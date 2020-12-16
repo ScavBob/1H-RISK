@@ -1,15 +1,20 @@
 package game;
 
+import screens.MainMenu;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import managers.GameManager;
 
-public class Game {
+public class Game{
 
     private static Game gameInstance = null;
-
-    private GameManager gameManager;
+    private static Stage gameStage = null;
+    private GameManager gameManager = null;
 
     private Game()
     {
+        gameStage = new Stage();
 
     }
 
@@ -23,5 +28,17 @@ public class Game {
     public GameManager getGameManager()
     {
         return gameManager;
+    }
+
+    public Stage getStage() {
+        return gameStage;
+    }
+
+    public void gameInit(Stage primaryStage){
+        gameStage = primaryStage;
+        gameStage.setScene(new MainMenu().getScene());
+        gameStage.sizeToScene();
+        gameStage.setTitle("Deneme");
+        gameStage.show();
     }
 }
