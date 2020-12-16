@@ -1,6 +1,6 @@
-package main.java.game;
+package game;
 
-import main.java.managers.GameManager;
+import managers.GameManager;
 
 public class Game {
 
