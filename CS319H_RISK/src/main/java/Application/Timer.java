@@ -1,5 +1,4 @@
 package application;
-
 public class Timer {
     
     private int time;
@@ -7,7 +6,6 @@ public class Timer {
         time = 0;
     }
     public void start(){
-
     }
     public void stop(){}
 }
