@@ -15,7 +15,7 @@ public abstract class Menu implements Screen {
 		return true;
 	}
 
-	public Button addButtons(Group root, String text, double x, double y, int height, int width, String imagePath,
+	public Button addButton(Group root, String text, double x, double y, int height, int width, String imagePath,
 			EventHandler<ActionEvent> eventHandler) {
 		Button button = new Button(text);
 		button.setLayoutX(x);
@@ -32,15 +32,11 @@ public abstract class Menu implements Screen {
 		return button;
 	}
 
-	public void addTransitionButton(Group root, String text, double x, double y, int height, int width, String imagePath,
-			Scene nextScene) {
-
-			addButtons(root, text, x, y, height, width, imagePath, new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent e) {
-					Game.getInstance().getStage().setScene(nextScene);
-					System.out.println("Hello");
-				}
-			});
+	public void addTransitionButton(Group root, String text, int x, int y, int height, int width, String imagePath,
+			Screen screen) {
+		TransitionButton button = new TransitionButton(text, x, y, width, height, imagePath, screen);
+		root.getChildren().add(button);
 	}
+
+
 }
