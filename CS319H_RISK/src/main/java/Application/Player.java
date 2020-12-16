@@ -19,7 +19,4 @@ public class Player {
     public void attack(int unitCount, Region baseRegion,Region target){}
     public void addReinforcement(int unitCount,Card target){}
     public void addExtraReinforcement(Card card1,Card card2, Card card3){}
-
-
-
 }
