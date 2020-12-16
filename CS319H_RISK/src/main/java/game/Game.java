@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import managers.GameManager;
+import screens.Screen;
 
 public class Game{
 
@@ -15,7 +16,6 @@ public class Game{
     private Game()
     {
         gameStage = new Stage();
-
     }
 
     public static Game getInstance()
@@ -28,6 +28,11 @@ public class Game{
     public GameManager getGameManager()
     {
         return gameManager;
+    }
+
+    public void setScreen(Screen screen)
+    {
+        gameStage.setScene(screen.getScene());
     }
 
     public Stage getStage() {
