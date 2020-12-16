@@ -1,39 +1,36 @@
 package screens;
 
 import game.Game;
+import screens.TransitionButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import java.nio.file.Paths;
 
 public abstract class Menu implements Screen {
-	public boolean addCanvas() {
-		return true;
+
+	private Canvas canvas;
+
+	private void addCanvas(){
+		canvas = new Canvas(1280.0, 720.0);
 	}
 
-	public Button addButton(Group root, String text, double x, double y, int height, int width, String imagePath,
-			EventHandler<ActionEvent> eventHandler) {
-		Button button = new Button(text);
-		button.setLayoutX(x);
-		button.setLayoutY(y);
-		if (height != 0)
-			button.setMinHeight(height);
-		if (width != 0)
-			button.setMinWidth(width);
-		if(eventHandler != null)
-			button.setOnAction(eventHandler); //439 x 75
-		root.getChildren().add(button);
-		Image background = new Image(Paths.get(imagePath).toUri().toString(), true);
-		button.setBackground(new Background(new BackgroundImage(background, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-		return button;
+	public void setBackground(Group root, String backgroundPath){
+		addCanvas();
+		System.out.println(backgroundPath);
+		GraphicsContext graphics = canvas.getGraphicsContext2D();
+		Image background = new Image(Paths.get(backgroundPath).toUri().toString());
+		graphics.drawImage(background, 0, 0, 1280.0, 720.0);
+		root.getChildren().add(canvas);
 	}
 
-	public void addTransitionButton(Group root, String text, int x, int y, int height, int width, String imagePath,
-			Screen screen) {
+	public void addTransitionButton(Group root, String text, int x, int y, int width, int height, String imagePath, Screen screen) {
 		TransitionButton button = new TransitionButton(text, x, y, width, height, imagePath, screen);
 		root.getChildren().add(button);
 	}
