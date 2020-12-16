@@ -1,5 +1,6 @@
 package managers;
 
+import application.Match;
 import game.Game;
 
 import javax.swing.filechooser.FileSystemView;
@@ -17,21 +18,36 @@ public class StorageManager
         createDirectories();
     }
 
-    /*
     public boolean saveGame(Match matchToSave, String saveName)
     {
-        //TODO
-        return true;
+        File saveFile = new File( getGameSaveFolder() + File.separator + saveName );
+        ObjectOutputStream out = null;
+        try {
+            out = new ObjectOutputStream(new FileOutputStream(saveFile));
+            out.writeObject(matchToSave);
+            out.close();
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
     }
-    */
 
-    /*
-    public Match readGame()
+    public Match readGame(File saveFile)
     {
-        //TODO
-        return null;
+        if (!saveFile.exists())
+        {
+            return null;
+        }
+        ObjectInputStream in = null;
+        try {
+            in = new ObjectInputStream(new FileInputStream(saveFile));
+            Match match = (Match) in.readObject();
+            in.close();
+            return match;
+        } catch (IOException | ClassNotFoundException e) {
+            return null;
+        }
     }
-    */
 
     public boolean readSettings(Properties properties) {
         FileReader reader = null;
@@ -115,6 +131,8 @@ public class StorageManager
         return true;
     }
 
+    //Test Main
+    /*
     public static void main(String[] args)
     {
         StorageManager s = new StorageManager();
@@ -126,4 +144,5 @@ public class StorageManager
         System.out.println(s.readSettings(p));
         System.out.println(p.getProperty("isim"));
     }
+     */
 }
