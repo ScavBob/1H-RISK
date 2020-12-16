@@ -1,4 +1,4 @@
-package Application;
+package application;
 
 public class Region{
     private int regionID;
@@ -7,9 +7,9 @@ public class Region{
     private Player controller;
     private boolean isCapital;
     private int continent;
-    private Hashmap<int, boolean> permission;
+    private Hashmap<Integer, Boolean> permission;
 
-    public void setOwner(Player owner);
+    public void setOwner(Player owner){}
 
 
 }
