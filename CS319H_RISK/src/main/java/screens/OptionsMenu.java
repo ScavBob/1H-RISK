@@ -1,17 +1,24 @@
 package screens;
 
 import game.Game;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.stage.DirectoryChooser;
 import managers.StorageManager;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
+
+import java.io.File;
 
 public class OptionsMenu extends Menu{
 
@@ -37,21 +44,31 @@ public class OptionsMenu extends Menu{
         volumeSlider.setSnapToTicks(true);
         volumeSlider.setShowTickMarks(true);
         volumeSlider.setShowTickLabels(true);
+        volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Game.getInstance().getGameManager().getSettingsManager().setVolume(newValue.intValue());
+            }
+        });
 
         box.getChildren().add(volumeSlider);
         box.setPadding(new Insets(100,400,0,490));
         root.getChildren().add(box);
 
-        Label volumeLabel = new Label("Volume");
-        volumeLabel.setLayoutX(300);
-        volumeLabel.setLayoutY(300);
-        root.getChildren().add(volumeLabel);
+        //TODO
+        Text volumeText = new Text(540, 200, "Volume");
+        volumeText.setFont(new Font(60));
+        root.getChildren().add(volumeText);
 
         addButtons(root, "CHANGE SAVE FOLDER", 400, 400, 200, 100, "", new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.showOpenDialog(Game.getInstance().getStage());
+                DirectoryChooser directoryChooser = new DirectoryChooser ();
+                File selectedDirectory = directoryChooser.showDialog(Game.getInstance().getStage());
+                if (selectedDirectory != null)
+                {
+                    Game.getInstance().getGameManager().getSettingsManager().setSaveLocation(selectedDirectory);
+                }
             }
         });
 
