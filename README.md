@@ -48,8 +48,8 @@ We are still considering our approach on how to implement a board game to a digi
 
 ###   Iteration 1:
 - - -
-+[Analysis Report](Reports/Iteration_1/AnalysisReport_CS319_Group1-H_I2_.pdf.pdf)
-+[Design Report](Reports/Iteration_1/DesignReport_CS319_Group1-H_I2.pdf.pdf)
++ [Analysis Report](Reports/Iteration_1/AnalysisReport_CS319_Group1-H_I2_.pdf.pdf)
++ [Design Report](Reports/Iteration_1/DesignReport_CS319_Group1-H_I2.pdf.pdf)
 
 ## References:
 Reference link to original Risk :  
