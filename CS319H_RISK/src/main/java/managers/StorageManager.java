@@ -16,11 +16,12 @@ public class StorageManager
 
     public StorageManager()
     {
-        createDirectories();
     }
 
     public boolean saveGame(Match matchToSave, String saveName)
     {
+        createDirectories();
+
         File saveFile = new File( getGameSaveFolder() + File.separator + saveName );
         ObjectOutputStream out = null;
         try {
@@ -70,6 +71,8 @@ public class StorageManager
 
     public boolean saveSettings(Properties properties)
     {
+        createDirectories();
+
         FileWriter writer = null;
         File propertiesFile = new File(getStorageFolder() + File.separator + PROPERTIES_FILE_NAME);
 

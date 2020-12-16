@@ -18,6 +18,7 @@ public class Game {
     private Game()
     {
         gameStage = new Stage();
+        gameManager = new GameManager();
     }
 
     public static Game getInstance()
@@ -30,6 +31,11 @@ public class Game {
     public GameManager getGameManager()
     {
         return gameManager;
+    }
+
+    public Stage getStage()
+    {
+        return gameStage;
     }
 
     public void setScene(Scene scene)

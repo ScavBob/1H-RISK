@@ -16,10 +16,10 @@ public class SettingsManager
 
     public SettingsManager()
     {
-        readSettings();
     }
 
     public int getVolume(){
+        readSettings();
         return Integer.parseInt( this.properties.getProperty( VOLUME_NAME ) );
     }
     public boolean setVolume(int volume){
@@ -28,6 +28,7 @@ public class SettingsManager
     }
 
     public File getSaveLocation(){
+        readSettings();
         return new File( this.properties.getProperty( SAVE_LOCATION_NAME ) );
     }
     public boolean setSaveLocation(File saveLocation){
@@ -44,7 +45,7 @@ public class SettingsManager
     {
         properties = new Properties();
         boolean readSuccessfully = Game.getInstance().getGameManager().
-                                    getStorageManager().readSettings(properties);
+                getStorageManager().readSettings(properties);
         if (readSuccessfully)
             return true;
         else
