@@ -1,7 +1,5 @@
 package application;
 
-import javax.swing.text.AttributeSet.ColorAttribute;
-
 public class Faction{
     private int factionID;
     private String factionName;
