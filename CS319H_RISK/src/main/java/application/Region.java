@@ -11,6 +11,9 @@ public class Region{
     private int continent;
     private HashMap<Integer, Boolean> permission;
 
+    public Region(int i, java.lang.String australia) {
+    }
+
     public void setOwner(Player owner){}
 
 

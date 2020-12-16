@@ -20,10 +20,11 @@ public class Faction{
         return factionName;
     }
     
-<<<<<<< HEAD:CS319H_RISK/src/main/java/Application/Faction.java
-=======
-    public Color getFactionColor(){return null;}
->>>>>>> 4fa0fe0596bd4f8d6b2d973543af61461f03c3a4:CS319H_RISK/src/main/java/application/Faction.java
+
+    public Color getFactionColor(){
+        return null;
+    }
+
     // Could not decide the return type so choosed void as default 
      public void getFactionBonus(){}
 

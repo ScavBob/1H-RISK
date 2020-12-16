@@ -17,7 +17,7 @@ public class Map {
     public Map(){
         Card regionList = new Card[6];
         initializeRegions();
-        adjacenyMatrix = new int[7][7];             // Umut'a sor. 
+      //  adjacenyMatrix = new int[7][7];
     }
 
     private void initializeRegions(){
