@@ -46,7 +46,7 @@ We are still considering our approach on how to implement a board game to a digi
 + [Analysis Report](Reports/Iteration_1/CS319_1-H_RISK_SRS_I1.pdf)
 + [Design Report](Reports/Iteration_1/Group_1H_Design_Report_I1.pdf)
 
-###   Iteration 1:
+###   Iteration 2:
 - - -
 + [Analysis Report](Reports/Iteration_1/AnalysisReport_CS319_Group1-H_I2_.pdf.pdf)
 + [Design Report](Reports/Iteration_1/DesignReport_CS319_Group1-H_I2.pdf.pdf)
