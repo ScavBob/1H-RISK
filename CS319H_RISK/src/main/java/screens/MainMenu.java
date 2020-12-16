@@ -14,7 +14,7 @@ public class MainMenu extends Menu {
 	    public Scene getScene() {
 	        Group root = new Group();
 	        Scene scene = new Scene(root, 1280, 720);
-			setBackground(root, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\Background.png");
+			setBackground(root, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Background.png");
 		   	addButtons(root);
 	        return scene;
 	    }
