@@ -25,7 +25,6 @@ public class TransitionButton extends Button implements EventHandler<ActionEvent
             setMinWidth(width);
 
         this.screenToShow = screenToShow;
-        System.out.println(this.screenToShow);
         setOnAction(this);
 
         Image background = new Image(Paths.get(imagePath).toUri().toString(), true);
@@ -35,7 +34,6 @@ public class TransitionButton extends Button implements EventHandler<ActionEvent
 
     @Override
     public void handle(ActionEvent event) {
-        System.out.println(this.screenToShow);
         Game.getInstance().setScreen(this.screenToShow);
     }
 }
