@@ -66,7 +66,7 @@ public class Match {
             int loc;
             do {
                 loc = (int) (Math.random() * lng);
-            }while(available[loc]);
+            }while(!available[loc]);
 
             available[loc] = false;
 
