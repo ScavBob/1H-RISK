@@ -48,7 +48,7 @@ public class GameScreen implements Screen{
 
     private void addLabel(Region region){
         Button label = new Button(String.valueOf(region.getUnitCount()));
-        Image image = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Region\\RedLabel.png").toUri().toString());
+        Image image = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Region\\"+ region.getController().getColor() + "Label.png").toUri().toString());
         label.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         label.setLayoutX(region.getxCoordinate() - 10);
         label.setLayoutY(region.getyCoordinate() - 10);
