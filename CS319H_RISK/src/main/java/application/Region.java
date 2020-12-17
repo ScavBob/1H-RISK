@@ -9,11 +9,25 @@ public class Region{
     private Player controller;
     private boolean isCapital;
     private int continent;
+    private int xCoordinate;
+    private int yCoordinate;
+
     private HashMap<Integer, Boolean> permission;
 
-    public Region(int i, java.lang.String australia) {
+    public Region(int regionID, String regionName,int xCoordinate,int yCoordinate) {
+        this.regionID = regionID;
+        this.regionName = regionName;
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
     }
-
+    public String getRegionName(){
+        return regionName;
+    }
+    public int RegionID(){
+        return regionID;
+    }
+    public int getxCoordinate(){return xCoordinate;}
+    public int getyCoordinate(){return yCoordinate;}
     public void setOwner(Player owner){}
 
 
