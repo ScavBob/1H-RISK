@@ -6,12 +6,17 @@ import java.util.TimerTask;
 
 public class InputManager
 {
-    public enum WaitingState {
+    private enum WaitingState {
         NOT_WAITING,
         ATTACK,
         ARMY_PLACEMENT,
-        FORTIFY,
+        FORTIFY
     }
+
+    public static final int NOT_WAITING = 0;
+    public static final int WAITING_FIRST_REGION = 1;
+    public static final int WAITING_SECOND_REGION = 2;
+    public static final int WAITING_ARMY_COUNT = 3;
 
     private WaitingState waitingState;
 
@@ -21,11 +26,37 @@ public class InputManager
 
     private boolean endPhase;
 
-    private boolean waitingForUserInput;
+    private int waitingInputType;
 
     public InputManager()
     {
         resetInputs();
+    }
+
+    public int getWaitingInputType()
+    {
+        return waitingInputType;
+    }
+
+    public String getCurrentPhase()
+    {
+        if (waitingState == WaitingState.NOT_WAITING) return "";
+        else if (waitingState == WaitingState.ATTACK) return "Attack Phase";
+        else if (waitingState == WaitingState.ARMY_PLACEMENT) return "Army Placement Phase";
+        else if (waitingState == WaitingState.FORTIFY) return "Fortify Phase";
+        else return "";
+    }
+
+    public Region getFirstRegion() {
+        return firstRegion;
+    }
+
+    public Region getSecondRegion() {
+        return secondRegion;
+    }
+
+    public int getArmyCount() {
+        return armyCount;
     }
 
     public boolean chooseRegion(Region region)
@@ -36,11 +67,13 @@ public class InputManager
         {
             if (firstRegion == null)
             {
+                waitingInputType = WAITING_SECOND_REGION;
                 firstRegion = region;
                 return true;
             }
             else if (secondRegion == null)
             {
+                waitingInputType = WAITING_ARMY_COUNT;
                 secondRegion = region;
                 return true;
             }
@@ -54,6 +87,7 @@ public class InputManager
         {
             if (firstRegion == null)
             {
+                waitingInputType = WAITING_ARMY_COUNT;
                 firstRegion = region;
                 return true;
             }
@@ -69,8 +103,7 @@ public class InputManager
     public boolean chooseArmyCount(int armyCount)
     {
         if (waitingState == WaitingState.NOT_WAITING) return false;
-        if (armyCount != 0) return false;
-
+        if (this.armyCount != 0) return false;
         this.armyCount = armyCount;
         return true;
     }
@@ -84,16 +117,21 @@ public class InputManager
     public void awaitAttackAction()
     {
         resetInputs();
+        waitingInputType = WAITING_FIRST_REGION;
         waitingState = WaitingState.ATTACK;
     }
 
     public void awaitArmyPlacementAction()
     {
+        resetInputs();
+        waitingInputType = WAITING_FIRST_REGION;
         waitingState = WaitingState.ARMY_PLACEMENT;
     }
 
     public void awaitFortifyAction()
     {
+        resetInputs();
+        waitingInputType = WAITING_FIRST_REGION;
         waitingState = WaitingState.FORTIFY;
     }
 
@@ -109,18 +147,22 @@ public class InputManager
 
     public PlayerAction getArmyPlacementAction()
     {
-        waitingState = WaitingState.ARMY_PLACEMENT;
+        if (!endPhase && (firstRegion == null || armyCount == 0)) return null;
+
+        PlayerAction action = new PlayerAction(endPhase, firstRegion, secondRegion, armyCount);
 
         resetInputs();
-        return null;
+        return action;
     }
 
     public PlayerAction getFortifyAction()
     {
-        waitingState = WaitingState.FORTIFY;
+        if (!endPhase && (secondRegion == null || armyCount == 0)) return null;
+
+        PlayerAction action = new PlayerAction(endPhase, firstRegion, secondRegion, armyCount);
 
         resetInputs();
-        return null;
+        return action;
     }
 
     private void resetInputs()
@@ -129,7 +171,7 @@ public class InputManager
         firstRegion = null;
         secondRegion = null;
         armyCount = 0;
-        waitingForUserInput = false;
         endPhase = false;
+        waitingInputType = NOT_WAITING;
     }
 }
