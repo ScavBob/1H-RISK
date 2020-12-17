@@ -30,6 +30,7 @@ public class GameManager
             match.addPlayer(playerToAdd);
         Map matchMap = Game.getInstance().getGameManager().mapManager.getMap(MapManager.WORLD_MAP);
         match.setMap(matchMap);
+        match.initialize();
     }
 
     public Match getMatch() {
