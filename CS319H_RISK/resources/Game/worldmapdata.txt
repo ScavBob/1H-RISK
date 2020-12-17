@@ -1,0 +1,137 @@
+1 9 5 NorthAmerica 
+1 85 110 Alaska
+2 187 172 Alberta
+3 219 354 Central_America
+4 298 287 Eastren_United_States
+5 466 72 Greenland
+6 221 114 Northwest_Territorry
+7 288 187 Ontario
+8 384 182 Quebec
+9 202 230 Westren_United_States 
+2 4 2 South_America
+10 326 607 Argentina
+11 417 484 Brazil 
+12 299 498 Peru
+13 320 405 Venezuella
+4 6 3 Africa
+14 698 550 Central_Africa
+15 765 513 East_Africa
+16 681 422 Egypt
+17 812 645 Madagaskar 
+18 590 433 Nouth_Africa
+19 713 659 South_Africa
+4 7 5 Europe
+20 536 238 Great_Britain
+21 551 146 Iceland 
+22 632 249 Northern_Europe
+23 653 142 Scandinavia
+24 666 304 Southren_Europe
+25 774 205 Ukraine
+26 571 298 Western_Europe
+5 12 7 Asia
+27 884 272 Afghanistan
+28 1044 329 China 
+29 945 399 India
+30 1026 196 Irkustk
+31 1182 271 Japan
+32 1110 189 Kamchatka
+33 761 343 Middle_East
+34 1074 232 Mongolia 
+35 1063 412 Siam
+36 956 141 Siberia
+37 876 159 Ural 
+38 1068 130 Yakutsk
+6 4 2 Australia
+39 1112 626 Eastren_Australia 
+40 1079 512 Indonesia 
+41 1210 527 New_Guinea
+42 1046 652 Western_Australia
+1 2
+1 6
+1 32
+2 6
+2 7 
+2 9
+3 4
+3 9
+3 13
+4 9
+4 7
+4 8
+5 6 
+5 7
+5 8 
+5 21
+6 7 
+7 8
+7 9
+10 11
+10 12
+11 12 
+11 13 
+11 18
+12 13
+14 15
+14 18
+14 19
+15 16
+15 17 
+15 18
+15 19
+15 33
+16 18
+16 24
+16 33 
+17 19
+18 24
+18 26
+20 21
+20 22
+20 23
+20 26
+22 23
+22 24
+22 25
+22 26
+23 25
+24 25
+24 33
+25 27
+25 33 
+25 37
+27 28
+27 29
+27 34
+27 36
+27 37 
+28 29
+28 34
+28 35
+28 36
+29 33
+29 35 
+30 32
+30 34
+30 36
+30 38
+31 28
+31 32
+31 34
+32 34
+32 38
+34 36
+35 40
+36 37
+36 38
+39 40
+39 41 
+39 42
+40 41
+40 42
+41 42
+
+
+
+
+
+

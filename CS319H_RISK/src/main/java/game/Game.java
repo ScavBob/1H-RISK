@@ -52,7 +52,7 @@ public class Game {
         gameStage = primaryStage;
         gameStage.setScene(new MainMenu().getScene());
         gameStage.sizeToScene();
-        gameStage.setTitle("Deneme");
+        gameStage.setTitle("RISK: A GAME OF STRATEGIC CONQUEST");
         gameStage.show();
     }
 }
