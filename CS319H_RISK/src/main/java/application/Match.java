@@ -13,17 +13,6 @@ public class Match{
     private Map map;
     private GameController controller;
 
-    public Match(){
-        this.round = 0;
-        this.maxRound = 100;
-        this.players = new ArrayList<>();
-        this.missionList = new ArrayList<>();
-        this.currentPlayer = null;
-        this.availableFactions = new HashMap<>();
-        this.map = null;
-        this.controller = null;
-    }
-
     //constructor
     public Match(int round, int maxRound, ArrayList<Player> players,
                  ArrayList<Mission> missionList,HashMap <Faction,Boolean> availableFactions,
@@ -55,18 +44,12 @@ public class Match{
         update();
     }
     public void update(){
+
         for(Player p: players ){
             p.update(map);
         }
     }
     public void addPlayer(Player p){
-        if (players.size() == 0) currentPlayer = p;
         players.add(p);
-    }
-    public void setMap(Map map) {
-        this.map = map;
-    }
-    public Map getMap() {
-        return map;
     }
 }
