@@ -45,6 +45,7 @@ public class Map {
                 regionX = scanner.nextInt();
                 regionY = scanner.nextInt();
                 regionName = scanner.next();
+                regionName = regionName.replaceAll("_", " ");
                 Region tmpRegion = new Region(regionID,regionName,regionX,regionY);
                 System.out.println(regionID + ", " + regionName + ", " + regionX + ", " + regionY);
                 System.out.println("j:" + j + ", regionCount:" + regionCount);

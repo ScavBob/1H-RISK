@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player {
+    private String playerColor;
     private int playerID;
     private Faction faction;
     private int reinforcementNum;
@@ -19,4 +20,5 @@ public class Player {
     public void attack(int unitCount, Region baseRegion,Region target){}
     public void addReinforcement(int unitCount,Card target){}
     public void addExtraReinforcement(Card card1,Card card2, Card card3){}
+    public String getColor(){return playerColor;}
 }

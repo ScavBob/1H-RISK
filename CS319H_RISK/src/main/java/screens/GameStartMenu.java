@@ -1,5 +1,7 @@
 package screens;
 
+import application.Player;
+import game.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -15,9 +17,11 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import managers.MapManager;
 import managers.StorageManager;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class GameStartMenu extends Menu {
 
@@ -129,6 +133,7 @@ public class GameStartMenu extends Menu {
 
     }
 
+    private String[] colors = {"Red", "Green", "Blue", "Yellow", "Purple", "Black", "Pink"};
     private String map;
     private Slot[] slots = new Slot[7];
 
@@ -153,6 +158,20 @@ public class GameStartMenu extends Menu {
     }
 
     private void addButtons(Group root) {
-        addTransitionButton(root, "", 1200, 50, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new GameScreen());
+        addButtons(root, "", 1200, 50, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                startGame();
+                Game.getInstance().setScreen(new GameScreen());
+            }
+        });
+    }
+
+    private void startGame(){
+        ArrayList<Player> playerList = new ArrayList<Player>();
+        for(Slot s: slots){
+           // playerList.add(new Player(s.playerName, ))
+        }
+        //Game.getInstance().getGameManager().startMatch(MapManager.WORLD_MAP, playerList);
     }
 }

@@ -50,19 +50,29 @@ public class GameScreen implements Screen{
         Button label = new Button(String.valueOf(region.getUnitCount()));
         Image image = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Region\\RedLabel.png").toUri().toString());
         label.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        label.setLayoutX(region.getxCoordinate());
-        label.setLayoutY(region.getyCoordinate());
+        label.setLayoutX(region.getxCoordinate() - 10);
+        label.setLayoutY(region.getyCoordinate() - 10);
         label.setTextFill(Paint.valueOf("#ffffffff"));
         label.setMinSize(image.getWidth(), image.getHeight());
-        root.getChildren().add(label);
-        label.setOnAction(new EventHandler<ActionEvent>() {
+        EventHandler<ActionEvent> actionHandler = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println(region.getRegionName());
                 System.out.println(Game.getInstance().getGameManager().getInputManager().chooseRegion(region));
                 System.out.println(Game.getInstance().getGameManager().getInputManager().getAttackAction());
             }
-        });
+        };
+        Button namebar = new Button(region.getRegionName());
+        Image barImage = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Region\\Namebar.png").toUri().toString());
+        namebar.setBackground(new Background(new BackgroundImage(barImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        namebar.setLayoutY(region.getyCoordinate() + 15);
+        namebar.setLayoutX(region.getxCoordinate() - region.getRegionName().length() - 25);
+        namebar.setMinSize(55, 20);
+        namebar.setTextFill(Paint.valueOf("#ffffffff"));
+        namebar.setOnAction(actionHandler);
+        label.setOnAction(actionHandler);
+        root.getChildren().add(label);
+        root.getChildren().add(namebar);
     }
 
     @Override
