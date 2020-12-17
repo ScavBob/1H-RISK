@@ -27,7 +27,7 @@ public class PauseMenu extends Menu {
     }
 
     private void addTransitionButtons(Group root){
-        addTransitionButton(root, "", 495, 420, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new GameScreen());
+        addTransitionButton(root, "", 495, 561, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new GameScreen());
         addTransitionButton(root, "", 495, 490, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new MainMenu());
     }
 
