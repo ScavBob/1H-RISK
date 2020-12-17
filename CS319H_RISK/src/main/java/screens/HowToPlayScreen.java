@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import managers.StorageManager;
 import javafx.scene.image.Image;
 
@@ -33,7 +34,7 @@ public class HowToPlayScreen extends Menu {
     public Scene getScene() {
         Group root = new Group();
         BorderPane bPane = new BorderPane();
-        Scene scene = new Scene(bPane, 1280, 720);
+        Scene scene = new Scene(bPane, 1280, 720, Color.BLACK);
         setBackground(root, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Background.png");
         addButtons(root);
         initImageArray();
