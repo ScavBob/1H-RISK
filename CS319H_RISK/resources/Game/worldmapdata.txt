@@ -2,33 +2,33 @@
 1 9 5 NorthAmerica 
 1 85 110 Alaska
 2 187 172 Alberta
-3 219 354 Central_America
-4 298 287 Eastren_United_States
+3 219 354 C._America
+4 298 287 E._United_States
 5 466 72 Greenland
 6 221 114 Northwest_Territorry
 7 288 187 Ontario
 8 384 182 Quebec
-9 202 230 Westren_United_States 
+9 202 230 W._United_States 
 2 4 2 South_America
 10 326 607 Argentina
 11 417 484 Brazil 
 12 299 498 Peru
 13 320 405 Venezuella
 4 6 3 Africa
-14 698 550 Central_Africa
-15 765 513 East_Africa
+14 698 550 C._Africa
+15 765 513 E._Africa
 16 681 422 Egypt
 17 812 645 Madagaskar 
-18 590 433 Nouth_Africa
-19 713 659 South_Africa
+18 590 433 N._Africa
+19 713 659 S._Africa
 4 7 5 Europe
 20 536 238 Great_Britain
 21 551 146 Iceland 
-22 632 249 Northern_Europe
+22 632 249 N._Europe
 23 653 142 Scandinavia
-24 666 304 Southren_Europe
+24 666 304 S._Europe
 25 774 205 Ukraine
-26 571 298 Western_Europe
+26 571 298 W._Europe
 5 12 7 Asia
 27 884 272 Afghanistan
 28 1044 329 China 
@@ -43,10 +43,10 @@
 37 876 159 Ural 
 38 1068 130 Yakutsk
 6 4 2 Australia
-39 1112 626 Eastren_Australia 
+39 1112 626 E._Australia 
 40 1079 512 Indonesia 
 41 1210 527 New_Guinea
-42 1046 652 Western_Australia
+42 1046 652 W._Australia
 1 2
 1 6
 1 32
@@ -130,9 +130,3 @@
 40 41
 40 42
 41 42
-
-
-
-
-
-
