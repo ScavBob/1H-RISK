@@ -66,4 +66,7 @@ public class Match{
     public void setMap(Map map) {
         this.map = map;
     }
+    public Map getMap() {
+        return map;
+    }
 }
