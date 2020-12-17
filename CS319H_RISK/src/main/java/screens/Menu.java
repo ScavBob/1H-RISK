@@ -1,11 +1,8 @@
 package screens;
 
-import game.Game;
-import screens.TransitionButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -13,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 
-import java.awt.*;
 import java.nio.file.Paths;
 
 public abstract class Menu implements Screen {
@@ -33,6 +29,12 @@ public abstract class Menu implements Screen {
 	public void drawImage(String imagePath, int x, int y){
 		Image label = new Image(Paths.get(imagePath).toUri().toString());
 		canvas.getGraphicsContext2D().drawImage(label, x, y);
+	}
+
+	public void drawRect(String color, int x, int y, int width, int height){
+		GraphicsContext graphics = canvas.getGraphicsContext2D();
+		graphics.setFill(Paint.valueOf(color));
+		graphics.fillRect(x, y ,width ,height );
 	}
 
 	public void addTransitionButton(Group root, String text, int x, int y, int width, int height, String imagePath, Screen screen) {
