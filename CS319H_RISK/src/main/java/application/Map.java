@@ -3,11 +3,11 @@ package application;
 public class Map {
     private int mapID;
     private String mapName;
-    private int [][] adjacenyMatrix;
-    private Card[] regionList;
+    private boolean [][] adjacenyMatrix;
+    private Region[] regionList;
     private int [][] continentList;
 
-    public Map(int mapID,String mapName,int [][] adjacenyMatrix,Card[] regionList,int [][] continentList){
+    public Map(int mapID,String mapName,boolean [][] adjacenyMatrix,Region[] regionList,int [][] continentList){
         this.mapID = mapID;
         this.mapName = mapName;
         this.adjacenyMatrix = adjacenyMatrix;
@@ -15,18 +15,23 @@ public class Map {
         this.continentList = continentList;
     }
     public Map(){
-        Card regionList = new Card[6];
+        Card[] regionList = new Card[6];
         initializeRegions();
-      //  adjacenyMatrix = new int[7][7];
+        //Talked with the visual part of the group.
+        //adjacenyMatrix = new int[7][7];
     }
 
     private void initializeRegions(){
         // what does it mean type in the attributes of the card class?
-        card = new Card(new Region(1,"Australia"),0);regionList[0] = card;
-        card = new Card(new Region(2,"North America"),0);regionList[1] = card;
-        card = new Card(new Region(3,"South America"),0);regionList[2] = card;
-        card = new Card(new Region(4,"Africa"),0);regionList[3] = card;
-        card = new Card(new Region(5,"Europe"),0);regionList[4] = card;
-        card = new Card(new Region(6,"Asia"),0);regionList[5] = card;
+        Region  tmpRegion;
+        tmpRegion =  new Region(1,"Australia"); regionList[0] = tmpRegion;
+        tmpRegion = new Region(2,"North America");regionList[1] = tmpRegion;
+        tmpRegion = new Region(3,"South America");regionList[2] = tmpRegion;
+        tmpRegion = new Region(4,"Africa");regionList[3] = tmpRegion;
+        tmpRegion = new Region(5,"Europe");regionList[4] = tmpRegion;
+        tmpRegion = new Region(6,"Asia");regionList[5] = tmpRegion;
+    }
+    public Region[] getRegionList(){
+        return regionList;
     }
 }

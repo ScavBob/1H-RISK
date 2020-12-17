@@ -12,6 +12,7 @@ public class Card {
     private Region region;
     private int type;
     private String typeName;
+
     // Card combination(Grid layout must be in the Player class) Since each card has only type from 0 to 3.
 
     Card(Region region,int type){
