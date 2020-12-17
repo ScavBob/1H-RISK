@@ -57,4 +57,19 @@ public class Map {
     public Region[] getRegionList(){
         return regionList;
     }
+
+    public void updateRegion(Region region, int newUnitCount, Player owner ){
+        int location = -1;
+        //location = java.util.Arrays.binarySearch(regionList,region);
+        for(int i = 0; i < regionList.length;i++){
+            if(regionList[i] == region)
+                location = i;
+        }
+        System.out.println("location =" + location);
+        regionList[location].setOwner(owner);
+        regionList[location].setUnitCount(newUnitCount);
+
+    }
+
+
 }

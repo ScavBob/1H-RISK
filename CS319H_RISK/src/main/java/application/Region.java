@@ -29,7 +29,15 @@ public class Region{
     public int getxCoordinate(){return xCoordinate;}
     public int getyCoordinate(){return yCoordinate;}
     public int getUnitCount(){return unitCount;}
-    public void setOwner(Player owner){}
     public Player getController(){return controller;}
 
+    public void setOwner(Player owner){
+        controller = owner;
+    }
+    public void setUnitCount(int newUnitCount){
+        unitCount = newUnitCount;
+    }
+    public Player getOwner(){
+        return controller;
+    }
 }
