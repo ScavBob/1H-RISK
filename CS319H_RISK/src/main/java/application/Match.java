@@ -38,4 +38,18 @@ public class Match{
         }
 
     }
+
+    public void attackCommand(int unitCount, Region baseRegion,Region target){
+        map.updateRegion(target,unitCount, baseRegion.getOwner());
+        update();
+    }
+    public void update(){
+
+        for(Player p: players ){
+            p.update(map);
+        }
+    }
+    public void addPlayer(Player p){
+        players.add(p);
+    }
 }
