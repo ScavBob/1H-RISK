@@ -32,6 +32,7 @@ public class GameStartMenu extends Menu {
         private String playerName = "";
         private String playerFaction = "";
         private String playerColor = "";
+        private boolean playerAdded = false;
 
         private Button addPlayer = new Button();
         private Button faction = new Button();
@@ -115,6 +116,7 @@ public class GameStartMenu extends Menu {
             root.getChildren().add(color);
             root.getChildren().add(name);
             root.getChildren().add(changeType);
+            playerAdded = true;
         }
 
         private void addAI(){
@@ -129,6 +131,7 @@ public class GameStartMenu extends Menu {
             root.getChildren().remove(name);
             root.getChildren().remove(changeType);
             root.getChildren().add(addPlayer);
+            playerAdded = false;
         }
 
     }
@@ -162,16 +165,22 @@ public class GameStartMenu extends Menu {
             @Override
             public void handle(ActionEvent event) {
                 startGame();
-                Game.getInstance().setScreen(new GameScreen());
             }
         });
     }
 
-    private void startGame(){
+    private void startGame() {
         ArrayList<Player> playerList = new ArrayList<Player>();
-        for(Slot s: slots){
-           // playerList.add(new Player(s.playerName, ))
+        for (Slot s : slots) {
+            if(s.playerAdded)
+                playerList.add(new Player(s.playerName, s.playerColor));
         }
-        //Game.getInstance().getGameManager().startMatch(MapManager.WORLD_MAP, playerList);
+        if (playerList.size() >= 2) {
+            Game.getInstance().getGameManager().startMatch(MapManager.WORLD_MAP, playerList);
+            Game.getInstance().setScreen(new GameScreen());
+        }
+        else{
+            //TODO
+        }
     }
 }
