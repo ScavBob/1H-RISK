@@ -3,16 +3,17 @@ package application;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Match{
+public class Match {
     private int round;
     private int maxRound;
     private ArrayList<Player> players;
     private Player currentPlayer;
     private ArrayList<Mission> missionList;
-    private HashMap <Faction,Boolean> availableFactions;
+    private HashMap<Faction, Boolean> availableFactions;
     private Map map;
     private GameController controller;
 
+    //constructor
     public Match(){
         this.round = 0;
         this.maxRound = 100;
@@ -24,10 +25,10 @@ public class Match{
         this.controller = null;
     }
 
-    //constructor
+
     public Match(int round, int maxRound, ArrayList<Player> players,
-                 ArrayList<Mission> missionList,HashMap <Faction,Boolean> availableFactions,
-                 Map map, GameController controller){
+                 ArrayList<Mission> missionList, HashMap<Faction, Boolean> availableFactions,
+                 Map map, GameController controller) {
         this.round = 0;
         this.maxRound = maxRound;
         this.players = players;
@@ -37,29 +38,56 @@ public class Match{
         this.map = map;
         this.controller = controller;
     }
+
     //skips to the next player in line
-    public void nextTurn(){
+    public void nextTurn() {
         try {
-            if(round < maxRound) {
+            if (round < maxRound) {
                 round++;
                 currentPlayer = players.get(round % players.size());
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Maximum round number has been reached");
         }
 
     }
 
-    public void attackCommand(int unitCount, Region baseRegion,Region target){
-        map.updateRegion(target,unitCount, baseRegion.getOwner());
+    public void initialize(){
+
+        boolean[] available = new boolean[map.getRegionList().length];
+
+        int lng = available.length;
+
+        for(int i = 0; i < lng;i++){
+            available[i] = true;
+        }
+
+        for (int i = 0; i < lng; i++){
+            int loc;
+            do {
+                loc = (int) (Math.random() * lng);
+            }while(available[loc]);
+
+            available[loc] = false;
+
+            players.get(i % players.size()).addRegion(map.getRegionList()[loc]);
+
+        }
+
+    }
+
+    public void attackCommand(int unitCount, Region baseRegion, Region target) {
+        map.updateRegion(target, unitCount, baseRegion.getOwner());
         update();
     }
-    public void update(){
-        for(Player p: players ){
+
+    public void update() {
+        for (Player p : players) {
             p.update(map);
         }
     }
-    public void addPlayer(Player p){
+
+    public void addPlayer(Player p) {
         if (players.size() == 0) currentPlayer = p;
         players.add(p);
     }
@@ -69,4 +97,5 @@ public class Match{
     public Map getMap() {
         return map;
     }
+
 }
