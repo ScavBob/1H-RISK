@@ -81,16 +81,27 @@ public class InputManager
         return true;
     }
 
+    public void awaitAttackAction()
+    {
+        resetInputs();
+        waitingState = WaitingState.ATTACK;
+    }
+
+    public void awaitArmyPlacementAction()
+    {
+        waitingState = WaitingState.ARMY_PLACEMENT;
+    }
+
+    public void awaitFortifyAction()
+    {
+        waitingState = WaitingState.FORTIFY;
+    }
+
     public PlayerAction getAttackAction()
     {
-        waitingState = WaitingState.ATTACK;
-
-        while (!endPhase && (secondRegion == null || armyCount == 0)) {
-            waitingForUserInput = true;
-        }
+        if (!endPhase && (secondRegion == null || armyCount == 0)) return null;
 
         PlayerAction action = new PlayerAction(endPhase, firstRegion, secondRegion, armyCount);
-        System.out.println(action);
 
         resetInputs();
         return action;
