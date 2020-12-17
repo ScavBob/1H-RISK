@@ -9,8 +9,8 @@ public class Map {
     private boolean [][] adjacenyMatrix;
     private Region[] regionList;
 
-    public Map(String mapDataPath) {
-        initializeRegions(mapDataPath);
+    public Map(File mapData) {
+        initializeRegions(mapData);
     }
 
 
@@ -21,9 +21,14 @@ public class Map {
     }
 
     //Parse the regions from the
-    private void initializeRegions(String mapDataPath){
+    private void initializeRegions(File mapData){
 
-        Scanner scanner = new Scanner(mapDataPath);
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(mapData);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         int continentCount = scanner.nextInt();
         int regionCount,regionID,regionX,regionY,continentID;
         String regionName,continentName;
@@ -32,6 +37,7 @@ public class Map {
         for (int i = 0; i < continentCount; i++){
             continentID = scanner.nextInt();
             regionCount = scanner.nextInt();
+            scanner.nextInt();
             continentName = scanner.next();
 
             for (int j = 0; j < regionCount; j++){
@@ -40,6 +46,8 @@ public class Map {
                 regionY = scanner.nextInt();
                 regionName = scanner.next();
                 Region tmpRegion = new Region(regionID,regionName,regionX,regionY);
+                System.out.println(regionID + ", " + regionName + ", " + regionX + ", " + regionY);
+                System.out.println("j:" + j + ", regionCount:" + regionCount);
                 regionList[regionCounter++]= tmpRegion;
             }
         }

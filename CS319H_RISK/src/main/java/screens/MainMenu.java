@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import managers.StorageManager;
 
 import java.awt.*;
@@ -19,7 +20,7 @@ public class MainMenu extends Menu {
 	   @Override
 	    public Scene getScene() {
 	        Group root = new Group();
-	        Scene scene = new Scene(root, 1280, 720);
+	        Scene scene = new Scene(root, 1280, 720, Color.BLACK);
 			setBackground(root, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Background.png");
 		   	addButtons(root);
 		   	drawImage(StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\Label.png", 302, 66);

@@ -149,11 +149,10 @@ public class GameStartMenu extends Menu {
         }
 
         addButtons(root);
-
         return scene;
     }
 
     private void addButtons(Group root) {
-
+        addTransitionButton(root, "", 1200, 50, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new GameScreen());
     }
 }

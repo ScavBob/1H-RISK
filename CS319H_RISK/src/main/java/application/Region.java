@@ -28,7 +28,8 @@ public class Region{
     }
     public int getxCoordinate(){return xCoordinate;}
     public int getyCoordinate(){return yCoordinate;}
+    public int getUnitCount(){return unitCount;}
     public void setOwner(Player owner){}
-
+    public Player getController(){return controller;}
 
 }
