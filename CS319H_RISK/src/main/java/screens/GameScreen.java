@@ -22,7 +22,7 @@ public class GameScreen implements Screen{
     private Scene scene;
     private Region[] regions;
     public GameScreen(){
-        regions = Game.getInstance().getGameManager().getMapManager().getMap().getRegionList();
+        regions = Game.getInstance().getGameManager().getMatch().getMap().getRegionList();
         root = new Group();
         scene = new Scene(root, 1280, 720);
         update();
@@ -67,7 +67,7 @@ public class GameScreen implements Screen{
         namebar.setBackground(new Background(new BackgroundImage(barImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         namebar.setLayoutY(region.getyCoordinate() + 15);
         namebar.setLayoutX(region.getxCoordinate() - region.getRegionName().length() - 25);
-        namebar.setMinSize(55, 20);
+        namebar.setMinSize(region.getRegionName().length() + 20, 25);
         namebar.setTextFill(Paint.valueOf("#ffffffff"));
         namebar.setOnAction(actionHandler);
         label.setOnAction(actionHandler);

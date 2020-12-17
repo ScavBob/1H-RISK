@@ -16,9 +16,13 @@ public class Player {
     private int totalUnitCount;
     //private PlayStrategy strategy;
     private ArrayList<Player> allies;
+    private String name;
+    private String color;
 
 
-    Player(){
+    public Player(String name, String color){
+        this.name = name;
+        this.color = color;
         playerID = ids++;
         regions = new ArrayList<Region>();
         totalUnitCount = 0;
@@ -65,5 +69,13 @@ public class Player {
         for(Region r: regions){
             System.out.println(r.getOwner().playerID);
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getColor() {
+        return color;
     }
 }

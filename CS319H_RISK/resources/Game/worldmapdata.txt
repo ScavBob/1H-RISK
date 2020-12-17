@@ -9,7 +9,7 @@
 7 288 187 Ontario
 8 384 182 Quebec
 9 202 230 W._United_States 
-2 4 2 South_America
+2 4 2 S._America
 10 326 607 Argentina
 11 417 484 Brazil 
 12 299 498 Peru
@@ -130,3 +130,9 @@
 40 41
 40 42
 41 42
+
+
+
+
+
+
