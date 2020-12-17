@@ -72,7 +72,7 @@ public class Match {
 
             players.get(i % players.size()).addRegion(map.getRegionList()[loc]);
 
-            map.getRegionList()[loc].setUnitCount((int)Math.random()*10 + 1);
+            map.getRegionList()[loc].setUnitCount((int)(Math.random()*10 + 1));
 
         }
 
