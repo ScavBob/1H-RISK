@@ -17,6 +17,10 @@ public class HowToPlayScreen extends Menu {
 
 
     private final int HowToPlayImgNum = 5;
+    private final int SWIDTH  = 1280;
+    private final int SHEIGHT = 720;
+    private final int IWIDTH = SWIDTH * 2 / 3;
+    private final int IHEIGHT = IWIDTH * 9 / 16;
     Image[] imageArray = new Image[HowToPlayImgNum];
     int currentImageNumber = 0;
     ImageView imageView;
@@ -34,15 +38,15 @@ public class HowToPlayScreen extends Menu {
     public Scene getScene() {
         Group root = new Group();
         BorderPane bPane = new BorderPane();
-        Scene scene = new Scene(bPane, 1280, 720, Color.BLACK);
+        Scene scene = new Scene(bPane, SWIDTH, SHEIGHT, Color.BLACK);
         setBackground(root, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Background.png");
         addButtons(root);
         initImageArray();
         imageView = new ImageView(imageArray[currentImageNumber]);
-        imageView.setLayoutX(211);
+        imageView.setLayoutX((SWIDTH - IWIDTH) / 2);
         imageView.setLayoutY(25);
-        imageView.setFitHeight(500);
-        imageView.setFitWidth(794);
+        imageView.setFitWidth(IWIDTH);
+        imageView.setFitHeight(IHEIGHT);
         root.getChildren().add(imageView);
         bPane.setCenter(root);
         return scene;
@@ -58,7 +62,7 @@ public class HowToPlayScreen extends Menu {
             if (currentImageNumber < 0) {currentImageNumber += HowToPlayImgNum; }
             imageView.setImage(imageArray[currentImageNumber]);
         } );
-        addButtons(root, "", 1280-51 , 400 , 51 , 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", event ->{
+        addButtons(root, "", SWIDTH-51 , 400 , 51 , 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", event ->{
             currentImageNumber = (currentImageNumber + 1 )% HowToPlayImgNum;
             imageView.setImage(imageArray[currentImageNumber]);
         } );

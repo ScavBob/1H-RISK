@@ -11,6 +11,11 @@ import managers.StorageManager;
 
 public class PauseMenu extends Menu {
 
+    private final int SWIDTH  = 1280;
+    private final int SHEIGHT = 720;
+   private final int BUTTONXLAYOUT = 495;
+   private final int BUTTONYLAYOUT = 490;
+
     //Resume
     //Save
     //Exit
@@ -19,7 +24,7 @@ public class PauseMenu extends Menu {
     @Override
     public Scene getScene() {
         Group root = new Group();
-        Scene scene = new Scene(root, 1280, 720, Color.BLACK);
+        Scene scene = new Scene(root, SWIDTH, SHEIGHT, Color.BLACK);
         setBackground(root, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Background.png");
         addTransitionButtons(root);
         addEventButtons(root);
@@ -27,12 +32,12 @@ public class PauseMenu extends Menu {
     }
 
     private void addTransitionButtons(Group root){
-        addTransitionButton(root, "", 495, 561, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new GameScreen());
-        addTransitionButton(root, "", 495, 490, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new MainMenu());
+        addTransitionButton(root, "", BUTTONXLAYOUT, 561, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new GameScreen());
+        addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new MainMenu());
     }
 
     private void addEventButtons(Group root){
-        addButtons(root, "", 495, 540, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\Exit.png", new EventHandler<ActionEvent>() {
+        addButtons(root, "", BUTTONXLAYOUT, 540, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\Exit.png", new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 saveWindow.showAndWait();
