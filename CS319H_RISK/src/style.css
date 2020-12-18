@@ -1,5 +1,1 @@
-.slider .axis .axis-tick-mark{
-	-fx-stroke: white;
-	-fx-major-tick-unit: 22;
-	-fx-major-tick: white;
-}
+.slider .axis { -fx-tick-label-fill: white; }

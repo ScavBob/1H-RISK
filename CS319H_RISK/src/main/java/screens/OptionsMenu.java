@@ -51,7 +51,6 @@ public class OptionsMenu extends Menu{
         volumeSlider.setSnapToTicks(true);
         volumeSlider.setShowTickMarks(true);
         volumeSlider.setShowTickLabels(true);
-        volumeSlider.setSnapToTicks(true);
         volumeSlider.getStyleClass().setAll("slider");
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
