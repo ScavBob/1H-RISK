@@ -16,16 +16,18 @@ import managers.StorageManager;
 
 import java.nio.file.Paths;
 
-public class GameScreen implements Screen{
+public class GameScreen implements UpdatableScreen{
 
     private Group root;
     private Scene scene;
     private Region[] regions;
-    public GameScreen(){
+    public GameScreen() {
         regions = Game.getInstance().getGameManager().getMatch().getMap().getRegionList();
         root = new Group();
         scene = new Scene(root, 1280, 720);
         update();
+
+        Game.getInstance().subscribeForUpdate(this);
     }
 
     public void update(){
