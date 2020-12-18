@@ -51,12 +51,14 @@ public class GameController {
 
     public void takePlayerAction(PlayerAction playerAction)
     {
+        System.out.println("Retrieved action: " + playerAction);
         if (playerAction.getPhase() != stateManager.getPhase())
         {
             //This should not happen.
             System.err.println("Wrong phase played.");
         }
         performPlayerAction(playerAction);
+        Game.getInstance().updateScreen();
     }
 
     public void performPlayerAction(PlayerAction playerAction)

@@ -1,5 +1,6 @@
 package game;
 
+import javafx.application.Platform;
 import screens.MainMenu;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -68,7 +69,11 @@ public class Game {
 
     public void updateScreen()
     {
-        for (UpdatableScreen s: subscribedScreens)
-            s.update();
+        Platform.runLater(new Runnable() {
+            public void run() {
+                for (UpdatableScreen s: subscribedScreens)
+                    s.update();
+            }
+        });
     }
 }
