@@ -1,10 +1,11 @@
 package application;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Player {
+public class Player implements Serializable {
     Match currentMatch;
     private static int ids = 1;
     private int playerID;

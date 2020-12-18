@@ -2,7 +2,9 @@ package application;
 
 import managers.PlayerAction;
 
-public class AI implements PlayStrategy{
+import java.io.Serializable;
+
+public class AI implements PlayStrategy, Serializable {
     
     //Levels are declared  int as default.
     private int level;

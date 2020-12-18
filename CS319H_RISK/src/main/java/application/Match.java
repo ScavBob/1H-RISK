@@ -1,9 +1,10 @@
 package application;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Match {
+public class Match implements Serializable {
     private int round;
     private int maxRound;
     private ArrayList<Player> players;
@@ -108,6 +109,11 @@ public class Match {
 
         //The first player cannot get the initial reinforcements from nextTurn() method, so we give it manually.
         giveInitialReinforcement(currentPlayer);
+        startGameLoop();
+    }
+
+    public void startGameLoop()
+    {
         controller.startGameLoop();
     }
 

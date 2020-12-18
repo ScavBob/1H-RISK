@@ -4,10 +4,11 @@ import game.Game;
 import managers.InputManager;
 import managers.PlayerAction;
 
+import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class GameController {
+public class GameController implements Serializable {
 
     public static final int REINFORCEMENT_PHASE = 0;
     public static final int ATTACK_PHASE = 1;
@@ -17,13 +18,13 @@ public class GameController {
     private int maxTurnTime;
                                                                                 // Where should we checked the maxTurnTime and the actual game time.
                                                                                 // Also we can use AnimationTimer class of java instead of the timer class.
-    private Timer turnTimer;
+    //private Timer turnTimer;
     private BattleManager battleManager;
     private StateManager stateManager;
 
     public GameController(Match match){
         this.match = match;
-        turnTimer = new Timer();
+        //turnTimer = new Timer();
         this.maxTurnTime = 1000;
         this.battleManager = new BattleManager();
         this.stateManager = new StateManager();
@@ -31,7 +32,7 @@ public class GameController {
 
     // Timer limits each player. It must be given as a attribute to the constructor.
     public GameController(int maxTurnTime, BattleManager battleManager,StateManager stateManager){
-        turnTimer = new Timer();
+        //turnTimer = new Timer();
         this.maxTurnTime = maxTurnTime;
         this.battleManager = battleManager;
         this.stateManager = stateManager;
@@ -183,9 +184,11 @@ public class GameController {
         match.nextTurn();
     }
 
-    public void startRound(){
+    /*public void startRound(){
         turnTimer.schedule(endTurn(), maxTurnTime*1000);
     }
+
+     */
 
     // changes the state to the next state.
     // end Turn because of the time limit.

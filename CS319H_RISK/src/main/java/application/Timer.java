@@ -1,5 +1,8 @@
 package application;
-public class Timer {
+
+import java.io.Serializable;
+
+public class Timer implements Serializable {
     
     // Umut'a sor.
     private int time;

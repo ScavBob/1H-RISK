@@ -1,9 +1,10 @@
 package application;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.*;
 
-public class Faction{
+public class Faction implements Serializable {
     private int factionID;
     private String factionName;
     private Color factionColor;

@@ -2,11 +2,12 @@ package application;
 
 import game.Game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.lang.model.util.ElementScanner6;
 
-public class BattleManager {
+public class BattleManager implements Serializable {
     private ArrayList<Player> players;
 
     // Return 1 means attacker wins the battle,

@@ -3,7 +3,7 @@ package application;
 import java.io.*;
 import java.util.Scanner;
 
-public class Map {
+public class Map implements Serializable{
     private int mapID;
     private String mapName;
     private boolean [][] adjacenyMatrix;

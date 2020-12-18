@@ -4,10 +4,12 @@ import application.Map;
 import application.Match;
 import application.Player;
 import game.Game;
+import screens.GameScreen;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 public class GameManager
@@ -44,6 +46,13 @@ public class GameManager
         });
         readSettingsTimer.start();
         readSettingsTimer.setRepeats(false);
+    }
+
+    public void loadMatch(File saveFile)
+    {
+        match = storageManager.readGame(saveFile);
+        Game.getInstance().setScreen(new GameScreen());
+        match.startGameLoop();
     }
 
     public void startMatch(int map, ArrayList<Player> players)

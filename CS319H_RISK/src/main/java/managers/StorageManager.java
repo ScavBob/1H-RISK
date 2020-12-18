@@ -30,6 +30,7 @@ public class StorageManager
             out.close();
             return true;
         } catch (IOException e) {
+            e.printStackTrace();
             return false;
         }
     }

@@ -7,8 +7,10 @@ package application;
      3 = Wild       (Wild cards depict infantry, cavalry and artillery pieces. 
                     Because these cards have all three symbols, they can match with any two other cards to form a set.) 
     */
-    
-public class Card {
+
+import java.io.Serializable;
+
+public class Card implements Serializable {
     private Region region;
     private int type;
     private String typeName;

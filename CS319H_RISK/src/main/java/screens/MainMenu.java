@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import managers.StorageManager;
 
 import java.awt.*;
+import java.io.File;
 import java.nio.file.Paths;
 import javafx.scene.control.Button;
 
@@ -29,7 +30,12 @@ public class MainMenu extends Menu {
 
 	private void addButtons(Group root) {
 		addTransitionButton(root, "", 495, 335, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\NewGame.png", new PregameMenu());
-		addTransitionButton(root, "", 495, 392, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\LoadGame.png",new PauseMenu());
+		addButtons(root, "", 495, 392, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\LoadGame.png", new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Game.getInstance().getGameManager().loadMatch(new File("C:\\Users\\zzlawlzz\\Documents\\Risk\\Saves\\ukrayna17asker"));
+			}
+		});
 		addTransitionButton(root, "", 495, 447, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\Options.png", new OptionsMenu());
 		addTransitionButton(root, "", 495, 504, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\HowToPlay.png",  new HowToPlayScreen());
 		//TODO

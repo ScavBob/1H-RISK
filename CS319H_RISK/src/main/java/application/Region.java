@@ -1,8 +1,9 @@
 package application;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Region{
+public class Region implements Serializable {
     private int regionID;
     private String regionName;
     private int unitCount;

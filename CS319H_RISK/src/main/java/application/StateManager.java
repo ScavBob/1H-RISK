@@ -1,6 +1,8 @@
 package application;
 
-public class StateManager {
+import java.io.Serializable;
+
+public class StateManager implements Serializable {
 
     private int currentPhase;
 
