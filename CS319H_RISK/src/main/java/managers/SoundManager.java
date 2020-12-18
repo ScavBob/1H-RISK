@@ -3,7 +3,9 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
+import game.Game;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -26,6 +28,8 @@ public class SoundManager {
     private Media click;
     private MediaPlayer clickSound;
 
+    private ArrayList<Media> backgroundMusic = new ArrayList<Media>();
+
     public SoundManager()
     {
         musicFilePath = getClass().getResource("/musics/medal-of-honor-european-assault-soundtrack-main-theme-hq.mp3").toExternalForm();
@@ -44,7 +48,10 @@ public class SoundManager {
         click = new Media(clickPath);
         clickSound = new MediaPlayer(click);
 
-        setInitialVolume();
+        backgroundMusic.add(musicFile);
+        backgroundMusic.add(alternative_music);
+
+        setVolume(10);
     }
 
     public void mute() {
@@ -53,8 +60,11 @@ public class SoundManager {
         clickSound.setVolume(0);
     }
 
-    public void setInitialVolume() {
-        updateSoundVolumeInitialPosition();
+    public void setVolume(int x )
+    {
+        // x : 0 - 10
+        System.out.println("x:  " + x);
+        background_theme.setVolume((x + 0.0) / 30 );
     }
 
     public void updateSoundVolumeInitialPosition() {
@@ -65,13 +75,14 @@ public class SoundManager {
 
     public void startPlayMusic() {
         background_theme.setCycleCount(Integer.MAX_VALUE);
+        background_theme.seek(Duration.ZERO);
         background_theme.play();
+
     }
     public void playCongrats() {
         congratsSound.seek(Duration.ZERO);
         congratsSound.play();
     }
-
 
     public void playPrimary() {
         background_theme.seek(Duration.ZERO);

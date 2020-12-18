@@ -44,7 +44,7 @@ public class GameStartMenu extends Menu {
 
         protected Slot(Group root, int i, String playerColor){
             this.playerColor = playerColor;
-            System.out.println(this.playerColor);
+            playerName = "Player " + (i + 1);
             this.root = root;
             x = 55;
             y = 60 + i*90;
@@ -67,7 +67,6 @@ public class GameStartMenu extends Menu {
                         playerType = "HUMAN";
                     }
                     changeType.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-                    System.out.println("Hello " + playerName + " " + playerType);
                 }
             });
             delete.setOnAction(new EventHandler<ActionEvent>() {
@@ -103,7 +102,7 @@ public class GameStartMenu extends Menu {
                 public void handle(ActionEvent event){
                     addPlayer();
                     playerType = "HUMAN";
-                    name.setText("Player " + (i + 1));
+                    name.setText(playerName);
                 }
             });
                 root.getChildren().add(addPlayer);
@@ -174,8 +173,9 @@ public class GameStartMenu extends Menu {
     private void startGame() {
         ArrayList<Player> playerList = new ArrayList<Player>();
         for (Slot s : slots) {
-            if(s.playerAdded)
+            if(s.playerAdded) {
                 playerList.add(new Player(s.playerName, s.playerColor));
+            }
         }
         if (playerList.size() >= 2) {
             Game.getInstance().getGameManager().startMatch(MapManager.WORLD_MAP, playerList);
