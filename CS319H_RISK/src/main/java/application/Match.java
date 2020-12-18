@@ -39,6 +39,19 @@ public class Match {
         this.controller = controller;
     }
 
+    //isMatcOver method returns true if match is over, false if match is continues
+    public boolean isMatchOver(){
+           boolean isOver = false;
+           int alivePlayerCount = 0;
+           for (int i = 0; i < players.size(); i++ ){
+               if (isPlayerAlive(players.get(i)) == true ) {
+                    alivePlayerCount +=  1;
+               }
+           }
+           isOver = (alivePlayerCount == 1) ? true : false;
+        return isOver;
+    }
+
     //skips to the next player in line
     public void nextTurn() {
         //TODO

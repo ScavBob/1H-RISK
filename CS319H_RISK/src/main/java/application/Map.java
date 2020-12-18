@@ -66,7 +66,10 @@ public class Map {
             adjacenyMatrix[firstRegion][secondRegion] = true;
             adjacenyMatrix[secondRegion][firstRegion] = true;
         }
+    }
 
+    public boolean isAdjacentRegion(Region r1, Region r2 ){
+        return adjacenyMatrix[r1.RegionID() - 1][r2.RegionID() - 1];
     }
 
     public Region[] getRegionList(){
@@ -85,6 +88,7 @@ public class Map {
         regionList[location].setUnitCount(newUnitCount);
 
     }
+
 
 
 }
