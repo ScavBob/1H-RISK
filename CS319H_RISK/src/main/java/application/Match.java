@@ -74,6 +74,11 @@ public class Match implements Serializable {
         player.setAvailableReinforcements(reinforcementsFromRegions + reinforcementsFromContinents);
     }
 
+    public int getRemainingTime()
+    {
+        return controller.getRemainingTime();
+    }
+
     public Player getCurrentPlayer()
     {
         return currentPlayer;
