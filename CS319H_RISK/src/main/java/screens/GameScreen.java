@@ -43,7 +43,7 @@ public class GameScreen implements UpdatableScreen{
         root.getChildren().clear();
         canvas = new Canvas(1280, 720);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.drawImage(new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Map.png").toUri().toString()), 0, 0, 1280, 720);
+        gc.drawImage(new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\" + Game.getInstance().getGameManager().getMatch().getMap().getMapName() + "Map.png").toUri().toString()), 0, 0, 1280, 720);
         root.getChildren().add(canvas);
         gc.drawImage(new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Phases\\" + Game.getInstance().getGameManager().getInputManager().getCurrentPhase() + ".png").toUri().toString()), 495, 1, 291, 60);
         populateScreen();
@@ -109,7 +109,7 @@ public class GameScreen implements UpdatableScreen{
                 addText("Source Region: ", 0, 460, 100, 50, 20);
                 addText(region.getRegionName(), 50, 480, 100, 50, 20);
                 addText("Fortifications Left: ", 0, 540, 250, 50, 20);
-                addText(String.valueOf(Game.getInstance().getGameManager().getInputManager().getFirstRegion().getUnitCount() - armyCount), 200, 540, 250, 50, 25);
+                addText(String.valueOf(Game.getInstance().getGameManager().getInputManager().getFirstRegion().getUnitCount() - armyCount - 1), 200, 540, 250, 50, 25);
             }
             region = Game.getInstance().getGameManager().getInputManager().getSecondRegion();
             if(region == null)
