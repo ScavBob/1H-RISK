@@ -152,7 +152,6 @@ public class InputManager
     public void awaitPlayerAction(GameController awaitingController, int awaitingPhase)
     {
         resetInputs();
-        armyCount = 2;
         this.awaitingController = awaitingController;
         this.awaitingPhase = awaitingPhase;
 

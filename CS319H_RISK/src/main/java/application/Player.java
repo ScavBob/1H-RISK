@@ -19,6 +19,8 @@ public class Player {
     private String name;
     private String color;
 
+    private int availableReinforcements;
+
 
     public Player(String name, String color){
         this.name = name;
@@ -29,6 +31,7 @@ public class Player {
         allies = new ArrayList<Player>();
         totalUnitCount = 40;
         strategy = new Human();
+        availableReinforcements = 10;
     }
     public void addCurrentMatch(Match match){
         currentMatch = match;
@@ -82,5 +85,14 @@ public class Player {
 
     public String getColor() {
         return color;
+    }
+
+    public int getAvailableReinforcements() {
+        return availableReinforcements;
+    }
+
+    public void decreaseAvailableReinforcements(int decreaseAmount)
+    {
+        availableReinforcements = Math.max(availableReinforcements - decreaseAmount, 0);
     }
 }

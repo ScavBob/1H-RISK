@@ -59,18 +59,18 @@ public class GameController {
             System.err.println("Wrong phase played.");
         }
         performPlayerAction(playerAction);
-        Game.getInstance().updateScreen();
     }
 
     public void performPlayerAction(PlayerAction playerAction)
     {
-
         if (playerAction.getPhase() == ATTACK_PHASE)
             performAttackAction(playerAction);
         else if (playerAction.getPhase() == REINFORCEMENT_PHASE)
             performReinforcementAction(playerAction);
         else if (playerAction.getPhase() == FORTIFY_PHASE)
             performFortifyAction(playerAction);
+
+        Game.getInstance().updateScreen();
 
         getNextPlayerAction();
     }
@@ -97,7 +97,12 @@ public class GameController {
 
     public boolean isReinforcementValid(PlayerAction playerAction)
     {
-        //TODO
+        Player currentPlayer = match.getCurrentPlayer();
+        int availableReinforcements = currentPlayer.getAvailableReinforcements();
+
+        if (playerAction.getArmyCount() > availableReinforcements) return false;
+        if (!playerAction.getFirstRegion().getOwner().equals(currentPlayer)) return false;
+
         return true;
     }
     public void performReinforcementAction(PlayerAction playerAction)
@@ -108,7 +113,18 @@ public class GameController {
         }
         else
         {
-            //TODO
+            if (isReinforcementValid(playerAction)) {
+                Region chosenRegion = playerAction.getFirstRegion();
+                int armyCount = playerAction.getArmyCount();
+                Game.getInstance().getGameManager().getMapManager().increaseArmyCount(chosenRegion, armyCount);
+                match.getCurrentPlayer().decreaseAvailableReinforcements(armyCount);
+            }
+            else
+            {
+                //TODO
+                //Maybe show a message on the screen?
+                System.out.println("Not a valid reinforcement.");
+            }
         }
     }
 
