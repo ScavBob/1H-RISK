@@ -10,7 +10,8 @@ public class Map implements Serializable{
     private Region[] regionList;
     private int[] continentBonus;
 
-    public Map(File mapData) {
+    public Map(String mapName, File mapData) {
+        this.mapName = mapName;
         initializeRegions(mapData);
     }
 
@@ -99,6 +100,8 @@ public class Map implements Serializable{
 
     }
 
-
+    public String getMapName(){
+        return mapName;
+    }
 
 }

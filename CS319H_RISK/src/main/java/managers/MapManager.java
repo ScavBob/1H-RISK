@@ -23,7 +23,11 @@ public class MapManager
         if (url == null)
             return null;
         File file = new File(url.getPath());
-        return new Map(file);
+        String mapName = "Bilkent";
+        if(map == WORLD_MAP){
+            mapName = "World";
+        }
+        return new Map(mapName, file);
     }
 
     public void increaseArmyCount(Region region, int increasetAmount)
