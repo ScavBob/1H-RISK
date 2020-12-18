@@ -28,6 +28,9 @@ public class PauseMenu extends Menu {
         setBackground(root, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Background.png");
         addTransitionButtons(root);
         addEventButtons(root);
+        saveWindow.setTitle("Save File");
+        saveWindow.setContentText("Choose the name of your save game.");
+        saveWindow.setHeaderText("");
         return scene;
     }
 

@@ -59,8 +59,8 @@ public class GameStartMenu extends Menu {
             addButton(type, x, y, 495, 77, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Type.png");
             //addButton(faction, x - 200, y, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Game\\Factions\\England.png");
             addButton(color, x + 40, y + 25, 40, 26,  StorageManager.RESOURCES_FOLDER_NAME + "Game\\Colors\\" + playerColor + ".png");
-            addButton(delete, x + 420, y + 5, 72, 67, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Delete.png");
-            addButton(changeType, x + 340, y + 5, 75, 66, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\HUMAN.png");
+            addButton(delete, x + 420, y + 5, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Delete.png");
+            addButton(changeType, x + 340, y + 5, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\HUMAN.png");
             changeType.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {

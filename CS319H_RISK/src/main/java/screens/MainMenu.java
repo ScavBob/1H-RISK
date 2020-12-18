@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import managers.StorageManager;
 
 import java.awt.*;
@@ -33,7 +35,13 @@ public class MainMenu extends Menu {
 		addButtons(root, "", 495, 392, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\LoadGame.png", new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				Game.getInstance().getGameManager().loadMatch(new File("C:\\Users\\zzlawlzz\\Documents\\Risk\\Saves\\ukrayna14asker"));
+				FileChooser fileChooser = new FileChooser ();
+				fileChooser.setInitialDirectory(Game.getInstance().getGameManager().getSettingsManager().getSaveLocation());
+				File selectedFile = fileChooser.showOpenDialog(Game.getInstance().getStage());
+				if (selectedFile != null)
+				{
+					Game.getInstance().getGameManager().loadMatch(selectedFile);
+				}
 			}
 		});
 		addTransitionButton(root, "", 495, 447, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\Options.png", new OptionsMenu());

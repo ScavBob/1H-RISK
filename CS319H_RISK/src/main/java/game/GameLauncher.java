@@ -1,6 +1,8 @@
 package game;
 
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
+import javafx.stage.WindowEvent;
 import managers.StorageManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -17,6 +19,12 @@ public class GameLauncher extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.getIcons().add(ICON);
         primaryStage.setResizable(false);
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                System.exit(0);
+            }
+        });
         Game.getInstance().gameInit(primaryStage);
     }
 }
