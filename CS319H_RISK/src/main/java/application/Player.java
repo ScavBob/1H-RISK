@@ -20,7 +20,7 @@ public class Player implements Serializable {
     private ArrayList<Player> allies;
     private String name;
     private String color;
-
+    private int[] continetIDs;
     private int availableReinforcements;
 
 
@@ -97,5 +97,8 @@ public class Player implements Serializable {
 
     public void setAvailableReinforcements(int availableReinforcements) {
         this.availableReinforcements = availableReinforcements;
+    }
+    public int[] getContinetIDs() {
+        return this.continetIDs;
     }
 }

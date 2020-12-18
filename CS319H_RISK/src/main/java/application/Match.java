@@ -66,7 +66,13 @@ public class Match implements Serializable {
 
     public void giveInitialReinforcement(Player player)
     {
-        int reinforcementsFromRegions = player.getRegions().size() / 3;
+        int reinforcementsFromRegions;
+        if (player.getRegions().size()/ 3 > 3){
+            reinforcementsFromRegions = player.getRegions().size() / 3;
+        }
+        else{
+            reinforcementsFromRegions = 3;
+        }
 
         //TODO
         int reinforcementsFromContinents = 0;

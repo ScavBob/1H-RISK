@@ -14,8 +14,9 @@ public class Map implements Serializable{
         initializeRegions(mapData);
     }
 
-    public int getContinetBonus(int contID){
-        return continentBonus[contID];
+    public int getContinetBonus(Player player){
+        int continentBonus = 0;
+        return continentBonus;
     }
 
     public void printRegions(){
