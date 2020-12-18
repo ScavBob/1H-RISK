@@ -33,8 +33,9 @@ public class GameController implements Serializable {
                 if (remainingTime == 0)
                 {
                     //send an artifical action.
-                    while (stateManager.getPhase() != REINFORCEMENT_PHASE)
+                    do {
                         takePlayerAction(new PlayerAction(true, stateManager.getPhase(), null, null, 0));
+                    } while (stateManager.getPhase() != REINFORCEMENT_PHASE);
                 }
             }
         });
@@ -218,10 +219,10 @@ public class GameController implements Serializable {
 
         //After fortify, the game proceeds to the next turn.
         match.nextTurn();
+        remainingTime = maxTurnTime;
     }
 
     public void battle(){
-
 
     }
 
