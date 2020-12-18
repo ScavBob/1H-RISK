@@ -155,7 +155,7 @@ public class InputManager
             return Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getAvailableReinforcements();
         }else if(awaitingPhase == GameController.ATTACK_PHASE){
             if(firstRegion != null)
-                return firstRegion.getUnitCount() - 1;
+                return Math.min(firstRegion.getUnitCount() - 1, 3);
             else
                 return 0;
         }
