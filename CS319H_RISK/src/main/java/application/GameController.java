@@ -13,7 +13,7 @@ public class GameController {
     public static final int ATTACK_PHASE = 1;
     public static final int FORTIFY_PHASE = 2;
 
-    private InputManager inputManager;
+    private Match match;
     private int maxTurnTime;
                                                                                 // Where should we checked the maxTurnTime and the actual game time.
                                                                                 // Also we can use AnimationTimer class of java instead of the timer class.
@@ -21,9 +21,9 @@ public class GameController {
     private BattleManager battleManager;
     private StateManager stateManager;
 
-    public GameController(){
+    public GameController(Match match){
+        this.match = match;
         turnTimer = new Timer();
-        inputManager = Game.getInstance().getGameManager().getInputManager();
         this.maxTurnTime = 1000;
         this.battleManager = new BattleManager();
         this.stateManager = new StateManager();
@@ -46,7 +46,8 @@ public class GameController {
     {
         int currentPhase;
         currentPhase = stateManager.getPhase();
-        inputManager.awaitPlayerAction(this, currentPhase);
+        Player currentPlayer = match.getCurrentPlayer();
+        currentPlayer.getPlayerAction(this, currentPhase);
     }
 
     public void takePlayerAction(PlayerAction playerAction)

@@ -22,7 +22,7 @@ public class Match {
         this.currentPlayer = null;
         this.availableFactions = new HashMap<>();
         this.map = null;
-        this.controller = new GameController();
+        this.controller = new GameController(this);
     }
 
 
@@ -50,6 +50,11 @@ public class Match {
             System.out.println("Maximum round number has been reached");
         }
 
+    }
+
+    public Player getCurrentPlayer()
+    {
+        return currentPlayer;
     }
 
     public void initialize(){
