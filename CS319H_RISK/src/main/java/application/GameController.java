@@ -44,6 +44,12 @@ public class GameController {
 
     public void getNextPlayerAction()
     {
+        if (match.isMatchOver())
+        {
+            System.out.println("Game has ended.");
+            return;
+        }
+
         int currentPhase;
         currentPhase = stateManager.getPhase();
         Player currentPlayer = match.getCurrentPlayer();
@@ -59,6 +65,7 @@ public class GameController {
             System.err.println("Wrong phase played.");
         }
         performPlayerAction(playerAction);
+        match.update();
     }
 
     public void performPlayerAction(PlayerAction playerAction)
