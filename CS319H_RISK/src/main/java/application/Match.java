@@ -75,8 +75,8 @@ public class Match implements Serializable {
         }
 
         //TODO
-        int reinforcementsFromContinents = 0;
-
+        int reinforcementsFromContinents = player.checkForContinetBonuses();
+        System.out.println(reinforcementsFromContinents);
         player.setAvailableReinforcements(reinforcementsFromRegions + reinforcementsFromContinents);
     }
 

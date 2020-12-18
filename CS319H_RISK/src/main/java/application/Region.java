@@ -42,4 +42,5 @@ public class Region implements Serializable {
     public Player getOwner(){
         return controller;
     }
+    public int getContinentID(){return continentID;}
 }
