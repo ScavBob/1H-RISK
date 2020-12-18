@@ -1,5 +1,7 @@
 package application;
 
+import game.Game;
+
 import java.util.ArrayList;
 
 import javax.lang.model.util.ElementScanner6;
@@ -22,6 +24,15 @@ public class BattleManager {
         } else {
             remainingSoldier = defenderSoldiers - attackerSoldiers;
             return -1;
+        }
+    }
+
+    public void performBattle(Region dstRegion, Region srcRegion, int armyCount) {
+        Player currentPlayer = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
+        dstRegion.setUnitCount(dstRegion.getUnitCount() - armyCount);
+        if (armyCount > srcRegion.getUnitCount())
+        {
+            //srcRegion.setOwner(currentlyPlayer);
         }
     }
 }

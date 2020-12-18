@@ -82,10 +82,12 @@ public class GameController {
         Region srcRegion = playerAction.getFirstRegion();
         Region dstRegion = playerAction.getSecondRegion();
         int armyCount = playerAction.getArmyCount();
+        Map map = Game.getInstance().getGameManager().getMatch().getMap();
 
         if (armyCount > srcRegion.getUnitCount() || armyCount == 0) return false;
         if (!srcRegion.getOwner().equals(currentPlayer)) return false;
         if (dstRegion.getOwner().equals(currentPlayer)) return false;
+        if (!map.isAdjacentRegion(srcRegion, dstRegion)) return false;
 
         return true;
     }
@@ -99,7 +101,11 @@ public class GameController {
         else
         {
             if (isAttackValid(playerAction)) {
-                battleManager.performBattle();
+                Region srcRegion = playerAction.getFirstRegion();
+                Region dstRegion = playerAction.getSecondRegion();
+                int armyCount = playerAction.getArmyCount();
+
+                battleManager.performBattle(srcRegion, dstRegion, armyCount);
             }
             else
             {
