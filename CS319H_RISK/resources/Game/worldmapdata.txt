@@ -1,4 +1,4 @@
-6
+6 42
 1 9 5 NorthAmerica 
 1 85 110 Alaska
 2 187 172 Alberta

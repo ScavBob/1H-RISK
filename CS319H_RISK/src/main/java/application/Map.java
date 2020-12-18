@@ -30,9 +30,10 @@ public class Map {
             e.printStackTrace();
         }
         int continentCount = scanner.nextInt();
+        int totalRegionCount = scanner.nextInt();
         int regionCount,regionID,regionX,regionY,continentID;
         String regionName,continentName;
-        regionList = new Region[42];
+        regionList = new Region[totalRegionCount];
         int regionCounter = 0;
         for (int i = 0; i < continentCount; i++){
             continentID = scanner.nextInt();
@@ -52,6 +53,20 @@ public class Map {
                 regionList[regionCounter++]= tmpRegion;
             }
         }
+
+        adjacenyMatrix = new boolean[totalRegionCount][totalRegionCount];
+        for (int row = 0; row < totalRegionCount; row++) {
+            for (int col = 0; col < totalRegionCount; col++) {
+                adjacenyMatrix[row][col] = false;
+            }
+        }
+        while (scanner.hasNextInt()){
+            int firstRegion =  scanner.nextInt()-1;
+            int secondRegion = scanner.nextInt() -1;
+            adjacenyMatrix[firstRegion][secondRegion] = true;
+            adjacenyMatrix[secondRegion][firstRegion] = true;
+        }
+
     }
 
     public Region[] getRegionList(){
