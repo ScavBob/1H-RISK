@@ -28,7 +28,7 @@ public class GameStartMenu extends Menu {
     private class Slot {
         private int x, y;
         private Group root;
-        private String playerType;
+        private Boolean humanPlayer;
         private String playerName = "";
         private String playerFaction = "";
         private String playerColor = "";
@@ -65,13 +65,13 @@ public class GameStartMenu extends Menu {
                 @Override
                 public void handle(ActionEvent event) {
                     Image image;
-                    if(playerType == "HUMAN") {
+                    if(humanPlayer) {
                         image = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\AI.png").toUri().toString());
-                        playerType = "AI";
+                        humanPlayer = false;
                     }
                     else{
                         image = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\HUMAN.png").toUri().toString());
-                        playerType = "HUMAN";
+                        humanPlayer = true;
                     }
                     changeType.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
                 }
@@ -108,7 +108,7 @@ public class GameStartMenu extends Menu {
                 @Override
                 public void handle(ActionEvent event){
                     addPlayer();
-                    playerType = "HUMAN";
+                    humanPlayer = true;
                     name.setText(playerName);
                 }
             });
@@ -181,7 +181,7 @@ public class GameStartMenu extends Menu {
         ArrayList<Player> playerList = new ArrayList<Player>();
         for (Slot s : slots) {
             if(s.playerAdded) {
-                playerList.add(new Player(s.playerName, s.playerColor));
+                playerList.add(new Player(s.playerName, s.playerColor, s.humanPlayer));
             }
         }
         if (playerList.size() >= 2) {

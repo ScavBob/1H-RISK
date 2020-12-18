@@ -24,7 +24,7 @@ public class Player implements Serializable {
     private int availableReinforcements;
 
 
-    public Player(String name, String color){
+    public Player(String name, String color, boolean isHuman){
         this.name = name;
         this.color = color;
         playerID = ids++;
@@ -32,7 +32,10 @@ public class Player implements Serializable {
         totalUnitCount = 0;
         allies = new ArrayList<Player>();
         totalUnitCount = 40;
-        strategy = new Human();
+        if(isHuman)
+            strategy = new Human();
+        else
+            strategy = new AI();
         availableReinforcements = 0;
     }
     public void addCurrentMatch(Match match){
