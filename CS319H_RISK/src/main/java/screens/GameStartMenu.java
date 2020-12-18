@@ -42,7 +42,8 @@ public class GameStartMenu extends Menu {
         private Button type = new Button();
         private TextArea name = new TextArea();
 
-        protected Slot(Group root, int i){
+        protected Slot(Group root, int i, String playerColor){
+            this.playerColor = playerColor;
             this.root = root;
             x = 55;
             y = 60 + i*90;
@@ -153,7 +154,7 @@ public class GameStartMenu extends Menu {
         drawRect("#b4c7e77f", 38, 38, 540, 654);
         root.getChildren().add(canvas);
         for(int i = 0; i < 7; i++) {
-            slots[i] = new Slot(root, i);
+            slots[i] = new Slot(root, i, colors[i]);
         }
 
         addButtons(root);

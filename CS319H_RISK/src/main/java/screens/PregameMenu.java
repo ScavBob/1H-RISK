@@ -19,7 +19,7 @@ public class PregameMenu extends Menu{
     }
 
     public void addButtons(Group root) {
-        addTransitionButton(root, "", 495, 563, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new MainMenu());
+        addTransitionButton(root, "", 495, 561, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new MainMenu());
         addTransitionButton(root, "", 68,  468, 536, 37, StorageManager.RESOURCES_FOLDER_NAME + "PregameMenu\\BilkentButton.png", new GameStartMenu("Bilkent"));
         addTransitionButton(root, "", 674,  468, 536, 37, StorageManager.RESOURCES_FOLDER_NAME + "PregameMenu\\WorldButton.png", new GameStartMenu("World"));
     }

@@ -39,10 +39,10 @@ public class HowToPlayScreen extends Menu {
         addButtons(root);
         initImageArray();
         imageView = new ImageView(imageArray[currentImageNumber]);
-        imageView.setLayoutX(294.0);
-        imageView.setLayoutY(200.0);
-        imageView.setFitHeight(600);
-        imageView.setFitWidth(600);
+        imageView.setLayoutX(211);
+        imageView.setLayoutY(25);
+        imageView.setFitHeight(500);
+        imageView.setFitWidth(794);
         root.getChildren().add(imageView);
         bPane.setCenter(root);
         return scene;
@@ -52,17 +52,15 @@ public class HowToPlayScreen extends Menu {
 
     public void addButtons(Group root){
 
-        addTransitionButton(root, "", 0, 20, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", new MainMenu());
-        addButtons(root, "Hey", 0 , 400 , 51 , 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", event ->{
+        addTransitionButton(root, "", 495, 561, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", new MainMenu());
+        addButtons(root, "", 0 , 400 , 51 , 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", event ->{
             currentImageNumber = (currentImageNumber - 1 )% HowToPlayImgNum;
             if (currentImageNumber < 0) {currentImageNumber += HowToPlayImgNum; }
             imageView.setImage(imageArray[currentImageNumber]);
-            System.out.println("Hey");
         } );
-        addButtons(root, "Hey", 1280-51 , 400 , 51 , 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", event ->{
+        addButtons(root, "", 1280-51 , 400 , 51 , 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", event ->{
             currentImageNumber = (currentImageNumber + 1 )% HowToPlayImgNum;
             imageView.setImage(imageArray[currentImageNumber]);
-            System.out.println("Hey");
         } );
     }
 
