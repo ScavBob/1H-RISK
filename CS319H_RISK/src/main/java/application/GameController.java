@@ -2,6 +2,7 @@ package application;
 
 import game.Game;
 import managers.InputManager;
+import managers.PlayerAction;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,14 +37,18 @@ public class GameController {
         this.stateManager = stateManager;
     }
 
-    void startGameLoop()
+    public void startGameLoop()
     {
         int currentPhase;
         currentPhase = stateManager.getPhase();
 
-        //inputManager.awaitPlayerAction(this, currentPhase);
+        inputManager.awaitPlayerAction(this, currentPhase);
     }
 
+    public void takePlayerAction(PlayerAction playerAction)
+    {
+        System.out.println(playerAction);
+    }
 
 
     public void startRound(){

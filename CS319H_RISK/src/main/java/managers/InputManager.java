@@ -40,15 +40,13 @@ public class InputManager
     public InputManager()
     {
         resetInputs();
-        /*
         timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 informAwaitingController();
             }
         });
-
-        */
+        timer.start();
     }
 
     public int getWaitingInputType()
@@ -78,7 +76,26 @@ public class InputManager
 
     public void informAwaitingController()
     {
-        System.out.println("Informing");
+        PlayerAction playerAction = null;
+        GameController controller = awaitingController;
+
+        if (awaitingPhase == GameController.ARMY_PLACEMENT_PHASE)
+        {
+            playerAction = getArmyPlacementAction();
+        }
+        else if (awaitingPhase == GameController.ATTACK_PHASE)
+        {
+            playerAction = getAttackAction();
+        }
+        else if (awaitingPhase == GameController.FORTIFY_PHASE)
+        {
+            playerAction = getFortifyAction();
+        }
+
+        if (playerAction != null)
+        {
+            controller.takePlayerAction(playerAction);
+        }
     }
 
     public boolean chooseRegion(Region region)
@@ -139,6 +156,7 @@ public class InputManager
     public void awaitPlayerAction(GameController awaitingController, int awaitingPhase)
     {
         resetInputs();
+        armyCount = 2;
         this.awaitingController = awaitingController;
         this.awaitingPhase = awaitingPhase;
 
@@ -159,7 +177,7 @@ public class InputManager
     {
         if (!endPhase && (secondRegion == null || armyCount == 0)) return null;
 
-        PlayerAction action = new PlayerAction(endPhase, firstRegion, secondRegion, armyCount);
+        PlayerAction action = new PlayerAction(endPhase, awaitingPhase, firstRegion, secondRegion, armyCount);
 
         resetInputs();
         return action;
@@ -169,7 +187,7 @@ public class InputManager
     {
         if (!endPhase && (firstRegion == null || armyCount == 0)) return null;
 
-        PlayerAction action = new PlayerAction(endPhase, firstRegion, secondRegion, armyCount);
+        PlayerAction action = new PlayerAction(endPhase, awaitingPhase, firstRegion, secondRegion, armyCount);
 
         resetInputs();
         return action;
@@ -179,7 +197,7 @@ public class InputManager
     {
         if (!endPhase && (secondRegion == null || armyCount == 0)) return null;
 
-        PlayerAction action = new PlayerAction(endPhase, firstRegion, secondRegion, armyCount);
+        PlayerAction action = new PlayerAction(endPhase, awaitingPhase, firstRegion, secondRegion, armyCount);
 
         resetInputs();
         return action;

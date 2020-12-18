@@ -75,7 +75,7 @@ public class Match {
             map.getRegionList()[loc].setUnitCount((int)(Math.random()*10 + 1));
         }
 
-        //controller.startGameLoop();
+        controller.startGameLoop();
     }
 
     public void attackCommand(int unitCount, Region baseRegion, Region target) {
