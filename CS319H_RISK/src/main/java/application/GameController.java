@@ -9,7 +9,7 @@ import java.util.TimerTask;
 
 public class GameController {
 
-    public static final int ARMY_PLACEMENT_PHASE = 0;
+    public static final int REINFORCEMENT_PHASE = 0;
     public static final int ATTACK_PHASE = 1;
     public static final int FORTIFY_PHASE = 2;
 
@@ -63,9 +63,10 @@ public class GameController {
 
     public void performPlayerAction(PlayerAction playerAction)
     {
+
         if (playerAction.getPhase() == ATTACK_PHASE)
             performAttackAction(playerAction);
-        else if (playerAction.getPhase() == ARMY_PLACEMENT_PHASE)
+        else if (playerAction.getPhase() == REINFORCEMENT_PHASE)
             performReinforcementAction(playerAction);
         else if (playerAction.getPhase() == FORTIFY_PHASE)
             performFortifyAction(playerAction);

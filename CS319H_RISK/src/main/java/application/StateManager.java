@@ -6,13 +6,13 @@ public class StateManager {
 
     public StateManager()
     {
-        currentPhase = GameController.ARMY_PLACEMENT_PHASE;
+        currentPhase = GameController.REINFORCEMENT_PHASE;
     }
 
     public void nextPhase(){
-        if (currentPhase == GameController.ARMY_PLACEMENT_PHASE) currentPhase = GameController.ATTACK_PHASE;
+        if (currentPhase == GameController.REINFORCEMENT_PHASE) currentPhase = GameController.ATTACK_PHASE;
         else if (currentPhase == GameController.ATTACK_PHASE) currentPhase = GameController.FORTIFY_PHASE;
-        else if (currentPhase == GameController.FORTIFY_PHASE) currentPhase = GameController.ARMY_PLACEMENT_PHASE;
+        else if (currentPhase == GameController.FORTIFY_PHASE) currentPhase = GameController.REINFORCEMENT_PHASE;
     }
     public int getPhase(){
         return currentPhase;

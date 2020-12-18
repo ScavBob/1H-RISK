@@ -6,14 +6,13 @@ import application.Region;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.TimerTask;
 
 public class InputManager
 {
     private enum WaitingState {
         NOT_WAITING,
         ATTACK,
-        ARMY_PLACEMENT,
+        REINFORCEMENT,
         FORTIFY
     }
 
@@ -54,12 +53,9 @@ public class InputManager
         return waitingInputType;
     }
 
-    public String getCurrentPhaseName()
+    public int getCurrentPhase()
     {
-        if (awaitingPhase == GameController.ATTACK_PHASE) return "Attack Phase";
-        else if (awaitingPhase == GameController.ARMY_PLACEMENT_PHASE) return "Army Placement Phase";
-        else if (awaitingPhase == GameController.FORTIFY_PHASE) return "Fortify Phase";
-        else return "";
+        return awaitingPhase;
     }
 
     public Region getFirstRegion() {
@@ -79,9 +75,9 @@ public class InputManager
         PlayerAction playerAction = null;
         GameController controller = awaitingController;
 
-        if (awaitingPhase == GameController.ARMY_PLACEMENT_PHASE)
+        if (awaitingPhase == GameController.REINFORCEMENT_PHASE)
         {
-            playerAction = getArmyPlacementAction();
+            playerAction = getReinforcementAction();
         }
         else if (awaitingPhase == GameController.ATTACK_PHASE)
         {
@@ -122,7 +118,7 @@ public class InputManager
             }
         }
 
-        else if (waitingState == WaitingState.ARMY_PLACEMENT)
+        else if (waitingState == WaitingState.REINFORCEMENT)
         {
             if (firstRegion == null)
             {
@@ -160,8 +156,8 @@ public class InputManager
         this.awaitingController = awaitingController;
         this.awaitingPhase = awaitingPhase;
 
-        if (awaitingPhase == GameController.ARMY_PLACEMENT_PHASE) {
-            waitingState = WaitingState.ARMY_PLACEMENT;
+        if (awaitingPhase == GameController.REINFORCEMENT_PHASE) {
+            waitingState = WaitingState.REINFORCEMENT;
         }
         else if (awaitingPhase == GameController.ATTACK_PHASE) {
         waitingState = WaitingState.ATTACK;
@@ -183,7 +179,7 @@ public class InputManager
         return action;
     }
 
-    public PlayerAction getArmyPlacementAction()
+    public PlayerAction getReinforcementAction()
     {
         if (!endPhase && (firstRegion == null || armyCount == 0)) return null;
 
@@ -212,5 +208,6 @@ public class InputManager
         endPhase = false;
         waitingInputType = NOT_WAITING;
         awaitingController = null;
+        awaitingPhase = -1;
     }
 }
