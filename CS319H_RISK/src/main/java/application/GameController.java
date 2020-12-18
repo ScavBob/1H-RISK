@@ -85,7 +85,6 @@ public class GameController implements Serializable {
 
     public boolean isAttackValid(PlayerAction playerAction)
     {
-        //TODO
         Player currentPlayer = match.getCurrentPlayer();
         Region srcRegion = playerAction.getFirstRegion();
         Region dstRegion = playerAction.getSecondRegion();
@@ -159,7 +158,16 @@ public class GameController implements Serializable {
 
     public boolean isFortifyValid(PlayerAction playerAction)
     {
-        //TODO
+        Player currentPlayer = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
+        Region srcRegion = playerAction.getFirstRegion();
+        Region dstRegion = playerAction.getSecondRegion();
+        int armyCount = playerAction.getArmyCount();
+        Map map = Game.getInstance().getGameManager().getMatch().getMap();
+
+        if (armyCount > srcRegion.getUnitCount() || armyCount == 0) return false;
+        if (!srcRegion.getOwner().equals(currentPlayer)) return false;
+        if (!dstRegion.getOwner().equals(currentPlayer)) return false;
+        if (!map.isAdjacentRegion(srcRegion, dstRegion)) return false;
         return true;
     }
     public void performFortifyAction(PlayerAction playerAction)
@@ -172,7 +180,16 @@ public class GameController implements Serializable {
         {
             if (isFortifyValid(playerAction))
             {
+                Region srcRegion = playerAction.getFirstRegion();
+                Region dstRegion = playerAction.getSecondRegion();
+                int armyCount = playerAction.getArmyCount();
 
+                //TODO
+                //incrementing with negative value now.
+                Game.getInstance().getGameManager().getMapManager().
+                        increaseArmyCount(srcRegion, -armyCount);
+                Game.getInstance().getGameManager().getMapManager().
+                        increaseArmyCount(dstRegion, armyCount);
             }
             else
             {
