@@ -123,7 +123,7 @@ public class GameController {
             {
                 //TODO
                 //Maybe show a message on the screen?
-                System.out.println("Not a valid reinforcement.");
+                System.out.println("Not a valid reinforcement, availableReinforcements: " +  Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getAvailableReinforcements());
             }
         }
     }
@@ -141,8 +141,18 @@ public class GameController {
         }
         else
         {
-            //TODO
+            if (isFortifyValid(playerAction))
+            {
+
+            }
+            else
+            {
+                return;
+            }
         }
+
+        //After fortify, the game proceeds to the next turn.
+        match.nextTurn();
     }
 
     public void startRound(){

@@ -2,6 +2,7 @@ package application;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Player {
     Match currentMatch;
@@ -31,7 +32,7 @@ public class Player {
         allies = new ArrayList<Player>();
         totalUnitCount = 40;
         strategy = new Human();
-        availableReinforcements = 10;
+        availableReinforcements = 0;
     }
     public void addCurrentMatch(Match match){
         currentMatch = match;
@@ -67,11 +68,8 @@ public class Player {
         if(temp.size() != regions.size())
             regions = temp;
     }
-    public void getRegions(){
-        System.out.println(playerID + " regions");
-        for(Region r: regions){
-            System.out.println(r.getOwner().playerID);
-        }
+    public List<Region> getRegions(){
+        return regions;
     }
 
     public void getPlayerAction(GameController gameController, int currentPhase)
@@ -94,5 +92,9 @@ public class Player {
     public void decreaseAvailableReinforcements(int decreaseAmount)
     {
         availableReinforcements = Math.max(availableReinforcements - decreaseAmount, 0);
+    }
+
+    public void setAvailableReinforcements(int availableReinforcements) {
+        this.availableReinforcements = availableReinforcements;
     }
 }

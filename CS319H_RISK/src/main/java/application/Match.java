@@ -41,15 +41,21 @@ public class Match {
 
     //skips to the next player in line
     public void nextTurn() {
-        try {
-            if (round < maxRound) {
-                round++;
-                currentPlayer = players.get(round % players.size());
-            }
-        } catch (Exception e) {
-            System.out.println("Maximum round number has been reached");
+        if (round < maxRound) {
+            round++;
+            currentPlayer = players.get(round % players.size());
         }
+        giveInitialReinforcement(currentPlayer);
+    }
 
+    public void giveInitialReinforcement(Player player)
+    {
+        int reinforcementsFromRegions = player.getRegions().size() / 3;
+
+        //TODO
+        int reinforcementsFromContinents = 0;
+
+        player.setAvailableReinforcements(reinforcementsFromRegions + reinforcementsFromContinents);
     }
 
     public Player getCurrentPlayer()
@@ -80,6 +86,8 @@ public class Match {
             map.getRegionList()[loc].setUnitCount((int)(Math.random()*10 + 1));
         }
 
+        //The first player cannot get the initial reinforcements from nextTurn() method, so we give it manually.
+        giveInitialReinforcement(currentPlayer);
         controller.startGameLoop();
     }
 
