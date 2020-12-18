@@ -8,17 +8,18 @@ public class Region{
     private int unitCount;
     private Player controller;
     private boolean isCapital;
-    private int continent;
+    private int continentID;
     private int xCoordinate;
     private int yCoordinate;
 
     private HashMap<Integer, Boolean> permission;
 
-    public Region(int regionID, String regionName,int xCoordinate,int yCoordinate) {
+    public Region(int regionID, String regionName,int xCoordinate,int yCoordinate, int contID) {
         this.regionID = regionID;
         this.regionName = regionName;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
+        this.continentID = contID;
     }
     public String getRegionName(){
         return regionName;

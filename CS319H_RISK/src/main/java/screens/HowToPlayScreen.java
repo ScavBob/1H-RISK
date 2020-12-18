@@ -42,8 +42,7 @@ public class HowToPlayScreen extends Menu {
 
     public Scene getScene() {
         Group root = new Group();
-        BorderPane bPane = new BorderPane();
-        Scene scene = new Scene(bPane, SWIDTH, SHEIGHT, Color.BLACK);
+        Scene scene = new Scene(root, SWIDTH, SHEIGHT, Color.BLACK);
         setBackground(root, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Background.png");
         addButtons(root);
         initImageArray();
@@ -53,7 +52,6 @@ public class HowToPlayScreen extends Menu {
         imageView.setFitWidth(IWIDTH);
         imageView.setFitHeight(IHEIGHT);
         root.getChildren().add(imageView);
-        bPane.setCenter(root);
         return scene;
     }
 

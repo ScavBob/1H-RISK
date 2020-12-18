@@ -8,11 +8,15 @@ public class Map {
     private String mapName;
     private boolean [][] adjacenyMatrix;
     private Region[] regionList;
+    private int[] continentBonus;
 
     public Map(File mapData) {
         initializeRegions(mapData);
     }
 
+    public int getContinetBonus(int contID){
+        return continentBonus[contID-1];
+    }
 
     public void printRegions(){
         for( Region i : regionList){
@@ -35,10 +39,12 @@ public class Map {
         String regionName,continentName;
         regionList = new Region[totalRegionCount];
         int regionCounter = 0;
+        continentBonus = new int[continentCount];
+
         for (int i = 0; i < continentCount; i++){
             continentID = scanner.nextInt();
             regionCount = scanner.nextInt();
-            scanner.nextInt();
+            continentBonus[i] = scanner.nextInt();
             continentName = scanner.next();
 
             for (int j = 0; j < regionCount; j++){
@@ -47,7 +53,7 @@ public class Map {
                 regionY = scanner.nextInt();
                 regionName = scanner.next();
                 regionName = regionName.replaceAll("_", " ");
-                Region tmpRegion = new Region(regionID,regionName,regionX,regionY);
+                Region tmpRegion = new Region(regionID,regionName,regionX,regionY, continentID);
                 System.out.println(regionID + ", " + regionName + ", " + regionX + ", " + regionY);
                 System.out.println("j:" + j + ", regionCount:" + regionCount);
                 regionList[regionCounter++]= tmpRegion;
@@ -65,6 +71,10 @@ public class Map {
             int secondRegion = scanner.nextInt() -1;
             adjacenyMatrix[firstRegion][secondRegion] = true;
             adjacenyMatrix[secondRegion][firstRegion] = true;
+        }
+
+        for(int i = 0; i < continentCount; i++ ){
+            System.out.println(continentBonus[i]);
         }
     }
 
