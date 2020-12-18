@@ -11,6 +11,8 @@ public class AI implements PlayStrategy, Serializable {
 
     @Override
     public void getNextAction(GameController gameController, int currentPhase) {
-        //TODO
+        AIMoveGenerator.awaitAIAction(gameController, currentPhase, level);
     }
+
+
 }
