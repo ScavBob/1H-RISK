@@ -9,9 +9,11 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import managers.StorageManager;
 
 import java.nio.file.Paths;
@@ -36,7 +38,7 @@ public class GameScreen implements UpdatableScreen{
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage(new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Map.png").toUri().toString()), 0, 0, 1280, 720);
         root.getChildren().add(canvas);
-        gc.drawImage(new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Phases\\" + Game.getInstance().getGameManager().getInputManager().getCurrentPhaseName() + ".png").toUri().toString()), 452, 1, 375, 77);
+        gc.drawImage(new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Phases\\" + Game.getInstance().getGameManager().getInputManager().getCurrentPhaseName() + ".png").toUri().toString()), 495, 1, 291, 60);
         populateScreen();
     }
 
@@ -44,63 +46,63 @@ public class GameScreen implements UpdatableScreen{
         for(Region r: regions){
             addLabels(r);
         }
-        Button pauseButton = new Button();
-        Image image = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Pause.png").toUri().toString());
-        pauseButton.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        pauseButton.setLayoutX(575);
-        pauseButton.setLayoutY(645);
-        pauseButton.setMinSize(75, 75);
-        pauseButton.setOnAction(new EventHandler<ActionEvent>() {
+
+        addButton("", 575, 645, 75, 75, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Pause-Skip\\Pause.png", new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 Game.getInstance().setScreen(new PauseMenu());
             }
         });
-        Button skipButton = new Button();
-        image = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Skip.png").toUri().toString());
-        skipButton.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        skipButton.setLayoutX(630);
-        skipButton.setLayoutY(645);
-        skipButton.setMinSize(75, 75);
-        skipButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Game.getInstance().getGameManager().getInputManager().endPhase();
-            }
-        });
-        root.getChildren().add(pauseButton);
-        root.getChildren().add(skipButton);
+        addButton("", 630, 645, 75, 75, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Pause-Skip\\Skip.png", new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Game.getInstance().getGameManager().getInputManager().endPhase();
+                    }
+                });
+        addElements();
     }
 
     private void addElements(){
-
+        addButton("", 0, 420, 250 , 300, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Source-Destination\\Background.png", null);
+        TextArea text = new TextArea("Hello");
+        text.setFont(new Font("Serif Sans", 25));
+        text.setLayoutX(100);
+        text.setLayoutY(100);
+        text.setMinSize(100, 100);
+        //root.getChildren().add(text);
     }
 
     private void addLabels(Region region){
-        Button label = new Button(String.valueOf(region.getUnitCount()));
-        Image image = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Region\\"+ region.getController().getColor() + "Label.png").toUri().toString());
-        label.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        label.setLayoutX(region.getxCoordinate() - 10);
-        label.setLayoutY(region.getyCoordinate() - 10);
-        label.setTextFill(Paint.valueOf("#ffffffff"));
-        label.setMinSize(image.getWidth(), image.getHeight());
-        EventHandler<ActionEvent> actionHandler = new EventHandler<ActionEvent>() {
+        int x = region.getxCoordinate();
+        int y = region.getyCoordinate();
+        String unitCount = String.valueOf(region.getUnitCount());
+        String regionName = region.getRegionName();
+        addButton(unitCount, x - 10, y - 10, 25, 25, StorageManager.RESOURCES_FOLDER_NAME + "Game\\Region\\" + region.getController().getColor() + "Label.png", new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println(region.getRegionName());
+                Game.getInstance().getGameManager().getInputManager().chooseRegion(region);
+            }
+        }).setTextFill(Paint.valueOf("#ffffffff"));
+
+        addButton(regionName, x+regionName.length()/2-25, y + 15, regionName.length() + 20, 25, StorageManager.RESOURCES_FOLDER_NAME + "Game\\Region\\Namebar.png", new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 Game.getInstance().getGameManager().getInputManager().chooseRegion(region);
             }
-        };
-        Button namebar = new Button(region.getRegionName());
-        Image barImage = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Region\\Namebar.png").toUri().toString());
-        namebar.setBackground(new Background(new BackgroundImage(barImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        namebar.setLayoutY(region.getyCoordinate() + 15);
-        namebar.setLayoutX(region.getxCoordinate() + region.getRegionName().length()/2 - 25);
-        namebar.setMinSize(region.getRegionName().length() + 20, 25);
-        namebar.setTextFill(Paint.valueOf("#ffffffff"));
-        namebar.setOnAction(actionHandler);
-        label.setOnAction(actionHandler);
-        root.getChildren().add(label);
-        root.getChildren().add(namebar);
+        }).setTextFill(Paint.valueOf("#ffffffff"));
+    }
+
+    private Button addButton(String title, int x, int y, int width, int height, String imagePath, EventHandler<ActionEvent> event){
+        Button button = new Button(title);
+        Image image = new Image(Paths.get(imagePath).toUri().toString());
+        button.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        button.setLayoutX(x);
+        button.setLayoutY(y);
+        button.setMinSize(width, height);
+        button.setOnAction(event);
+        root.getChildren().add(button);
+        return button;
     }
 
     @Override
