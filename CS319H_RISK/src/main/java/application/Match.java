@@ -41,6 +41,8 @@ public class Match {
 
     //skips to the next player in line
     public void nextTurn() {
+        //TODO
+        //Skip dead (?) players.
         if (round < maxRound) {
             round++;
             currentPlayer = players.get(round % players.size());
@@ -61,6 +63,11 @@ public class Match {
     public Player getCurrentPlayer()
     {
         return currentPlayer;
+    }
+
+    private boolean isPlayerAlive(Player player)
+    {
+        return player.getRegions().size() != 0;
     }
 
     public void initialize(){

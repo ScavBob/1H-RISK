@@ -78,6 +78,15 @@ public class GameController {
     public boolean isAttackValid(PlayerAction playerAction)
     {
         //TODO
+        Player currentPlayer = match.getCurrentPlayer();
+        Region srcRegion = playerAction.getFirstRegion();
+        Region dstRegion = playerAction.getSecondRegion();
+        int armyCount = playerAction.getArmyCount();
+
+        if (armyCount > srcRegion.getUnitCount() || armyCount == 0) return false;
+        if (!srcRegion.getOwner().equals(currentPlayer)) return false;
+        if (dstRegion.getOwner().equals(currentPlayer)) return false;
+
         return true;
     }
 
@@ -90,7 +99,13 @@ public class GameController {
         else
         {
             if (isAttackValid(playerAction)) {
-                //battleManager.battle
+               // battleManager.performBattle();
+            }
+            else
+            {
+                //TODO
+                //Maybe show a message on the screen?
+                System.out.println("Not a valid attack");
             }
         }
     }
@@ -123,7 +138,7 @@ public class GameController {
             {
                 //TODO
                 //Maybe show a message on the screen?
-                System.out.println("Not a valid reinforcement, availableReinforcements: " +  Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getAvailableReinforcements());
+                System.out.println("Not a valid reinforcement");
             }
         }
     }
