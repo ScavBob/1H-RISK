@@ -1,11 +1,15 @@
 package game;
 
+import javafx.application.Platform;
 import screens.MainMenu;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import managers.GameManager;
 import screens.Screen;
+import screens.UpdatableScreen;
+
+import java.util.ArrayList;
 
 public class Game {
 
@@ -14,11 +18,13 @@ public class Game {
     private static Game gameInstance = null;
     private static Stage gameStage = null;
     private GameManager gameManager = null;
+    private ArrayList<UpdatableScreen> subscribedScreens;
 
     private Game()
     {
         gameStage = new Stage();
         gameManager = new GameManager();
+        subscribedScreens = new ArrayList<>();
     }
 
     public static Game getInstance()
@@ -54,5 +60,20 @@ public class Game {
         gameStage.sizeToScene();
         gameStage.setTitle("RISK: A GAME OF STRATEGIC CONQUEST");
         gameStage.show();
+    }
+
+    public void subscribeForUpdate(UpdatableScreen screen)
+    {
+        subscribedScreens.add(screen);
+    }
+
+    public void updateScreen()
+    {
+        Platform.runLater(new Runnable() {
+            public void run() {
+                for (UpdatableScreen s: subscribedScreens)
+                    s.update();
+            }
+        });
     }
 }

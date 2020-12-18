@@ -22,7 +22,7 @@ public class Match {
         this.currentPlayer = null;
         this.availableFactions = new HashMap<>();
         this.map = null;
-        this.controller = null;
+        this.controller = new GameController(this);
     }
 
 
@@ -52,6 +52,11 @@ public class Match {
 
     }
 
+    public Player getCurrentPlayer()
+    {
+        return currentPlayer;
+    }
+
     public void initialize(){
 
         boolean[] available = new boolean[map.getRegionList().length];
@@ -73,9 +78,9 @@ public class Match {
             players.get(i % players.size()).addRegion(map.getRegionList()[loc]);
 
             map.getRegionList()[loc].setUnitCount((int)(Math.random()*10 + 1));
-
         }
 
+        controller.startGameLoop();
     }
 
     public void attackCommand(int unitCount, Region baseRegion, Region target) {

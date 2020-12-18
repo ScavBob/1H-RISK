@@ -23,13 +23,15 @@ public class GameManager
         this.settingsManager = new SettingsManager();
         this.mapManager = new MapManager();
         this.soundManager = new SoundManager();
-        this.match = new Match();
+        this.match = null;
 
-        soundManager.startPlayMusic();
+        //soundManager.startPlayMusic();
     }
 
     public void startMatch(int map, ArrayList<Player> players)
     {
+        match = new Match();
+
         for (Player playerToAdd : players)
             match.addPlayer(playerToAdd);
         Map matchMap = Game.getInstance().getGameManager().mapManager.getMap(MapManager.WORLD_MAP);

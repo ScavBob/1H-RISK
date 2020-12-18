@@ -14,7 +14,7 @@ public class Player {
     private ArrayList<Card> unusedCards;
     //private Mission secretMission;
     private int totalUnitCount;
-    //private PlayStrategy strategy;
+    private PlayStrategy strategy;
     private ArrayList<Player> allies;
     private String name;
     private String color;
@@ -28,7 +28,7 @@ public class Player {
         totalUnitCount = 0;
         allies = new ArrayList<Player>();
         totalUnitCount = 40;
-
+        strategy = new Human();
     }
     public void addCurrentMatch(Match match){
         currentMatch = match;
@@ -69,6 +69,11 @@ public class Player {
         for(Region r: regions){
             System.out.println(r.getOwner().playerID);
         }
+    }
+
+    public void getPlayerAction(GameController gameController, int currentPhase)
+    {
+        this.strategy.getNextAction(gameController, currentPhase);
     }
 
     public String getName() {
