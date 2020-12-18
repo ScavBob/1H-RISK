@@ -25,7 +25,7 @@ public class GameManager
         this.soundManager = new SoundManager();
         this.match = null;
 
-        //soundManager.startPlayMusic();
+        soundManager.startPlayMusic();
     }
 
     public void startMatch(int map, ArrayList<Player> players)

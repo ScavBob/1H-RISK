@@ -99,7 +99,7 @@ public class GameController {
         else
         {
             if (isAttackValid(playerAction)) {
-                battleManager.performBattle();
+               // battleManager.performBattle();
             }
             else
             {
