@@ -24,7 +24,9 @@ public class SettingsManager
     }
     public boolean setVolume(int volume){
         this.properties.setProperty(VOLUME_NAME, volume + "");
-        return saveSettings();
+        boolean successfulChange = saveSettings();
+        //Game.getInstance().getGameManager().getSoundManager().setVolume(this.properties.getProperty(VOLUME_NAME));
+        return successfulChange;
     }
 
     public File getSaveLocation(){
