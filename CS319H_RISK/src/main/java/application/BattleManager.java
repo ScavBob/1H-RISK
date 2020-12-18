@@ -28,9 +28,16 @@ public class BattleManager implements Serializable {
         }
     }
 
-    public void performBattle(Region srcRegion, Region dstRegion, int armyCount) {
+    public void initBattle(Region srcRegion, Region dstRegion, int armyCount) {
         Player currentPlayer = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
         srcRegion.setUnitCount(srcRegion.getUnitCount() - armyCount);
+
+        int defendingArmyCount = Math.min(2, dstRegion.getUnitCount());
+
+
+
+        //Old simple logic for test
+        /*
         if (armyCount > dstRegion.getUnitCount())
         {
             dstRegion.setOwner(currentPlayer);
@@ -40,6 +47,8 @@ public class BattleManager implements Serializable {
         {
             dstRegion.setUnitCount(dstRegion.getUnitCount() - armyCount);
         }
+
+         */
     }
 }
 
