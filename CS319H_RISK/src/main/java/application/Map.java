@@ -15,7 +15,7 @@ public class Map {
     }
 
     public int getContinetBonus(int contID){
-        return continentBonus[contID-1];
+        return continentBonus[contID];
     }
 
     public void printRegions(){
