@@ -14,7 +14,7 @@ public class PauseMenu extends Menu {
     //Resume
     //Save
     //Exit
-    TextInputDialog saveWındow = new TextInputDialog("");
+    TextInputDialog saveWindow = new TextInputDialog("");
 
     @Override
     public Scene getScene() {
@@ -35,8 +35,8 @@ public class PauseMenu extends Menu {
         addButtons(root, "", 495, 540, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\Exit.png", new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                saveWındow.showAndWait();
-                System.out.println(saveWındow.getEditor().getText());
+                saveWindow.showAndWait();
+                System.out.println(saveWindow.getEditor().getText());
                 //Game.getInstance().getGameManager().getStorageManager().saveGame("td.getEditor().getText()");
             }
         });
