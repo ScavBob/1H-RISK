@@ -40,7 +40,6 @@ public class Match {
     }
 
     //isMatcOver method returns true if match is over, false if match is continues
-    //
     public boolean isMatchOver(){
            boolean isOver = false;
            int alivePlayerCount = 0;
