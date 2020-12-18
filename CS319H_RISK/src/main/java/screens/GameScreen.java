@@ -66,7 +66,6 @@ public class GameScreen implements UpdatableScreen{
             @Override
             public void handle(ActionEvent event) {
                 Game.getInstance().getGameManager().getInputManager().endPhase();
-                System.out.println("hello");
             }
         });
         root.getChildren().add(pauseButton);
@@ -88,9 +87,7 @@ public class GameScreen implements UpdatableScreen{
         EventHandler<ActionEvent> actionHandler = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println(region.getRegionName());
-                System.out.println(Game.getInstance().getGameManager().getInputManager().chooseRegion(region));
-                System.out.println(Game.getInstance().getGameManager().getInputManager().getAttackAction());
+                Game.getInstance().getGameManager().getInputManager().chooseRegion(region);
             }
         };
         Button namebar = new Button(region.getRegionName());
