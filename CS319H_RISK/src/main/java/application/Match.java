@@ -15,7 +15,7 @@ public class Match implements Serializable {
     private GameController controller;
 
     //constructor
-    public Match(){
+    public Match(int maxTurnTime){
         this.round = 0;
         this.maxRound = 100;
         this.players = new ArrayList<>();
@@ -23,7 +23,7 @@ public class Match implements Serializable {
         this.currentPlayer = null;
         this.availableFactions = new HashMap<>();
         this.map = null;
-        this.controller = new GameController(this);
+        this.controller = new GameController(this, maxTurnTime);
     }
 
 
