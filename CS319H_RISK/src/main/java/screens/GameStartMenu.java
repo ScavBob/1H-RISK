@@ -34,15 +34,22 @@ public class GameStartMenu extends Menu {
         private String playerColor = "";
         private boolean playerAdded = false;
 
-        private Button addPlayer = new Button();
-        private Button faction = new Button();
-        private Button color = new Button();
-        private Button delete = new Button();
-        private Button changeType = new Button();
-        private Button type = new Button();
-        private TextArea name = new TextArea();
+        private Button   addPlayer;
+        //private Button faction;
+        private Button   color;
+        private Button   delete;
+        private Button   changeType;
+        private Button   type;
+        private TextArea name;
 
         protected Slot(Group root, int i, String playerColor){
+            addPlayer = new Button();
+            //faction = new Button();
+            color = new Button();
+            delete = new Button();
+            changeType = new Button();
+            type = new Button();
+            name = new TextArea();
             this.playerColor = playerColor;
             playerName = "Player " + (i + 1);
             this.root = root;
@@ -50,10 +57,10 @@ public class GameStartMenu extends Menu {
             y = 60 + i*90;
             addButton(addPlayer, x, y, 495, 77, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\AddPlayerButton.png");
             addButton(type, x, y, 495, 77, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Type.png");
-            addButton(faction, x - 200, y, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Game\\Factions\\England.png");
-            addButton(color, x + 50, y, 20, 20,  StorageManager.RESOURCES_FOLDER_NAME + "Game\\Colors\\" + playerColor + ".png");
-            addButton(delete, x + 500, y + 50, 100, 100, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Delete.png");
-            addButton(changeType, x + 200, y, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\HUMAN.png");
+            //addButton(faction, x - 200, y, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Game\\Factions\\England.png");
+            addButton(color, x + 40, y + 25, 40, 26,  StorageManager.RESOURCES_FOLDER_NAME + "Game\\Colors\\" + playerColor + ".png");
+            addButton(delete, x + 420, y + 5, 72, 67, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Delete.png");
+            addButton(changeType, x + 340, y + 5, 75, 66, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\HUMAN.png");
             changeType.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -113,7 +120,7 @@ public class GameStartMenu extends Menu {
             root.getChildren().remove(addPlayer);
             root.getChildren().add(type);
             root.getChildren().add(delete);
-            root.getChildren().add(faction);
+            //root.getChildren().add(faction);
             root.getChildren().add(color);
             root.getChildren().add(name);
             root.getChildren().add(changeType);
@@ -127,7 +134,7 @@ public class GameStartMenu extends Menu {
         private void removePlayer(){
             root.getChildren().remove(type);
             root.getChildren().remove(delete);
-            root.getChildren().remove(faction);
+            //root.getChildren().remove(faction);
             root.getChildren().remove(color);
             root.getChildren().remove(name);
             root.getChildren().remove(changeType);
@@ -156,13 +163,13 @@ public class GameStartMenu extends Menu {
         for(int i = 0; i < 7; i++) {
             slots[i] = new Slot(root, i, colors[i]);
         }
-
+        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\World", 578, 38);
         addButtons(root);
         return scene;
     }
 
     private void addButtons(Group root) {
-        addButtons(root, "", 1200, 50, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new EventHandler<ActionEvent>() {
+        addButtons(root, "", 1220, 50, 55, 50, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Start.png", new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 startGame();

@@ -33,7 +33,7 @@ public class MainMenu extends Menu {
 		addButtons(root, "", 495, 392, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\LoadGame.png", new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				Game.getInstance().getGameManager().loadMatch(new File("C:\\Users\\zzlawlzz\\Documents\\Risk\\Saves\\ukrayna17asker"));
+				Game.getInstance().getGameManager().loadMatch(new File("C:\\Users\\zzlawlzz\\Documents\\Risk\\Saves\\ukrayna14asker"));
 			}
 		});
 		addTransitionButton(root, "", 495, 447, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\Options.png", new OptionsMenu());
