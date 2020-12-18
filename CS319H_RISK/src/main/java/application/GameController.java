@@ -5,6 +5,9 @@ import java.util.TimerTask;
 
 public class GameController {
 
+    public static final int ARMY_PLACEMENT_PHASE = 0;
+    public static final int ATTACK_PHASE = 1;
+    public static final int FORTIFY_PHASE = 2;
 
     private int maxTurnTime;
                                                                                 // Where should we checked the maxTurnTime and the actual game time.

@@ -26,7 +26,6 @@ public class GameScreen implements Screen{
         root = new Group();
         scene = new Scene(root, 1280, 720);
         update();
-        Game.getInstance().getGameManager().getInputManager().awaitAttackAction();
     }
 
     public void update(){
