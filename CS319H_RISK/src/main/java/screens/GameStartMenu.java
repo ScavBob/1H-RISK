@@ -44,13 +44,14 @@ public class GameStartMenu extends Menu {
 
         protected Slot(Group root, int i, String playerColor){
             this.playerColor = playerColor;
+            System.out.println(this.playerColor);
             this.root = root;
             x = 55;
             y = 60 + i*90;
             addButton(addPlayer, x, y, 495, 77, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\AddPlayerButton.png");
             addButton(type, x, y, 495, 77, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Type.png");
             addButton(faction, x - 200, y, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Game\\Factions\\England.png");
-            addButton(color, x + 50, y, 20, 20,  StorageManager.RESOURCES_FOLDER_NAME + "Game\\Colors\\Red.png");
+            addButton(color, x + 50, y, 20, 20,  StorageManager.RESOURCES_FOLDER_NAME + "Game\\Colors\\" + playerColor + ".png");
             addButton(delete, x + 500, y + 50, 100, 100, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Delete.png");
             addButton(changeType, x + 200, y, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\HUMAN.png");
             changeType.setOnAction(new EventHandler<ActionEvent>() {
