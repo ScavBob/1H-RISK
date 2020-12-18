@@ -32,12 +32,12 @@ public class PauseMenu extends Menu {
     }
 
     private void addTransitionButtons(Group root){
-        addTransitionButton(root, "", BUTTONXLAYOUT, 561, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new GameScreen());
-        addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new MainMenu());
+        addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT - 71, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new GameScreen());
+        addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT+71, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new MainMenu());
     }
 
     private void addEventButtons(Group root){
-        addButtons(root, "", BUTTONXLAYOUT, 540, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\Exit.png", new EventHandler<ActionEvent>() {
+        addButtons(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\Exit.png", new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 saveWindow.showAndWait();
