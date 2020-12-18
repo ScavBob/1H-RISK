@@ -2,29 +2,50 @@ package managers;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.nio.file.Paths;
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 public class SoundManager {
 
-    String musicFilePath = "/IdeaProjects/1H-RISK/CS319H_RISK/resources/musics/medal-of-honor-european-assault-soundtrack-main-theme-hq.mp3";
-    private final Media musicFile = new Media(new File(musicFilePath).toURI().toString());
-    private final MediaPlayer background_theme = new MediaPlayer(musicFile);
+    private String musicFilePath;
+    private Media musicFile;
+    private MediaPlayer background_theme;
 
-    String alternativePath = "/IdeaProjects/1H-RISK/CS319H_RISK/resources/musics/battlefield-1942-theme-song.mp3";
-    private final Media alternative_music = new Media(new File(musicFilePath).toURI().toString());
-    private final MediaPlayer alternative_background_theme = new MediaPlayer(alternative_music);
+    private String alternativePath;
+    private Media alternative_music;
+    private MediaPlayer alternative_background_theme;
 
-    String congratsPath = "/IdeaProjects/1H-RISK/CS319H_RISK/resources/musics/you-win-street-fighter-sound-effect.mp3";
-    private final Media congrats = new Media(new File(congratsPath).toURI().toString());
-    private final MediaPlayer congratsSound = new MediaPlayer(congrats);
+    private String congratsPath;
+    private Media congrats;
+    private MediaPlayer congratsSound;
 
+    private String clickPath;
+    private Media click;
+    private MediaPlayer clickSound;
 
-    String clickPath = "/IdeaProjects/1H-RISK/CS319H_RISK/resources/musics/mouse-click-sound-effect-hd.mp3";
-    private final Media click = new Media(new File(clickPath).toURI().toString());
-    private final MediaPlayer clickSound = new MediaPlayer(click);
+    public SoundManager()
+    {
+        musicFilePath = getClass().getResource("/musics/medal-of-honor-european-assault-soundtrack-main-theme-hq.mp3").toExternalForm();
+        musicFile = new Media(musicFilePath);
+        background_theme = new MediaPlayer(musicFile);
 
+        alternativePath = getClass().getResource("/musics/battlefield-1942-theme-song.mp3").toExternalForm();
+        alternative_music = new Media(alternativePath);
+        alternative_background_theme = new MediaPlayer(alternative_music);
+
+        congratsPath = getClass().getResource("/musics/you-win-street-fighter-sound-effect.mp3").toExternalForm();
+        congrats = new Media(congratsPath);
+        congratsSound = new MediaPlayer(congrats);
+
+        clickPath = getClass().getResource("/musics/mouse-click-sound-effect-hd.mp3").toExternalForm();
+        click = new Media(clickPath);
+        clickSound = new MediaPlayer(click);
+
+        setInitialVolume();
+    }
 
     public void mute() {
         background_theme.setVolume(0);
@@ -37,9 +58,9 @@ public class SoundManager {
     }
 
     public void updateSoundVolumeInitialPosition() {
-        background_theme.setVolume(5);
-        congratsSound.setVolume(5);
-        clickSound.setVolume(5);
+        background_theme.setVolume(0.05);
+        congratsSound.setVolume(1);
+        clickSound.setVolume(1);
     }
 
     public void startPlayMusic() {

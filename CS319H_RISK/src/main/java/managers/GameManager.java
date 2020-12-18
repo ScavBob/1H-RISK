@@ -14,6 +14,7 @@ public class GameManager
     private SettingsManager settingsManager;
     private MapManager mapManager;
     private Match match;
+    private SoundManager soundManager;
 
     public GameManager()
     {
@@ -21,7 +22,10 @@ public class GameManager
         this.inputManager = new InputManager();
         this.settingsManager = new SettingsManager();
         this.mapManager = new MapManager();
+        this.soundManager = new SoundManager();
         this.match = new Match();
+
+        soundManager.startPlayMusic();
     }
 
     public void startMatch(int map, ArrayList<Player> players)
@@ -35,6 +39,9 @@ public class GameManager
 
     public Match getMatch() {
         return match;
+    }
+    public SoundManager getSoundManager() {
+        return soundManager;
     }
 
     public InputManager getInputManager() {
