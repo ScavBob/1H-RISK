@@ -5,6 +5,9 @@ import application.Match;
 import application.Player;
 import game.Game;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GameManager
@@ -26,6 +29,21 @@ public class GameManager
         this.match = null;
 
         soundManager.startPlayMusic();
+
+        //We need to do this with a delay so that all managers are constructed.
+        readSettingsWithDelay();
+    }
+
+    private void readSettingsWithDelay()
+    {
+        Timer readSettingsTimer = new Timer(100, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                settingsManager.readSettings();
+            }
+        });
+        readSettingsTimer.start();
+        readSettingsTimer.setRepeats(false);
     }
 
     public void startMatch(int map, ArrayList<Player> players)

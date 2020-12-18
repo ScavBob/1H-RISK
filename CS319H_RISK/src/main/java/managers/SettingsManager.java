@@ -19,7 +19,6 @@ public class SettingsManager
     }
 
     public int getVolume(){
-        readSettings();
         return Integer.parseInt( this.properties.getProperty( VOLUME_NAME ) );
     }
     public boolean setVolume(int volume){
@@ -43,19 +42,28 @@ public class SettingsManager
     {
         return Game.getInstance().getGameManager().getStorageManager().saveSettings(properties);
     }
-    private boolean readSettings()
+    public boolean readSettings()
     {
         properties = new Properties();
         boolean readSuccessfully = Game.getInstance().getGameManager().
                 getStorageManager().readSettings(properties);
-        if (readSuccessfully)
+        if (readSuccessfully) {
+            //TODO
+            //Solve this in a better way.
+            Game.getInstance().getGameManager().getSoundManager().setVolume(Integer.parseInt(properties.getProperty(VOLUME_NAME)));
             return true;
+        }
         else
         {
             properties.setProperty(VOLUME_NAME, DEFAULT_VOLUME);
             properties.setProperty(SAVE_LOCATION_NAME, defaultSaveLocation());
+
+            //TODO
+            //Solve this in a better way.
+            Game.getInstance().getGameManager().getSoundManager().setVolume(Integer.parseInt(properties.getProperty(VOLUME_NAME)));
             return false;
         }
+
     }
 
     private String defaultSaveLocation()
