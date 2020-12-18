@@ -2,6 +2,7 @@ package managers;
 
 import application.GameController;
 import application.Region;
+import game.Game;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -147,6 +148,23 @@ public class InputManager
     {
         endPhase = true;
         return true;
+    }
+
+    public int getMaxChoosableArmy(){
+        if(awaitingPhase == GameController.REINFORCEMENT_PHASE){
+            return Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getAvailableReinforcements();
+        }else if(awaitingPhase == GameController.ATTACK_PHASE){
+            if(firstRegion != null)
+                return firstRegion.getUnitCount() - 1;
+            else
+                return 0;
+        }
+        else {
+            if(firstRegion != null)
+                return firstRegion.getUnitCount() - 1;
+            else
+                return 0;
+        }
     }
 
     public void awaitPlayerAction(GameController awaitingController, int awaitingPhase)

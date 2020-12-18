@@ -74,36 +74,56 @@ public class GameScreen implements UpdatableScreen{
         canvas.getGraphicsContext2D().setFill(Paint.valueOf(Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getColor()));
         canvas.getGraphicsContext2D().fillRect(15, 15, 250, 50);
         addText("It's " + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getName() + "'s Turn", 50, 50, 250, 50, 25);
+        Region region = Game.getInstance().getGameManager().getInputManager().getFirstRegion();
         if(phase == 0){
-            Region region = Game.getInstance().getGameManager().getInputManager().getFirstRegion();
             if(region == null)
-                addText("No source region selected.", 0, 500, 250, 50, 20);
-            else
-                addText("Source Region: " + region.getRegionName(), 0, 500, 100, 50, 20);
-            addText("Armies Remaining: " + (Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getAvailableReinforcements() - armyCount), 0, 480, 250, 50, 20);
+                addText("No source region selected.", 0, 460, 250, 50, 20);
+            else {
+                addText("Source Region: ", 0, 460, 100, 50, 20);
+                addText(region.getRegionName(), 50, 480, 100, 50, 20);
+            }
+            addText("Reinforcements Left: ", 0, 540, 250, 50, 20);
+            addText(String.valueOf(Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getAvailableReinforcements() - armyCount), 200, 540, 250, 50, 25);
         }
 
         else if(phase == 1){
-            Region region = Game.getInstance().getGameManager().getInputManager().getFirstRegion();
             if(region == null)
-                addText("No source region selected.", 0, 500, 250, 50, 20);
-            else
-                addText("Source Region: " + region.getRegionName(), 0, 500, 100, 50, 20);
+                addText("No source region selected.", 0, 460, 250, 50, 20);
+            else {
+                addText("Source Region: ", 0, 460, 100, 50, 20);
+                addText(region.getRegionName(), 50, 480, 100, 50, 20);
+            }
             region = Game.getInstance().getGameManager().getInputManager().getSecondRegion();
             if(region == null)
-                addText("No destination region selected.", 0, 550, 250, 50, 20);
-            else
-                addText("Destination Region: " + region.getRegionName(), 0, 550, 250, 50, 20);
+                addText("No destination region selected.", 0, 500, 250, 50, 20);
+            else {
+                addText("Destination Region: ", 0, 500, 100, 50, 20);
+                addText(region.getRegionName(), 50, 520, 100, 50, 20);
+            }
         }
 
         else{
-
+            if(region == null)
+            addText("No source region selected.", 0, 460, 250, 50, 20);
+            else {
+                addText("Source Region: ", 0, 460, 100, 50, 20);
+                addText(region.getRegionName(), 50, 480, 100, 50, 20);
+                addText("Fortifications Left: ", 0, 540, 250, 50, 20);
+                addText(String.valueOf(Game.getInstance().getGameManager().getInputManager().getFirstRegion().getUnitCount() - armyCount), 200, 540, 250, 50, 25);
+            }
+            region = Game.getInstance().getGameManager().getInputManager().getSecondRegion();
+            if(region == null)
+                addText("No destination region selected.", 0, 500, 250, 50, 20);
+            else {
+                addText("Destination Region: ", 0, 500, 100, 50, 20);
+                addText(region.getRegionName(), 50, 520, 100, 50, 20);
+            }
         }
         addText(String.valueOf(armyCount), 105, 610, 50, 50, 25);
         addButton("", 150, 575, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Source-Destination\\Add.png", new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(armyCount + 1 <= Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getAvailableReinforcements())
+                if(armyCount + 1 <= Game.getInstance().getGameManager().getInputManager().getMaxChoosableArmy())
                     armyCount = armyCount + 1;
                 Game.getInstance().updateScreen();
             }

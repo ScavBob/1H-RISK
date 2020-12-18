@@ -36,8 +36,9 @@ public class OptionsMenu extends Menu{
     public Scene getScene() {
         Group root = new Group();
         Scene scene = new Scene(root, 1280, 720, Color.BLACK);
+        scene.getStylesheets().add("style.css");
         setBackground(root, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Background.png");
-
+        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\Options\\Label.png", 485, 10);
         addTransitionButton(root, "", 495, 561, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", new MainMenu());
 
         HBox box = new HBox();
@@ -50,6 +51,8 @@ public class OptionsMenu extends Menu{
         volumeSlider.setSnapToTicks(true);
         volumeSlider.setShowTickMarks(true);
         volumeSlider.setShowTickLabels(true);
+        volumeSlider.setSnapToTicks(true);
+        volumeSlider.getStyleClass().setAll("slider");
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -62,12 +65,9 @@ public class OptionsMenu extends Menu{
         root.getChildren().add(box);
 
         //TODO
-        Text volumeText = new Text(540, 200, "Volume");
-        volumeText.setFill(Paint.valueOf("#ffccffff"));
-        volumeText.setFont(new Font(60));
-        root.getChildren().add(volumeText);
+        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\Options\\SoundLevels.png", 540, 175);
 
-        addButtons(root, "CHANGE SAVE FOLDER", 400, 400, 200, 100, "", new EventHandler<ActionEvent>() {
+        addButtons(root, "", 565, 400, 150, 52, StorageManager.RESOURCES_FOLDER_NAME + "\\Options\\SaveFolder.png", new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 DirectoryChooser directoryChooser = new DirectoryChooser ();
