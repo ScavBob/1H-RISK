@@ -67,8 +67,8 @@ public class Map {
             }
         }
         while (scanner.hasNextInt()){
-            int firstRegion =  scanner.nextInt()-1;
-            int secondRegion = scanner.nextInt() -1;
+            int firstRegion =  scanner.nextInt();
+            int secondRegion = scanner.nextInt();
             adjacenyMatrix[firstRegion][secondRegion] = true;
             adjacenyMatrix[secondRegion][firstRegion] = true;
         }
@@ -79,7 +79,7 @@ public class Map {
     }
 
     public boolean isAdjacentRegion(Region r1, Region r2 ){
-        return adjacenyMatrix[r1.RegionID() - 1][r2.RegionID() - 1];
+        return adjacenyMatrix[r1.RegionID()][r2.RegionID()];
     }
 
     public Region[] getRegionList(){

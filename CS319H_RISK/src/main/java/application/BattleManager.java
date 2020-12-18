@@ -27,12 +27,17 @@ public class BattleManager {
         }
     }
 
-    public void performBattle(Region dstRegion, Region srcRegion, int armyCount) {
+    public void performBattle(Region srcRegion, Region dstRegion, int armyCount) {
         Player currentPlayer = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
-        dstRegion.setUnitCount(dstRegion.getUnitCount() - armyCount);
-        if (armyCount > srcRegion.getUnitCount())
+        srcRegion.setUnitCount(srcRegion.getUnitCount() - armyCount);
+        if (armyCount > dstRegion.getUnitCount())
         {
-            //srcRegion.setOwner(currentlyPlayer);
+            dstRegion.setOwner(currentPlayer);
+            dstRegion.setUnitCount(armyCount - dstRegion.getUnitCount());
+        }
+        else
+        {
+            dstRegion.setUnitCount(dstRegion.getUnitCount() - armyCount);
         }
     }
 }
