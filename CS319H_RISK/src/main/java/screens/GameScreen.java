@@ -30,23 +30,53 @@ public class GameScreen implements Screen{
     }
 
     public void update(){
-        System.out.println("hello");
         root.getChildren().clear();
         Canvas canvas = new Canvas(1280, 720);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage(new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Map.png").toUri().toString()), 0, 0, 1280, 720);
         root.getChildren().add(canvas);
-        populateMap();
+        gc.drawImage(new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Phases\\" + Game.getInstance().getGameManager().getInputManager().getCurrentPhase() + ".png").toUri().toString()), 452, 1, 375, 77);
+        populateScreen();
     }
 
-    private void populateMap() {
+    private void populateScreen() {
         for(Region r: regions){
-            addLabel(r);
-            System.out.println(r.getyCoordinate() + ", " + r.getyCoordinate());
+            addLabels(r);
         }
+        Button pauseButton = new Button();
+        Image image = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Pause.png").toUri().toString());
+        pauseButton.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        pauseButton.setLayoutX(575);
+        pauseButton.setLayoutY(645);
+        pauseButton.setMinSize(75, 75);
+        pauseButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Game.getInstance().setScreen(new PauseMenu());
+            }
+        });
+        Button skipButton = new Button();
+        image = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Skip.png").toUri().toString());
+        skipButton.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        skipButton.setLayoutX(630);
+        skipButton.setLayoutY(645);
+        skipButton.setMinSize(75, 75);
+        skipButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Game.getInstance().getGameManager().getInputManager().endPhase();
+                System.out.println("hello");
+            }
+        });
+        root.getChildren().add(pauseButton);
+        root.getChildren().add(skipButton);
     }
 
-    private void addLabel(Region region){
+    private void addElements(){
+
+    }
+
+    private void addLabels(Region region){
         Button label = new Button(String.valueOf(region.getUnitCount()));
         Image image = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Region\\"+ region.getController().getColor() + "Label.png").toUri().toString());
         label.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
@@ -66,7 +96,7 @@ public class GameScreen implements Screen{
         Image barImage = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Region\\Namebar.png").toUri().toString());
         namebar.setBackground(new Background(new BackgroundImage(barImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         namebar.setLayoutY(region.getyCoordinate() + 15);
-        namebar.setLayoutX(region.getxCoordinate() - region.getRegionName().length() - 25);
+        namebar.setLayoutX(region.getxCoordinate() + region.getRegionName().length()/2 - 25);
         namebar.setMinSize(region.getRegionName().length() + 20, 25);
         namebar.setTextFill(Paint.valueOf("#ffffffff"));
         namebar.setOnAction(actionHandler);
