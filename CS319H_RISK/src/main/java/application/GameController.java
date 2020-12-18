@@ -39,17 +39,91 @@ public class GameController {
 
     public void startGameLoop()
     {
+        getNextPlayerAction();
+    }
+
+    public void getNextPlayerAction()
+    {
         int currentPhase;
         currentPhase = stateManager.getPhase();
-
         inputManager.awaitPlayerAction(this, currentPhase);
     }
 
     public void takePlayerAction(PlayerAction playerAction)
     {
-        System.out.println(playerAction);
+        if (playerAction.getPhase() != stateManager.getPhase())
+        {
+            //This should not happen.
+            System.err.println("Wrong phase played.");
+        }
+        performPlayerAction(playerAction);
     }
 
+    public void performPlayerAction(PlayerAction playerAction)
+    {
+        if (playerAction.getPhase() == ATTACK_PHASE)
+            performAttackAction(playerAction);
+        else if (playerAction.getPhase() == ARMY_PLACEMENT_PHASE)
+            performReinforcementAction(playerAction);
+        else if (playerAction.getPhase() == FORTIFY_PHASE)
+            performFortifyAction(playerAction);
+
+        getNextPlayerAction();
+    }
+
+    public boolean isAttackValid(PlayerAction playerAction)
+    {
+        //TODO
+        return true;
+    }
+
+    public void performAttackAction(PlayerAction playerAction)
+    {
+        if (playerAction.isEndPhase())
+        {
+            stateManager.nextPhase();
+        }
+        else
+        {
+            if (isAttackValid(playerAction)) {
+                //battleManager.battle
+            }
+        }
+    }
+
+    public boolean isReinforcementValid(PlayerAction playerAction)
+    {
+        //TODO
+        return true;
+    }
+    public void performReinforcementAction(PlayerAction playerAction)
+    {
+        if (playerAction.isEndPhase())
+        {
+            stateManager.nextPhase();
+        }
+        else
+        {
+            //TODO
+        }
+    }
+
+    public boolean isFortifyValid(PlayerAction playerAction)
+    {
+        //TODO
+        return true;
+    }
+    public void performFortifyAction(PlayerAction playerAction)
+    {
+        if (playerAction.isEndPhase())
+        {
+            stateManager.nextPhase();
+        }
+        else
+        {
+            //TODO
+        }
+    }
 
     public void startRound(){
         turnTimer.schedule(endTurn(), maxTurnTime*1000);
