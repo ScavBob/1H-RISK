@@ -117,6 +117,11 @@ public class Match implements Serializable {
         controller.startGameLoop();
     }
 
+    public int getCurrentPhase()
+    {
+        return controller.getCurrentPhase();
+    }
+
     public void attackCommand(int unitCount, Region baseRegion, Region target) {
         map.updateRegion(target, unitCount, baseRegion.getOwner());
         update();

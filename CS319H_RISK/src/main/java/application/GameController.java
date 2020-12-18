@@ -220,4 +220,8 @@ public class GameController implements Serializable {
 
 
     }
+
+    public int getCurrentPhase() {
+        return stateManager.getPhase();
+    }
 }

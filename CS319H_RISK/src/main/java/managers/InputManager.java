@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 
 public class InputManager
 {
+
     private enum WaitingState {
         NOT_WAITING,
         ATTACK,
@@ -177,7 +178,7 @@ public class InputManager
             waitingState = WaitingState.REINFORCEMENT;
         }
         else if (awaitingPhase == GameController.ATTACK_PHASE) {
-        waitingState = WaitingState.ATTACK;
+            waitingState = WaitingState.ATTACK;
         }
         else if (awaitingPhase == GameController.FORTIFY_PHASE) {
             waitingState = WaitingState.FORTIFY;
