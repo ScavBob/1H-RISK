@@ -15,7 +15,7 @@ public class Match implements Serializable {
     private GameController controller;
 
     //constructor
-    public Match(){
+    public Match(int maxTurnTime){
         this.round = 0;
         this.maxRound = 100;
         this.players = new ArrayList<>();
@@ -23,7 +23,7 @@ public class Match implements Serializable {
         this.currentPlayer = null;
         this.availableFactions = new HashMap<>();
         this.map = null;
-        this.controller = new GameController(this);
+        this.controller = new GameController(this, maxTurnTime);
     }
 
 
@@ -80,6 +80,11 @@ public class Match implements Serializable {
         player.setAvailableReinforcements(reinforcementsFromRegions + reinforcementsFromContinents);
     }
 
+    public int getRemainingTime()
+    {
+        return controller.getRemainingTime();
+    }
+
     public Player getCurrentPlayer()
     {
         return currentPlayer;
@@ -121,6 +126,11 @@ public class Match implements Serializable {
     public void startGameLoop()
     {
         controller.startGameLoop();
+    }
+
+    public int getCurrentPhase()
+    {
+        return controller.getCurrentPhase();
     }
 
     public void attackCommand(int unitCount, Region baseRegion, Region target) {

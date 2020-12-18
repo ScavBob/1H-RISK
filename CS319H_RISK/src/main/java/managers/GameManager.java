@@ -55,9 +55,9 @@ public class GameManager
         match.startGameLoop();
     }
 
-    public void startMatch(int map, ArrayList<Player> players)
+    public void startMatch(int map, ArrayList<Player> players, int maxTurnTime)
     {
-        match = new Match();
+        match = new Match(maxTurnTime);
 
         for (Player playerToAdd : players)
             match.addPlayer(playerToAdd);

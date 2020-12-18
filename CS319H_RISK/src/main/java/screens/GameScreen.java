@@ -45,7 +45,7 @@ public class GameScreen implements UpdatableScreen{
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage(new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\" + Game.getInstance().getGameManager().getMatch().getMap().getMapName() + "Map.png").toUri().toString()), 0, 0, 1280, 720);
         root.getChildren().add(canvas);
-        gc.drawImage(new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Phases\\" + Game.getInstance().getGameManager().getInputManager().getCurrentPhase() + ".png").toUri().toString()), 495, 1, 291, 60);
+        gc.drawImage(new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Phases\\" + Game.getInstance().getGameManager().getMatch().getCurrentPhase() + ".png").toUri().toString()), 495, 1, 291, 60);
         populateScreen();
     }
 

@@ -4,9 +4,10 @@ import game.Game;
 import managers.InputManager;
 import managers.PlayerAction;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.util.Timer;
-import java.util.TimerTask;
+import javax.swing.Timer;
 
 public class GameController implements Serializable {
 
@@ -15,19 +16,37 @@ public class GameController implements Serializable {
     public static final int FORTIFY_PHASE = 2;
 
     private Match match;
+
     private int maxTurnTime;
-                                                                                // Where should we checked the maxTurnTime and the actual game time.
-                                                                                // Also we can use AnimationTimer class of java instead of the timer class.
-    //private Timer turnTimer;
+    private int remainingTime;
+    private Timer turnTimer;
+
     private BattleManager battleManager;
     private StateManager stateManager;
 
-    public GameController(Match match){
+    public GameController(Match match, int maxTurnTime){
         this.match = match;
-        //turnTimer = new Timer();
-        this.maxTurnTime = 1000;
+        this.turnTimer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remainingTime--;
+                if (remainingTime == 0)
+                {
+                    //send an artifical action.
+                    do {
+                        takePlayerAction(new PlayerAction(true, stateManager.getPhase(), null, null, 0));
+                    } while (stateManager.getPhase() != REINFORCEMENT_PHASE);
+                }
+            }
+        });
+        this.maxTurnTime = maxTurnTime;
+        this.remainingTime = maxTurnTime;
         this.battleManager = new BattleManager();
         this.stateManager = new StateManager();
+    }
+
+    public int getRemainingTime() {
+        return remainingTime;
     }
 
     // Timer limits each player. It must be given as a attribute to the constructor.
@@ -41,6 +60,7 @@ public class GameController implements Serializable {
     public void startGameLoop()
     {
         getNextPlayerAction();
+        turnTimer.start();
     }
 
     public void getNextPlayerAction()
@@ -112,7 +132,7 @@ public class GameController implements Serializable {
                 Region dstRegion = playerAction.getSecondRegion();
                 int armyCount = playerAction.getArmyCount();
 
-                battleManager.performBattle(srcRegion, dstRegion, armyCount);
+                battleManager.initBattle(srcRegion, dstRegion, armyCount);
             }
             else
             {
@@ -199,25 +219,14 @@ public class GameController implements Serializable {
 
         //After fortify, the game proceeds to the next turn.
         match.nextTurn();
-    }
-
-    /*public void startRound(){
-        turnTimer.schedule(endTurn(), maxTurnTime*1000);
-    }
-
-     */
-
-    // changes the state to the next state.
-    // end Turn because of the time limit.
-
-    public TimerTask endTurn(){
-
-        //stateManager.changeState();
-        return null;
+        remainingTime = maxTurnTime;
     }
 
     public void battle(){
 
+    }
 
+    public int getCurrentPhase() {
+        return stateManager.getPhase();
     }
 }

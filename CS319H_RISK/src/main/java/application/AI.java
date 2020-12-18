@@ -1,5 +1,6 @@
 package application;
 
+import game.Game;
 import managers.PlayerAction;
 
 import java.io.Serializable;
