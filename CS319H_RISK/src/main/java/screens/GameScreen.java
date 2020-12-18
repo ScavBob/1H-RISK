@@ -34,7 +34,7 @@ public class GameScreen implements Screen{
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage(new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Map.png").toUri().toString()), 0, 0, 1280, 720);
         root.getChildren().add(canvas);
-        gc.drawImage(new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Phases\\" + Game.getInstance().getGameManager().getInputManager().getCurrentPhase() + ".png").toUri().toString()), 452, 1, 375, 77);
+        gc.drawImage(new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Phases\\" + Game.getInstance().getGameManager().getInputManager().getCurrentPhaseName() + ".png").toUri().toString()), 452, 1, 375, 77);
         populateScreen();
     }
 
