@@ -1,9 +1,13 @@
 package application;
 
 import game.Game;
+import managers.MapManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import javax.lang.model.util.ElementScanner6;
 
@@ -33,36 +37,72 @@ public class BattleManager implements Serializable {
         return (int)(Math.random() * 6) + 1;
     }
 
-    public void initBattle(Region srcRegion, Region dstRegion, int armyCount) {
+    public void initBattle(Region atkRegion, Region defRegion, int attackingArmyCount) {
         Player currentPlayer = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
-        srcRegion.setUnitCount(srcRegion.getUnitCount() - armyCount);
+        atkRegion.setUnitCount(atkRegion.getUnitCount() - attackingArmyCount);
 
-        int defendingArmyCount = Math.min(2, dstRegion.getUnitCount());
+        int defendingArmyCount = Math.min(2, defRegion.getUnitCount());
 
-        //boolean battleConfirmed = Game.getInstance().confirmBattle();
+        boolean battleConfirmed = true;
+        //boolean battleConfirmed = Game.getInstance().confirmBattle(attackingArmyCount, defendingArmyCount);
 
-        /*
         if (!battleConfirmed)
         {
             return;
         }
         else
         {
+            List<Integer> attackerDice = new ArrayList<>();
+            List<Integer> defenderDice = new ArrayList<>();
+            List<Boolean> results = new ArrayList<>();
+            for (int i = 0; i < attackingArmyCount; i++) attackerDice.add(rollDice());
+            for (int i = 0; i < defendingArmyCount; i++) defenderDice.add(rollDice());
 
+            Collections.sort(attackerDice, Collections.reverseOrder());
+            Collections.sort(defenderDice, Collections.reverseOrder());
+
+            int attackerLoss = 0;
+            int defenderLoss = 0;
+
+            if (attackerDice.get(0) > defenderDice.get(0)) {
+                defenderLoss++;
+                results.add(true);
+            }
+            else {
+                attackerLoss++;
+                results.add(false);
+            }
+
+            if (defendingArmyCount == 2)
+            {
+                if (attackerDice.get(1) > defenderDice.get(1)) {
+                    defenderLoss++;
+                    results.add(true);
+                }
+                else {
+                    attackerLoss++;
+                    results.add(false);
+                }
+            }
+
+            MapManager mapManager = Game.getInstance().getGameManager().getMapManager();
+            mapManager.increaseArmyCount(atkRegion, -attackerLoss);
+            mapManager.increaseArmyCount(defRegion, -defenderLoss);
+
+            Game.getInstance().showBattleResult(attackerDice, defenderDice, results);
 
         }
 
-         */
 
         //Old simple logic for test
-        if (armyCount > dstRegion.getUnitCount())
+        if (attackingArmyCount > defRegion.getUnitCount())
         {
-            dstRegion.setOwner(currentPlayer);
-            dstRegion.setUnitCount(armyCount - dstRegion.getUnitCount());
+            defRegion.setOwner(currentPlayer);
+            defRegion.setUnitCount(attackingArmyCount - defRegion.getUnitCount());
         }
         else
         {
-            dstRegion.setUnitCount(dstRegion.getUnitCount() - armyCount);
+            defRegion.setUnitCount(defRegion.getUnitCount() - attackingArmyCount);
         }
     }
 }
