@@ -232,7 +232,7 @@ public class GameStartMenu extends Menu {
             }
         }
         if (playerList.size() >= 2) {
-            Game.getInstance().getGameManager().startMatch(map, playerList, 600);
+            Game.getInstance().getGameManager().startMatch(map, playerList, 600, true);
             Game.getInstance().setScreen(new GameScreen());
         }
         else{

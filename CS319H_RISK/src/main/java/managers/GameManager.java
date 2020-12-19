@@ -55,7 +55,7 @@ public class GameManager
         match.startGameLoop();
     }
 
-    public void startMatch(int map, ArrayList<Player> players, int maxTurnTime)
+    public void startMatch(int map, ArrayList<Player> players, int maxTurnTime, boolean isWorldDomination)
     {
         match = new Match(maxTurnTime);
 
