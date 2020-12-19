@@ -21,7 +21,7 @@ import javafx.scene.image.Image;
 public class HowToPlayScreen extends Menu {
 
 
-    private final int HowToPlayImgNum = 5;
+    private final int HowToPlayImgNum = 35;
     private final int SWIDTH  = 1280;
     private final int SHEIGHT = 720;
     private final int IWIDTH = SWIDTH * 2 / 3;
@@ -32,11 +32,9 @@ public class HowToPlayScreen extends Menu {
 
 
     private void initImageArray(){
-        imageArray[0] = new Image(getClass().getResource("/PregameMenu/BilkentButton.png").toExternalForm());
-        imageArray[1] = new Image(getClass().getResource("/PregameMenu/Bilkent.png").toExternalForm());
-        imageArray[2] = new Image(getClass().getResource("/PregameMenu/ChooseMap.png").toExternalForm());
-        imageArray[3] = new Image(getClass().getResource("/PregameMenu/WorldButton.png").toExternalForm());
-        imageArray[4] = new Image(getClass().getResource("/PregameMenu/World.png").toExternalForm());
+        for(int i = 1; i <= HowToPlayImgNum; i++) {
+            imageArray[i-1] = new Image(getClass().getResource("/LearnToConquer/" + i + ".png").toExternalForm());
+        }
     }
 
 
