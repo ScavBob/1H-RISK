@@ -2,9 +2,10 @@ package application;
 
 import game.Game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class DestroyPlayerWin implements CheckWinStrategy{
+public class DestroyPlayerWin implements CheckWinStrategy, Serializable {
     private Player target;
     static private ArrayList<Player> used = new ArrayList<Player>();
 
