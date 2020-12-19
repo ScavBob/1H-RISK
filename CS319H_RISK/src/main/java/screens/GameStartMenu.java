@@ -17,7 +17,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import managers.MapManager;
+import managers.SoundManager;
 import managers.StorageManager;
 
 import java.nio.file.Paths;
@@ -28,14 +30,12 @@ public class GameStartMenu extends Menu {
     private class Slot {
         private int x, y;
         private Group root;
-        private Boolean humanPlayer;
-        private String playerName = "";
-        private String playerFaction = "";
-        private String playerColor = "";
-        private boolean playerAdded = false;
+        private boolean humanPlayer;
+        private String playerName;
+        private String playerColor;
+        private boolean playerAdded;
 
         private Button   addPlayer;
-        //private Button faction;
         private Button   color;
         private Button   delete;
         private Button   changeType;
@@ -44,7 +44,7 @@ public class GameStartMenu extends Menu {
 
         protected Slot(Group root, int i, String playerColor){
             addPlayer = new Button();
-            //faction = new Button();
+            playerAdded = false;
             color = new Button();
             delete = new Button();
             changeType = new Button();
@@ -113,7 +113,6 @@ public class GameStartMenu extends Menu {
                 }
             });
                 root.getChildren().add(addPlayer);
-
         }
 
         private void addPlayer() {
@@ -125,10 +124,6 @@ public class GameStartMenu extends Menu {
             root.getChildren().add(name);
             root.getChildren().add(changeType);
             playerAdded = true;
-        }
-
-        private void addAI(){
-
         }
 
         private void removePlayer(){
@@ -147,6 +142,9 @@ public class GameStartMenu extends Menu {
     private String[] colors = {"Red", "Green", "Blue", "Yellow", "Purple", "Black", "Pink"};
     private String map;
     private Slot[] slots = new Slot[7];
+    private int gameMode;
+    private int AILevel;
+    private int turnTime;
 
     public GameStartMenu(String map) {
         this.map = map;
@@ -163,7 +161,12 @@ public class GameStartMenu extends Menu {
         for(int i = 0; i < 7; i++) {
             slots[i] = new Slot(root, i, colors[i]);
         }
-        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\" + map + "Map.png", 578, 38);
+        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\" + map + "MapPreview.png", 600, 40);
+        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\MapPreview.png", 598, 38);
+        drawRect("#bfbfbf7f", 598, 331, 594, 361);
+        drawRect("0000007f", 607, 341, 574, 341);
+        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\GameRules.png", 776, 346);
+        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\GameMode\\GameMode.png", 836, 400);
         addButtons(root);
         return scene;
     }
@@ -173,8 +176,24 @@ public class GameStartMenu extends Menu {
             @Override
             public void handle(ActionEvent event) {
                 startGame();
+                Game.getInstance().getGameManager().getSoundManager().playClick();
             }
         });
+        addButtons(root, "", 746, 430, 143, 50, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\GameMode\\WorldDomination.png", new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                gameMode = 0;
+                Game.getInstance().getGameManager().getSoundManager().playClick();
+            }
+        });
+        addButtons(root, "", 899, 430, 143, 50, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\GameMode\\SecretMission.png", new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                gameMode = 1;
+                Game.getInstance().getGameManager().getSoundManager().playClick();
+            }
+        });
+
     }
 
     private void startGame() {
@@ -185,7 +204,7 @@ public class GameStartMenu extends Menu {
             }
         }
         if (playerList.size() >= 2) {
-            Game.getInstance().getGameManager().startMatch(MapManager.WORLD_MAP, playerList,30);
+            Game.getInstance().getGameManager().startMatch(MapManager.WORLD_MAP, playerList, 600);
             Game.getInstance().setScreen(new GameScreen());
         }
         else{

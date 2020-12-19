@@ -28,6 +28,7 @@ public class GameScreen implements UpdatableScreen{
     private Region[] regions;
     private Canvas canvas;
     private int armyCount;
+    private Text timer;
 
     public GameScreen() {
         regions = Game.getInstance().getGameManager().getMatch().getMap().getRegionList();
@@ -46,7 +47,32 @@ public class GameScreen implements UpdatableScreen{
         gc.drawImage(new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\" + Game.getInstance().getGameManager().getMatch().getMap().getMapName() + "Map.png").toUri().toString()), 0, 0, 1280, 720);
         root.getChildren().add(canvas);
         gc.drawImage(new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\Phases\\" + Game.getInstance().getGameManager().getMatch().getCurrentPhase() + ".png").toUri().toString()), 495, 1, 291, 60);
+        gc.setFill(Paint.valueOf("#0000007f"));
+        gc.fillRect(1170, 20, 90, 40);
         populateScreen();
+        runTimer();
+    }
+
+    private void runTimer() {
+        timer = new Text();
+        int remainingTime = Game.getInstance().getGameManager().getMatch().getRemainingTime();
+        String time = "";
+        if(remainingTime/60 < 10)
+            time+="0"+remainingTime/60;
+        else
+            time+=remainingTime/60;
+        time += ":";
+        if(remainingTime%60 < 10)
+            time += "0" + remainingTime%60;
+        else
+            time += remainingTime%60;
+
+        timer.setText(time);
+        timer.setX(1180);
+        timer.setY(50);
+        timer.setFont(Font.font("Helvenica",30));
+        timer.setFill(Paint.valueOf("white"));
+        root.getChildren().add(timer);
     }
 
     private void populateScreen() {
