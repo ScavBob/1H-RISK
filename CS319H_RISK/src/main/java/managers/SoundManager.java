@@ -33,7 +33,6 @@ public class SoundManager {
     public SoundManager()
     {
         musicFilePath = getClass().getResource("/musics/medal-of-honor-european-assault-soundtrack-main-theme-hq.mp3").toExternalForm();
-        System.out.println(musicFilePath);
         musicFile = new Media(musicFilePath);
         background_theme = new MediaPlayer(musicFile);
 

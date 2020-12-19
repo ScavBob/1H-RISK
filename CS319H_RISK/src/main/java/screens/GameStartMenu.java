@@ -185,7 +185,7 @@ public class GameStartMenu extends Menu {
             }
         }
         if (playerList.size() >= 2) {
-            Game.getInstance().getGameManager().startMatch(MapManager.WORLD_MAP, playerList);
+            Game.getInstance().getGameManager().startMatch(MapManager.WORLD_MAP, playerList,30);
             Game.getInstance().setScreen(new GameScreen());
         }
         else{

@@ -113,7 +113,7 @@ public class Player implements Serializable {
 
         return accessibility;
     }
-    
+
     public int checkForContinentBonuses(){
         int bonusReinforcements = 0;
         boolean rowAllOccupied = true;
