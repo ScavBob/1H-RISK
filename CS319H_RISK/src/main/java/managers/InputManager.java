@@ -96,6 +96,12 @@ public class InputManager
         }
     }
 
+    public void resetRegions()
+    {
+        firstRegion = null;
+        secondRegion = null;
+    }
+
     public boolean chooseRegion(Region region)
     {
         if (waitingState == WaitingState.NOT_WAITING) return false;
