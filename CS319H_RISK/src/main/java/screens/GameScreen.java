@@ -80,6 +80,10 @@ public class GameScreen implements UpdatableScreen{
         root.getChildren().add(timer);
     }
 
+    private void addButton(Group root, String title, int x, int y, int width, int height, EventHandler<ActionEvent> handler){
+
+    }
+
     public boolean confirmBattle(int attacking, int defending){
         confirmation = false;
         Stage dialog = new Stage();
@@ -91,16 +95,8 @@ public class GameScreen implements UpdatableScreen{
         Image background = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\Background.png").toUri().toString());
         System.out.println(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\Background.png");
         canvas.getGraphicsContext2D().drawImage(background, 0, 0);
-        Text attackingText = new Text("Attacking Armies");
-        attackingText.setFill(Paint.valueOf("white"));
-        attackingText.setLayoutX(10);
-        attackingText.setLayoutY(30);
-        attackingText.setFont(new Font("Impact", 25));
-        Text defendingText = new Text("Defending Armies");
-        defendingText.setFill(Paint.valueOf("white"));
-        defendingText.setLayoutX(310);
-        defendingText.setLayoutY(30);
-        defendingText.setFont(new Font("Impact", 25));
+        addText(root, "Attacking Armies", 10, 30, new Font("Impact", 25), "white");
+        addText(root, "Defending Armies", 310, 30, new Font("Impact", 25), "white");
         Image dice = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\qm.png").toUri().toString());
         for(int i = 0; i < attacking; i++){
             canvas.getGraphicsContext2D().drawImage(dice, 5, 40 + (240/attacking)*i);
@@ -109,13 +105,7 @@ public class GameScreen implements UpdatableScreen{
             canvas.getGraphicsContext2D().drawImage(dice, 435, 60 + (280/attacking)*i);
         }
         root.getChildren().add(canvas);
-        root.getChildren().add(attackingText);
-        root.getChildren().add(defendingText);
-        Text confirmationText = new Text("Confirm Attack?");
-        confirmationText.setLayoutX(175);
-        confirmationText.setLayoutY(220);
-        confirmationText.setFill(Paint.valueOf("white"));
-        confirmationText.setFont(new Font("Helvenica", 20));
+        addText(root, "Confirm Attack?", 175, 220, new Font("Helvenica", 20), "white");
         Button confirmationButton = new Button("Accept");
         confirmationButton.setLayoutX(170);
         confirmationButton.setLayoutY(240);
@@ -142,7 +132,6 @@ public class GameScreen implements UpdatableScreen{
         });
         root.getChildren().add(confirmationButton);
         root.getChildren().add(denialButton);
-        root.getChildren().add(confirmationText);
         dialog.showAndWait();
         return confirmation;
     }
@@ -152,13 +141,13 @@ public class GameScreen implements UpdatableScreen{
             addLabels(r);
         }
 
-        addButton("", 575, 645, 75, 75, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Pause-Skip\\Pause.png", new EventHandler<ActionEvent>() {
+        addButton(root, "", 575, 645, 75, 75, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Pause-Skip\\Pause.png", new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 Game.getInstance().setScreen(new PauseMenu());
             }
         });
-        addButton("", 630, 645, 75, 75, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Pause-Skip\\Skip.png", new EventHandler<ActionEvent>() {
+        addButton(root, "", 630, 645, 75, 75, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Pause-Skip\\Skip.png", new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
                         Game.getInstance().getGameManager().getInputManager().endPhase();
@@ -168,57 +157,57 @@ public class GameScreen implements UpdatableScreen{
     }
 
     private void addElements(int phase){
-        addButton("", 0, 420, 250 , 300, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Source-Destination\\Background.png", null);
+        addButton(root, "", 0, 420, 250 , 300, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Source-Destination\\Background.png", null);
         canvas.getGraphicsContext2D().setFill(Paint.valueOf(Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getColor()));
         canvas.getGraphicsContext2D().fillRect(15, 15, 250, 50);
-        addText("It's " + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getName() + "'s Turn", 50, 50, 250, 50, 25);
+        addText("It's " + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getName() + "'s Turn", 50, 50, 25);
         Region region = Game.getInstance().getGameManager().getInputManager().getFirstRegion();
         if(phase == 0){
             if(region == null)
-                addText("No source region selected.", 0, 460, 250, 50, 20);
+                addText("No region selected.", 0, 460, 20);
             else {
-                addText("Source Region: ", 0, 460, 100, 50, 20);
-                addText(region.getRegionName(), 50, 480, 100, 50, 20);
+                addText("Reinforcing Region: ", 0, 460, 20);
+                addText(region.getRegionName(), 50, 480, 20);
             }
-            addText("Reinforcements Left: ", 0, 540, 250, 50, 20);
-            addText(String.valueOf(Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getAvailableReinforcements() - armyCount), 200, 540, 250, 50, 25);
+            addText("Reinforcements Left: ", 0, 540, 20);
+            addText(String.valueOf(Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getAvailableReinforcements() - armyCount), 200, 540, 25);
         }
 
         else if(phase == 1){
             if(region == null)
-                addText("No source region selected.", 0, 460, 250, 50, 20);
+                addText("No region selected.", 0, 460, 20);
             else {
-                addText("Source Region: ", 0, 460, 100, 50, 20);
-                addText(region.getRegionName(), 50, 480, 100, 50, 20);
+                addText("Attacking from Region: ", 0, 460, 20);
+                addText(region.getRegionName(), 50, 480, 20);
             }
             region = Game.getInstance().getGameManager().getInputManager().getSecondRegion();
             if(region == null)
-                addText("No destination region selected.", 0, 500, 250, 50, 20);
+                addText("No region selected.", 0, 500, 20);
             else {
-                addText("Destination Region: ", 0, 500, 100, 50, 20);
-                addText(region.getRegionName(), 50, 520, 100, 50, 20);
+                addText("Attacking to Region: ", 0, 500, 20);
+                addText(region.getRegionName(), 50, 520, 20);
             }
         }
 
         else{
             if(region == null)
-            addText("No source region selected.", 0, 460, 250, 50, 20);
+            addText("No region selected.", 0, 460, 20);
             else {
-                addText("Source Region: ", 0, 460, 100, 50, 20);
-                addText(region.getRegionName(), 50, 480, 100, 50, 20);
-                addText("Fortifications Left: ", 0, 540, 250, 50, 20);
-                addText(String.valueOf(Game.getInstance().getGameManager().getInputManager().getFirstRegion().getUnitCount() - armyCount - 1), 200, 540, 250, 50, 25);
+                addText("Fortifying from Region: ", 0, 460, 20);
+                addText(region.getRegionName(), 50, 480, 20);
+                addText("Fortifications Left: ", 0, 540, 20);
+                addText(String.valueOf(Game.getInstance().getGameManager().getInputManager().getFirstRegion().getUnitCount() - armyCount - 1), 200, 540, 25);
             }
             region = Game.getInstance().getGameManager().getInputManager().getSecondRegion();
             if(region == null)
-                addText("No destination region selected.", 0, 500, 250, 50, 20);
+                addText("No region selected.", 0, 500, 20);
             else {
-                addText("Destination Region: ", 0, 500, 100, 50, 20);
-                addText(region.getRegionName(), 50, 520, 100, 50, 20);
+                addText("Fortifying to Region: ", 0, 500, 20);
+                addText(region.getRegionName(), 50, 520, 20);
             }
         }
-        addText(String.valueOf(armyCount), 105, 610, 50, 50, 25);
-        addButton("", 150, 575, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Source-Destination\\Add.png", new EventHandler<ActionEvent>() {
+        addText(String.valueOf(armyCount), 105, 610, 25);
+        addButton(root, "", 150, 575, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Source-Destination\\Add.png", new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if(armyCount + 1 <= Game.getInstance().getGameManager().getInputManager().getMaxChoosableArmy())
@@ -226,7 +215,7 @@ public class GameScreen implements UpdatableScreen{
                 Game.getInstance().updateScreen();
             }
         });
-        addButton("", 25, 575, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Source-Destination\\Remove.png", new EventHandler<ActionEvent>() {
+        addButton(root, "", 25, 575, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Source-Destination\\Remove.png", new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if(armyCount - 1 >= 0)
@@ -234,7 +223,7 @@ public class GameScreen implements UpdatableScreen{
                 Game.getInstance().updateScreen();
             }
         });
-        addButton("", 87, 650, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Source-Destination\\Done.png", new EventHandler<ActionEvent>() {
+        addButton(root,"", 87, 650, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Source-Destination\\Done.png", new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if(Game.getInstance().getGameManager().getInputManager().getFirstRegion() != null) {
@@ -246,13 +235,17 @@ public class GameScreen implements UpdatableScreen{
         });
     }
 
-    private void addText(String title, int x, int y, int width, int height, int fontSize){
+    private void addText(Group root, String title, int x, int y, Font font, String color){
         Text text = new Text(title);
-        text.setFont(Font.font("Helvetica", fontSize));
+        text.setFill(Paint.valueOf(color));
         text.setLayoutX(x);
         text.setLayoutY(y);
-        text.setFill(Paint.valueOf("#ffffffff"));
+        text.setFont(font);
         root.getChildren().add(text);
+    }
+
+    private void addText(String title, int x, int y, int fontSize){
+        addText(root, title, x, y, new Font("Helvetica", fontSize), "white");
     }
 
     private void addLabels(Region region){
@@ -267,15 +260,16 @@ public class GameScreen implements UpdatableScreen{
                 update();
             }
         };
-        addButton(unitCount, x - 10, y - 10, 25, 25, StorageManager.RESOURCES_FOLDER_NAME + "Game\\Region\\" + region.getController().getColor() + "Label.png", handler).setTextFill(Paint.valueOf("#ffffffff"));
+        addButton(root, unitCount, x - 10, y - 10, 25, 25, StorageManager.RESOURCES_FOLDER_NAME + "Game\\Region\\" + region.getController().getColor() + "Label.png", handler).setTextFill(Paint.valueOf("#ffffffff"));
 
-        addButton(regionName, x+regionName.length()/2-25, y + 15, regionName.length() + 20, 25, StorageManager.RESOURCES_FOLDER_NAME + "Game\\Region\\Namebar.png", handler).setTextFill(Paint.valueOf("#ffffffff"));
+        addButton(root, regionName, x+regionName.length()/2-25, y + 15, regionName.length() + 20, 25, StorageManager.RESOURCES_FOLDER_NAME + "Game\\Region\\Namebar.png", handler).setTextFill(Paint.valueOf("#ffffffff"));
     }
 
-    private Button addButton(String title, int x, int y, int width, int height, String imagePath, EventHandler<ActionEvent> event){
+    private Button addButton(Group root, String title, int x, int y, int width, int height, String imagePath, EventHandler<ActionEvent> event){
         Button button = new Button(title);
         Image image = new Image(Paths.get(imagePath).toUri().toString());
-        button.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        if(image != null)
+            button.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         button.setLayoutX(x);
         button.setLayoutY(y);
         button.setMinSize(width, height);

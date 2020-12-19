@@ -15,6 +15,8 @@ public class PregameMenu extends Menu{
         drawImage(StorageManager.RESOURCES_FOLDER_NAME + "PregameMenu\\ChooseMap.png", 284, 16);
         drawImage(StorageManager.RESOURCES_FOLDER_NAME + "PregameMenu\\Bilkent.png", 104, 138);
         drawImage(StorageManager.RESOURCES_FOLDER_NAME + "PregameMenu\\World.png", 711, 138);
+        strokeRect("gold", 708, 135, 431, 326, 3);
+        strokeRect("gold", 101, 135, 469, 326, 3);
         addButtons(root);
         return scene;
     }

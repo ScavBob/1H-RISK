@@ -92,7 +92,7 @@ public class BattleManager implements Serializable {
             mapManager.increaseArmyCount(atkRegion, -attackerLoss);
             mapManager.increaseArmyCount(defRegion, -defenderLoss);
 
-            Game.getInstance().showBattleResult(attackerDice, defenderDice, results);
+            //Game.getInstance().showBattleResult(attackerDice, defenderDice, results);
 
         }
 
