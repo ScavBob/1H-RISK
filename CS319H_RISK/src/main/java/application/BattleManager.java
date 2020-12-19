@@ -98,8 +98,9 @@ public class BattleManager implements Serializable {
                 defRegion.setOwner(currentPlayer);
             }
 
-            Game.getInstance().showBattleResult(attackerDice, defenderDice, results);
-
+            //int armiesToMove = Game.getInstance().showBattleResult(attackerDice, defenderDice, results);
+            //mapManager.increaseArmyCount(atkRegion, -armiesToMove);
+            //mapManager.increaseArmyCount(atkRegion, -armiesToMove);
         }
     }
 }
