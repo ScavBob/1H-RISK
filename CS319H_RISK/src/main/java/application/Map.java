@@ -149,4 +149,33 @@ public class Map implements Serializable{
         }
         return null;
     }
+
+    public boolean isConnected(Region source, Region target){
+
+        boolean[] available = new boolean[adjacenyMatrix[0].length];
+        for(int i = 0;i < available.length;i++){
+            available[i] = true;
+        }
+
+        return isConnected(target,source,available);
+    }
+
+    private boolean isConnected(Region target,Region current, boolean[] available){
+        if(current == target)
+            return true;
+        if(current.getOwner() != target.getOwner())
+            return false;
+        if(!available[current.RegionID()])
+            return false;
+        available[current.RegionID()] = false;
+        ArrayList<Region> neighbours = getNeighbourOf(current);
+
+        for(int i = 0;i< neighbours.size();i++){
+            if(isConnected(target,neighbours.get(i),available)){
+                return true;
+            }
+        }
+        return false;
+
+    }
 }
