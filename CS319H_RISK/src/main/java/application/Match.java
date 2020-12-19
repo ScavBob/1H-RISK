@@ -160,8 +160,8 @@ public class Match implements Serializable {
         {
             while (remainingTroops[i] != 0)
             {
-                randomRegionIndex = (int)(Math.random() * numRegions);
-                Region randomRegion = map.getRegionList()[randomRegionIndex];
+                randomRegionIndex = (int)(Math.random() * players.get(i).getRegions().size());
+                Region randomRegion = players.get(i).getRegions().get(randomRegionIndex);
                 randomRegion.setUnitCount(randomRegion.getUnitCount() + 1);
                 remainingTroops[i]--;
             }

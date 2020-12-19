@@ -81,6 +81,7 @@ public class GameController implements Serializable {
     public void takePlayerAction(PlayerAction playerAction)
     {
         System.out.println("Retrieved action: " + playerAction);
+
         if (playerAction.getPhase() != stateManager.getPhase())
         {
             //This should not happen.
@@ -111,6 +112,8 @@ public class GameController implements Serializable {
         Region dstRegion = playerAction.getSecondRegion();
         int armyCount = playerAction.getArmyCount();
         Map map = Game.getInstance().getGameManager().getMatch().getMap();
+
+        Game.getInstance().showNotification("deneme");
 
         if (armyCount > srcRegion.getUnitCount() || armyCount == 0) return false;
         if (!srcRegion.getOwner().equals(currentPlayer)) return false;
@@ -188,7 +191,7 @@ public class GameController implements Serializable {
         if (armyCount > srcRegion.getUnitCount() || armyCount == 0) return false;
         if (!srcRegion.getOwner().equals(currentPlayer)) return false;
         if (!dstRegion.getOwner().equals(currentPlayer)) return false;
-        if (!map.isAdjacentRegion(srcRegion, dstRegion)) return false;
+        if (!map.isConnected(srcRegion, dstRegion)) return false;
         return true;
     }
     public void performFortifyAction(PlayerAction playerAction)
@@ -211,9 +214,12 @@ public class GameController implements Serializable {
                         increaseArmyCount(srcRegion, -armyCount);
                 Game.getInstance().getGameManager().getMapManager().
                         increaseArmyCount(dstRegion, armyCount);
+
+                stateManager.nextPhase();
             }
             else
             {
+                System.out.println("Not a valid fortify");
                 return;
             }
         }
