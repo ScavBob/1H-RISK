@@ -2,6 +2,15 @@ package screens;
 
 import application.Region;
 import game.Game;
+import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -10,20 +19,24 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import managers.StorageManager;
 
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Timer;
 
 public class GameScreen implements UpdatableScreen{
 
@@ -34,6 +47,7 @@ public class GameScreen implements UpdatableScreen{
     private int armyCount;
     private Text timer;
     private boolean confirmation;
+    private int currentArmyCount;
 
     public GameScreen() {
         regions = Game.getInstance().getGameManager().getMatch().getMap().getRegionList();
@@ -90,7 +104,6 @@ public class GameScreen implements UpdatableScreen{
         Canvas canvas = new Canvas(500, 270);
         dialog.setScene(scene);
         Image background = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\Background.png").toUri().toString());
-        System.out.println(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\Background.png");
         canvas.getGraphicsContext2D().drawImage(background, 0, 0);
         addText(root, "Attacking Armies", 10, 30, new Font("Impact", 25), "white");
         addText(root, "Defending Armies", 310, 30, new Font("Impact", 25), "white");
@@ -99,7 +112,7 @@ public class GameScreen implements UpdatableScreen{
             canvas.getGraphicsContext2D().drawImage(dice, 5, 40 + (240/attacking)*i);
         }
         for(int i = 0; i < defending; i++){
-            canvas.getGraphicsContext2D().drawImage(dice, 435, 60 + (280/attacking)*i);
+            canvas.getGraphicsContext2D().drawImage(dice, 425, 60 + (280/attacking)*i);
         }
         root.getChildren().add(canvas);
         addText(root, "Confirm Attack?", 175, 220, new Font("Helvenica", 20), "white");
@@ -133,7 +146,8 @@ public class GameScreen implements UpdatableScreen{
         return confirmation;
     }
 
-    public void showBattleResults(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results){
+    public int showBattleResults(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results, boolean won, int maxMovableArmies){
+        currentArmyCount = 0;
         Stage dialog = new Stage();
         dialog.initStyle(StageStyle.UTILITY);
         Group root = new Group();
@@ -141,20 +155,47 @@ public class GameScreen implements UpdatableScreen{
         Canvas canvas = new Canvas(500, 270);
         dialog.setScene(scene);
         Image background = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\Background.png").toUri().toString());
-        System.out.println(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\Background.png");
         canvas.getGraphicsContext2D().drawImage(background, 0, 0);
         addText(root, "Attacking Armies", 10, 30, new Font("Impact", 25), "white");
         addText(root, "Defending Armies", 310, 30, new Font("Impact", 25), "white");
-        for(int i = 0; i < attackerDice.size(); i++){
-            Image dice = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\" + attackerDice.get(i) + ".png").toUri().toString());
-            canvas.getGraphicsContext2D().drawImage(dice, 5, 40 + (240/attackerDice.size())*i);
-        }
+        Timeline timeline = new Timeline();
         for(int i = 0; i < defenderDice.size(); i++){
-            Image dice = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\" + defenderDice.get(i) + ".png").toUri().toString());
-            canvas.getGraphicsContext2D().drawImage(dice, 435, 60 + (280/defenderDice.size())*i);
+            int x = 25;
+            int y = 40 + (240/defenderDice.size())*i;
+            Image dice = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\" + attackerDice.get(i) + ".png").toUri().toString());
+            canvas.getGraphicsContext2D().drawImage(dice, x, y);
+            dice = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\" + defenderDice.get(i) + ".png").toUri().toString());
+            canvas.getGraphicsContext2D().drawImage(dice, x + 385, y);
         }
         root.getChildren().add(canvas);
+        Slider armySlider = new Slider(1, maxMovableArmies, 1);
+        armySlider.setSnapToTicks(true);
+        armySlider.setMinWidth(100);
+        armySlider.setMinHeight(100);
+        armySlider.setLayoutX(200);
+        armySlider.setLayoutY(220);
+        armySlider.setMinorTickCount(0);
+        armySlider.setMajorTickUnit(1);
+        armySlider.setSnapToTicks(true);
+        armySlider.setShowTickMarks(true);
+        armySlider.setShowTickLabels(true);
+        armySlider.getStyleClass().setAll("slider");
+        Text armyCount = new Text(String.valueOf(currentArmyCount));
+        armySlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                currentArmyCount = newValue.intValue();
+                armyCount.setText(currentArmyCount + "");
+            }
+        });
+        armyCount.setLayoutX(220);
+        armyCount.setLayoutY(350);
+        armyCount.setFont(new Font("Helvetica", 25));
+        armyCount.setFill(Paint.valueOf("white"));
+        root.getChildren().add(armySlider);
+        root.getChildren().add(armyCount);
         dialog.showAndWait();
+        return currentArmyCount;
     }
 
     private void populateScreen() {
@@ -180,9 +221,13 @@ public class GameScreen implements UpdatableScreen{
     private void addElements(int phase){
         addButton(root, "", 0, 420, 250 , 300, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Source-Destination\\Background.png", null);
         String color = Paint.valueOf(Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getColor()).toString();
+<<<<<<< HEAD
         //System.out.println(color);
         color = color.substring(0, color.length() - 2) + "5f";
         //System.out.println(color);
+=======
+        color = color.substring(0, color.length() - 2) + "5f";
+>>>>>>> fbbc27c94be6728ec40c47f08b4ae4f7ca509ad1
         canvas.getGraphicsContext2D().setFill(Paint.valueOf(color));
         canvas.getGraphicsContext2D().fillRect(15, 15, 400, 50);
         addText("It's the " + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getFaction().getFactionName() + " Turn (" + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getName() + ")", 50, 50, 25);
