@@ -95,27 +95,32 @@ public class GameScreen implements UpdatableScreen{
         attackingText.setLayoutX(10);
         attackingText.setLayoutY(30);
         attackingText.setFont(new Font("Impact", 25));
+        Text defendingText = new Text("Defending Armies");
+        defendingText.setFill(Paint.valueOf("white"));
+        defendingText.setLayoutX(310);
+        defendingText.setLayoutY(30);
+        defendingText.setFont(new Font("Impact", 25));
         Image dice = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\qm.png").toUri().toString());
         for(int i = 0; i < attacking; i++){
             canvas.getGraphicsContext2D().drawImage(dice, 5, 40 + (240/attacking)*i);
         }
-        Text defendingText = new Text("Defending Armies");
         for(int i = 0; i < defending; i++){
-            canvas.getGraphicsContext2D().drawImage(dice, 5, 40 + (240/attacking)*i);
+            canvas.getGraphicsContext2D().drawImage(dice, 435, 60 + (280/attacking)*i);
         }
         root.getChildren().add(canvas);
         root.getChildren().add(attackingText);
         root.getChildren().add(defendingText);
         Text confirmationText = new Text("Confirm Attack?");
-        confirmationText.setLayoutX(200);
+        confirmationText.setLayoutX(175);
         confirmationText.setLayoutY(220);
         confirmationText.setFill(Paint.valueOf("white"));
+        confirmationText.setFont(new Font("Helvenica", 20));
         Button confirmationButton = new Button("Accept");
-        confirmationButton.setLayoutX(200);
+        confirmationButton.setLayoutX(170);
         confirmationButton.setLayoutY(240);
         confirmationButton.setMinSize(75, 25);
         Button denialButton = new Button("Deny");
-        denialButton.setLayoutX(270);
+        denialButton.setLayoutX(255);
         denialButton.setLayoutY(240);
         denialButton.setMinSize(75, 25);
         confirmationButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -236,7 +241,6 @@ public class GameScreen implements UpdatableScreen{
                     armyCount = 0;
                     Game.getInstance().updateScreen();
                 }
-                confirmBattle(3, 2);
             }
         });
     }
