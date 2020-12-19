@@ -1,6 +1,7 @@
 package game;
 
 import javafx.application.Platform;
+import screens.GameScreen;
 import screens.MainMenu;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,6 +11,11 @@ import screens.Screen;
 import screens.UpdatableScreen;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 public class Game {
 
@@ -19,12 +25,14 @@ public class Game {
     private static Stage gameStage = null;
     private GameManager gameManager = null;
     private ArrayList<UpdatableScreen> subscribedScreens;
+    private GameScreen currentGameScreen;
 
     private Game()
     {
         gameStage = new Stage();
         gameManager = new GameManager();
         subscribedScreens = new ArrayList<>();
+        currentGameScreen = null;
     }
 
     public static Game getInstance()
@@ -65,6 +73,34 @@ public class Game {
     public void subscribeForUpdate(UpdatableScreen screen)
     {
         subscribedScreens.add(screen);
+    }
+
+    public boolean confirmBattle(int attackingArmyCount, int defendingArmyCount)
+    {
+        if (currentGameScreen == null) return false;
+        final FutureTask query = new FutureTask(new Callable() {
+            @Override
+            public Object call() throws Exception {
+                return currentGameScreen.confirmBattle(attackingArmyCount, defendingArmyCount);
+            }
+        });
+        Platform.runLater(query);
+        try {
+            return (Boolean) (query.get());
+        } catch (InterruptedException | ExecutionException e) {
+            return false;
+        }
+    }
+
+    public void setCurrentGameScreen(GameScreen gameScreen)
+    {
+        this.currentGameScreen = gameScreen;
+    }
+
+    public void showBattleResults(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results)
+    {
+        if (currentGameScreen == null) return;
+        //return currentGameScreen.showBattleResults(attackerDice, defenderDice,results);
     }
 
     public void updateScreen()

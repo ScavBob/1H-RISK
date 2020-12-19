@@ -42,6 +42,7 @@ public class GameScreen implements UpdatableScreen{
         update();
 
         Game.getInstance().subscribeForUpdate(this);
+        Game.getInstance().setCurrentGameScreen(this);
     }
 
     public void update(){
