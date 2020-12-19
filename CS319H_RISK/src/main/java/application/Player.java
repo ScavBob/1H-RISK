@@ -16,7 +16,7 @@ public class Player implements Serializable {
     private ArrayList<Region> regions;
     private Region capital;
     private ArrayList<Card> unusedCards;
-    //private Mission secretMission;
+    private Mission secretMission;
     private int totalUnitCount;
     private PlayStrategy strategy;
     private ArrayList<Player> allies;
@@ -193,5 +193,13 @@ public class Player implements Serializable {
         unusedCards.remove(card2);
         unusedCards.remove(card3);
         return result;
+    }
+
+    public Mission getSecretMission() {
+        return secretMission;
+    }
+
+    public void setSecretMission(Mission secretMission) {
+        this.secretMission = secretMission;
     }
 }
