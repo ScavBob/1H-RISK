@@ -60,13 +60,6 @@ public class Faction implements Serializable {
         return tradeBonus;
     }
 
-
-
-    public Color getFactionColor(){
-
-        return factionColor;
-
-    }
     // Faction name is the symbl of the function, getSymbol gives the name of the function. 
     public String getFactionSymbol(){
         return factionName;
