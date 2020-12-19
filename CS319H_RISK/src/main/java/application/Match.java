@@ -214,16 +214,30 @@ public class Match implements Serializable {
 
 
     public void assignMissionSecretMission(){
-        int min = 0;
-
-    }
-
-    public void assignMissionDomination() {
         for (int i = 0; i < players.size(); i++) {
-            //players.get(i).setSecretMission();
+            int random =  (int)(Math.random() * 3);
+            switch (random){
+                case 0:
+                    players.get(i).setMission(new Mission(new DestroyPlayerWin(players.get(i))));
+                    break;
+                case 1:
+                    players.get(i).setMission(new Mission(new TwoContinentWin()));
+                    break;
+                case 2:
+                    players.get(i).setMission(new Mission(new DominantPlayerWin()));
+                    break;
+            }
         }
+
+
     }
-    
+
+    public void assignMissionWorldDomination() {
+        for (int i = 0; i < players.size(); i++) {
+            players.get(i).setMission(new Mission(new WorldDomination()));
+        }
+
+    }
     public ArrayList<Player> getPlayers(){
         return players;
     }
