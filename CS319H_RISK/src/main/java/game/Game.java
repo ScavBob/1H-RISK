@@ -97,6 +97,12 @@ public class Game {
         this.currentGameScreen = gameScreen;
     }
 
+    public void showBattleResults(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results)
+    {
+        if (currentGameScreen == null) return;
+        //currentGameScreen.showBattleResults(attackerDice, defenderDice,results);
+    }
+
     public void updateScreen()
     {
         Platform.runLater(new Runnable() {
