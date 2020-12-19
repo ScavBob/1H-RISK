@@ -1,6 +1,7 @@
 package application;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Map implements Serializable{
@@ -129,5 +130,23 @@ public class Map implements Serializable{
 
     public int[] getContinentRegionNumbers(){
         return continentRegionNumbers;
+    }
+
+
+    public ArrayList<Region> getNeighbourOf(Region r){
+        ArrayList<Region> list = new ArrayList<Region>();
+        for(int i = 0; i< adjacenyMatrix[r.RegionID()].length;i++){
+            if(adjacenyMatrix[r.RegionID()][i] )
+                list.add(findByID(i));
+        }
+        return list;
+    }
+
+    private Region findByID(int id){
+        for(int i = 0;i < regionList.length;i++){
+            if(regionList[i].RegionID() == id)
+                return regionList[i];
+        }
+        return null;
     }
 }

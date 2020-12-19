@@ -15,8 +15,8 @@ public class PlayerAction {
         return "PlayerAction{" +
                 "endPhase=" + endPhase +
                 ", phase=" + phase +
-                ", firstRegion=" + firstRegion +
-                ", secondRegion=" + secondRegion +
+                ", firstRegion=" + (firstRegion == null ? firstRegion : firstRegion.getRegionName()) +
+                ", secondRegion=" + (secondRegion == null ? secondRegion : secondRegion.getRegionName()) +
                 ", armyCount=" + armyCount +
                 '}';
     }

@@ -6,11 +6,13 @@ import managers.PlayerAction;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AIMoveGenerator {
 
     private static final int DEFAULT_DELAY_MS = 2000;
+
 
     public static void awaitAIAction(GameController controller, int phase, int level)
     {
@@ -28,9 +30,47 @@ public class AIMoveGenerator {
 
     public static void getAttackAction(GameController controller, int level)
     {
-        PlayerAction playerAction = new PlayerAction(true, GameController.ATTACK_PHASE, null, null, 0);
+        Player currentPlayer = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
+
+        Region source = null;
+        Region target = null;
+        Map map = Game.getInstance().getGameManager().getMatch().getMap();
+        boolean endPhase = true;
+        int armyCount = 0;
+        for(Region r:currentPlayer.getRegions()){
+
+            Region tempSource;
+            Region tempTarget;
+
+            ArrayList<Region> nList = map.getNeighbourOf(r);
+
+            for(Region nR:nList){
+                if(nR.getOwner() != currentPlayer){
+
+                    tempSource = r;
+                    tempTarget = nR;
+
+                    if(source == null || target == null){
+                        source = tempSource;
+                        target = tempTarget;
+                    }
+                    else if((tempSource.getUnitCount()-tempTarget.getUnitCount()) > (source.getUnitCount()-target.getUnitCount())){
+                        source = tempSource;
+                        target = tempTarget;
+                    }
+                }
+            }
+
+        }
+
+        if(source != null && target != null && (source.getUnitCount()-target.getUnitCount() >= 3)){
+            endPhase = false;
+            armyCount = source.getUnitCount()-1;
+        }
+
+        PlayerAction playerAction = new PlayerAction(endPhase, GameController.ATTACK_PHASE, source, target, armyCount);
         sendDelayedAction(controller, DEFAULT_DELAY_MS, playerAction);
-        return;
+
     }
 
     public static void getFortifyAction(GameController controller, int level)

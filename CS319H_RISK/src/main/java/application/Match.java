@@ -3,8 +3,12 @@ package application;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Match implements Serializable {
+
+    private final int[] troopPerPlayer = {0, 0, 40, 35, 30, 25, 20, 15};
+
     private int round;
     private int maxRound;
     private ArrayList<Player> players;
@@ -99,29 +103,68 @@ public class Match implements Serializable {
     }
 
     public void initialize(){
+        int numPlayers = players.size();
+        int numRegions = map.getMapRegionCount();
 
-        boolean[] available = new boolean[map.getRegionList().length];
+        List<Region> available = new ArrayList<>();
+        int[] remainingTroops = new int[numPlayers];
 
-        int lng = available.length;
-
-        for(int i = 0; i < lng;i++){
-            available[i] = true;
+        for (int i = 0; i < numPlayers; i++)
+        {
+            remainingTroops[i] = troopPerPlayer[numPlayers];
         }
 
-        for (int i = 0; i < lng; i++){
-            int loc;
-            do {
-                loc = (int) (Math.random() * lng);
-            }while(!available[loc]);
-
-            available[loc] = false;
-
-            players.get(i % players.size()).addRegion(map.getRegionList()[loc]);
-
-            map.getRegionList()[loc].setUnitCount((int)(Math.random()*10 + 1));
+        for (int i = 0; i < numRegions; i++)
+        {
+            available.add(map.getRegionList()[i]);
         }
 
-        //The first player cannot get the initial reinforcements from nextTurn() method, so we give it manually.
+        //Give everyone at least one region.
+        for (int i = 0; i < numPlayers; i++)
+        {
+            int randomRegion = (int)(Math.random() * available.size());
+            players.get(i).addRegion(available.get(randomRegion));
+            available.remove(randomRegion);
+        }
+
+        while (available.size() > 0)
+        {
+            int randomPlayer = (int)(Math.random() * numPlayers);
+            players.get(randomPlayer).addRegion(available.get(0));
+            available.remove(0);
+        }
+
+        update();
+
+        for (int i = 0; i < numPlayers; i++)
+        {
+            List<Region> playerRegions = players.get(i).getRegions();
+            for (int j = 0; j < playerRegions.size(); j++)
+            {
+                if (remainingTroops[i] == 0) break;
+                else
+                {
+                    playerRegions.get(j).setUnitCount(1);
+                    remainingTroops[i]--;
+                }
+            }
+        }
+
+        int randomRegionIndex;
+        for (int i = 0; i < numPlayers; i++)
+        {
+            while (remainingTroops[i] != 0)
+            {
+                randomRegionIndex = (int)(Math.random() * numRegions);
+                Region randomRegion = map.getRegionList()[randomRegionIndex];
+                randomRegion.setUnitCount(randomRegion.getUnitCount() + 1);
+                remainingTroops[i]--;
+            }
+        }
+
+        update();
+
+        //The first player cannot get the initial reinforcements from nextTurn() method, so we give it here manually.
         giveInitialReinforcement(currentPlayer);
         startGameLoop();
     }
