@@ -32,6 +32,7 @@ public class GameScreen implements UpdatableScreen{
     private Canvas canvas;
     private int armyCount;
     private Text timer;
+    private boolean confirmation;
 
     public GameScreen() {
         regions = Game.getInstance().getGameManager().getMatch().getMap().getRegionList();
@@ -79,19 +80,65 @@ public class GameScreen implements UpdatableScreen{
     }
 
     public boolean confirmBattle(int attacking, int defending){
+        confirmation = false;
         Stage dialog = new Stage();
         dialog.initStyle(StageStyle.UTILITY);
         Group root = new Group();
-        Scene scene = new Scene(root, 500, 225, Color.BLACK);
-        Canvas canvas = new Canvas(500, 225);
+        Scene scene = new Scene(root, 500, 270, Color.BLACK);
+        Canvas canvas = new Canvas(500, 270);
         dialog.setScene(scene);
         Image background = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\Background.png").toUri().toString());
         System.out.println(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\Background.png");
         canvas.getGraphicsContext2D().drawImage(background, 0, 0);
-
+        Text attackingText = new Text("Attacking Armies");
+        attackingText.setFill(Paint.valueOf("white"));
+        attackingText.setLayoutX(10);
+        attackingText.setLayoutY(30);
+        attackingText.setFont(new Font("Impact", 25));
+        Image dice = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\qm.png").toUri().toString());
+        for(int i = 0; i < attacking; i++){
+            canvas.getGraphicsContext2D().drawImage(dice, 5, 40 + (240/attacking)*i);
+        }
+        Text defendingText = new Text("Defending Armies");
+        for(int i = 0; i < defending; i++){
+            canvas.getGraphicsContext2D().drawImage(dice, 5, 40 + (240/attacking)*i);
+        }
         root.getChildren().add(canvas);
+        root.getChildren().add(attackingText);
+        root.getChildren().add(defendingText);
+        Text confirmationText = new Text("Confirm Attack?");
+        confirmationText.setLayoutX(200);
+        confirmationText.setLayoutY(220);
+        confirmationText.setFill(Paint.valueOf("white"));
+        Button confirmationButton = new Button("Accept");
+        confirmationButton.setLayoutX(200);
+        confirmationButton.setLayoutY(240);
+        confirmationButton.setMinSize(75, 25);
+        Button denialButton = new Button("Deny");
+        denialButton.setLayoutX(270);
+        denialButton.setLayoutY(240);
+        denialButton.setMinSize(75, 25);
+        confirmationButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                confirmation = true;
+                dialog.close();
+                System.out.println(confirmation);
+            }
+        });
+        denialButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                confirmation = false;
+                dialog.close();
+                System.out.println(confirmation);
+            }
+        });
+        root.getChildren().add(confirmationButton);
+        root.getChildren().add(denialButton);
+        root.getChildren().add(confirmationText);
         dialog.showAndWait();
-        return true;
+        return confirmation;
     }
 
     private void populateScreen() {
@@ -189,7 +236,7 @@ public class GameScreen implements UpdatableScreen{
                     armyCount = 0;
                     Game.getInstance().updateScreen();
                 }
-                confirmBattle(5, 5);
+                confirmBattle(3, 2);
             }
         });
     }
