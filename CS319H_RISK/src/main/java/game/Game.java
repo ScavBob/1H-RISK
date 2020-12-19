@@ -100,7 +100,7 @@ public class Game {
     public void showBattleResults(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results)
     {
         if (currentGameScreen == null) return;
-        //return currentGameScreen.showBattleResults(attackerDice, defenderDice,results);
+        currentGameScreen.showBattleResults(attackerDice, defenderDice,results);
     }
 
     public void updateScreen()
@@ -114,6 +114,11 @@ public class Game {
     }
 
     public void showBattleResult(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results) {
-        
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                currentGameScreen.showBattleResults(attackerDice, defenderDice, results);
+            }
+        });
     }
 }
