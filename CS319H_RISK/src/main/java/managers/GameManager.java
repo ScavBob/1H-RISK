@@ -61,7 +61,7 @@ public class GameManager
 
         for (Player playerToAdd : players)
             match.addPlayer(playerToAdd);
-        Map matchMap = Game.getInstance().getGameManager().mapManager.getMap(MapManager.WORLD_MAP);
+        Map matchMap = Game.getInstance().getGameManager().mapManager.getMap(map);
         match.setMap(matchMap);
         match.initialize();
     }

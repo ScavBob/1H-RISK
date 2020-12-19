@@ -140,13 +140,13 @@ public class GameStartMenu extends Menu {
     }
 
     private String[] colors = {"Red", "Green", "Blue", "Yellow", "Purple", "Black", "Pink"};
-    private String map;
+    private int map;
     private Slot[] slots = new Slot[7];
     private int gameMode;
     private int AILevel;
     private int turnTime;
 
-    public GameStartMenu(String map) {
+    public GameStartMenu(int map) {
         this.map = map;
     }
 
@@ -204,7 +204,7 @@ public class GameStartMenu extends Menu {
             }
         }
         if (playerList.size() >= 2) {
-            Game.getInstance().getGameManager().startMatch(MapManager.WORLD_MAP, playerList, 600);
+            Game.getInstance().getGameManager().startMatch(map, playerList, 600);
             Game.getInstance().setScreen(new GameScreen());
         }
         else{
