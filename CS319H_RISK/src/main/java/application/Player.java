@@ -105,6 +105,18 @@ public class Player implements Serializable {
         this.availableReinforcements = availableReinforcements;
     }
 
+
+    public boolean isAccessible(Region r1, Region r2){
+        boolean accessibility = false;
+        int startNode = r1.RegionID();
+        int endNode = r2.RegionID();
+
+        //Do a bfs starting from startNode to endNode
+
+
+        return accessibility;
+    }
+
     public int checkForContinentBonuses(){
         int bonusReinforcements = 0;
         boolean rowAllOccupied = true;
