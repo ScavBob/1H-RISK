@@ -20,6 +20,7 @@ public class Card implements Serializable {
     Card(Region region,int type){
         this.region = region;
         this.type = type;
+        setTypeName(this.type);
     }
     public int getType(){
         return type;
@@ -42,6 +43,29 @@ public class Card implements Serializable {
                 typeName = "Wild";
                 break;
         }
+    }
+
+    public static int tradeCards(Card card1, Card card2, Card card3, int numberOfTrades){
+        if(!checkCombination(card1,card2,card3))
+            return -1;
+        int extra = 0;
+        if(numberOfTrades < 5)
+            extra = 4 + (2*numberOfTrades);
+        if(numberOfTrades == 5)
+            extra = 15;
+        if(numberOfTrades > 5)
+            extra = 15 + (5*numberOfTrades);
+        return extra;
+    }
+
+    private static boolean checkCombination(Card card1, Card card2, Card card3){
+        if(card1.type == 3 || card2.type==3 || card3.type ==3)
+            return true;
+        if(card1.type == card2.type && card2.type == card3.type)
+            return true;
+        if(card1.type != card2.type && (card3.type != card1.type && card3.type != card2.type))
+            return true;
+        return false;
     }
 
 
