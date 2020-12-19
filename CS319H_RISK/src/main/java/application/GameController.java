@@ -37,6 +37,7 @@ public class GameController implements Serializable {
                         takePlayerAction(new PlayerAction(true, stateManager.getPhase(), null, null, 0));
                     } while (stateManager.getPhase() != REINFORCEMENT_PHASE);
                 }
+                Game.getInstance().updateScreen();
             }
         });
         this.maxTurnTime = maxTurnTime;
