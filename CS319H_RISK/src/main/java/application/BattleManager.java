@@ -28,16 +28,33 @@ public class BattleManager implements Serializable {
         }
     }
 
+    private int rollDice()
+    {
+        return (int)(Math.random() * 6) + 1;
+    }
+
     public void initBattle(Region srcRegion, Region dstRegion, int armyCount) {
         Player currentPlayer = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
         srcRegion.setUnitCount(srcRegion.getUnitCount() - armyCount);
 
         int defendingArmyCount = Math.min(2, dstRegion.getUnitCount());
 
+        //boolean battleConfirmed = Game.getInstance().confirmBattle();
 
+        /*
+        if (!battleConfirmed)
+        {
+            return;
+        }
+        else
+        {
+
+
+        }
+
+         */
 
         //Old simple logic for test
-        /*
         if (armyCount > dstRegion.getUnitCount())
         {
             dstRegion.setOwner(currentPlayer);
@@ -47,8 +64,6 @@ public class BattleManager implements Serializable {
         {
             dstRegion.setUnitCount(dstRegion.getUnitCount() - armyCount);
         }
-
-         */
     }
 }
 
