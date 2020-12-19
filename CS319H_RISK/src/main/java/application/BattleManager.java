@@ -96,6 +96,9 @@ public class BattleManager implements Serializable {
             {
                 defRegion.setOwner(currentPlayer);
             }
+            //Game.getInstance().showBattleResult(attackerDice, defenderDice, results);
+
+        }
 
             Game.getInstance().showBattleResult(attackerDice, defenderDice, results);
 
