@@ -66,14 +66,16 @@ public class GameStartMenu extends Menu {
             playerName = "Player " + (i + 1);
             this.root = root;
             selectedFaction = i;
-            x = 55;
+            x = 75;
             y = 60 + i*90;
-            addButton(addPlayer, x, y, 495, 77, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\AddPlayerButton.png");
-            addButton(type, x, y, 495, 77, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Type.png");
-            addButton(faction, x - 200, y, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Game\\Factions\\Faction" + i + ".png");
-            addButton(color, x + 40, y + 25, 40, 26,  StorageManager.RESOURCES_FOLDER_NAME + "Game\\Colors\\" + playerColor + ".png");
-            addButton(delete, x + 420, y + 13, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Delete.png");
-            addButton(changeType, x + 340, y + 8, 68, 60, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\HUMAN.png");
+            addButton(addPlayer, x-20, y, 495, 77, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\AddPlayerButton.png");
+            addButton(type, x-20, y, 495, 77, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Type.png");
+            addButton(faction, x -10, y + 9, 60, 60, StorageManager.RESOURCES_FOLDER_NAME + "Game\\Factions\\" + (i+1) + ".png");
+            addButton(color, x + 60, y + 25, 40, 26,  StorageManager.RESOURCES_FOLDER_NAME + "Game\\Colors\\" + playerColor + ".png");
+            addButton(delete, x + 400, y + 13, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Delete.png");
+            addButton(changeType, x + 320, y + 8, 68, 60, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\HUMAN.png");
+            name.setLayoutX(x + 110);
+            name.setLayoutY(y + 13);
             changeType.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -95,8 +97,6 @@ public class GameStartMenu extends Menu {
                     removePlayer();
                 }
             });
-            name.setLayoutX(x + 90);
-            name.setLayoutY(y + 13);
             name.setMaxSize(175, 50);
             name.setFont(new Font(15));
             name.setOnMouseExited(new EventHandler<MouseEvent>() {
