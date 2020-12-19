@@ -62,10 +62,11 @@ public class AIMoveGenerator {
             }
 
         }
+        int difference = source.getUnitCount()-target.getUnitCount();
 
-        if(source != null && target != null && (source.getUnitCount()-target.getUnitCount() >= 3)){
+        if(source != null && target != null && (difference >= 4)){
             endPhase = false;
-            armyCount = source.getUnitCount()-1;
+            armyCount = source.getUnitCount()-(1+difference/3);
         }
 
         PlayerAction playerAction = new PlayerAction(endPhase, GameController.ATTACK_PHASE, source, target, armyCount);
