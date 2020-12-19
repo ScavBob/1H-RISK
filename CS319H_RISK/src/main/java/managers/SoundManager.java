@@ -65,6 +65,7 @@ public class SoundManager {
         // x : 0 - 10
         System.out.println("x:  " + x);
         background_theme.setVolume((x + 0.0) / 30 );
+        clickSound.setVolume((x + 0.0) / 30 );
     }
 
     public void updateSoundVolumeInitialPosition() {
@@ -77,8 +78,9 @@ public class SoundManager {
         background_theme.setCycleCount(Integer.MAX_VALUE);
         background_theme.seek(Duration.ZERO);
         background_theme.play();
-
     }
+
+    public void stop
     public void playCongrats() {
         congratsSound.seek(Duration.ZERO);
         congratsSound.play();
