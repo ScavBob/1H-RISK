@@ -9,13 +9,14 @@ public class Map implements Serializable{
     private String mapName;
     private boolean [][] adjacenyMatrix;
     private Region[] regionList;
-    private int mapRegionCount;
+    private int mapRegionCount, regionCounter;
+    private int continentCount;
     private int mapContinentCount;
     private int[] continentBonus;
     private int[] continentRegionNumbers;
     private String[] continentNames;
-
-
+    private int firstRegion,secondRegion;
+    private int totalRegionCount, regionCount,regionID,regionX,regionY,continentID;
     public Map(String mapName, File mapData) {
         this.mapName = mapName;
         initializeRegions(mapData);
@@ -32,7 +33,10 @@ public class Map implements Serializable{
         }
     }
 
-    //Parse the regions from the
+    /**
+     * Function intilailzes the regions and the instances of the map class by using the txt file.
+     * @param mapData takes the location of the file includes the map settings.
+     */
     private void initializeRegions(File mapData){
 
         Scanner scanner = null;
@@ -41,15 +45,14 @@ public class Map implements Serializable{
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        int continentCount = scanner.nextInt();
+        continentCount = scanner.nextInt();
         mapContinentCount = continentCount;
         continentNames = new String[mapContinentCount];
-        int totalRegionCount = scanner.nextInt();
+        totalRegionCount = scanner.nextInt();
         mapRegionCount = totalRegionCount;
-        int regionCount,regionID,regionX,regionY,continentID;
         String regionName,continentName;
         regionList = new Region[totalRegionCount];
-        int regionCounter = 0;
+        regionCounter = 0;
         continentBonus = new int[continentCount];
         continentRegionNumbers = new int[continentCount];
 
@@ -78,21 +81,40 @@ public class Map implements Serializable{
             }
         }
         while (scanner.hasNextInt()){
-            int firstRegion =  scanner.nextInt();
-            int secondRegion = scanner.nextInt();
+            firstRegion =  scanner.nextInt();
+            secondRegion = scanner.nextInt();
             adjacenyMatrix[firstRegion][secondRegion] = true;
             adjacenyMatrix[secondRegion][firstRegion] = true;
         }
     }
 
+
+    /**
+     * Function checks the connection between regions.
+     * @param r1 first region that the connection  going to check.
+     * @param r2 second region that is going to check the connection.
+     * @return boolean the condition of the connection of the two region.
+     */
     public boolean isAdjacentRegion(Region r1, Region r2 ){
         return adjacenyMatrix[r1.RegionID()][r2.RegionID()];
     }
 
+
+    /**
+     * Get regionList method for the game logic.
+     * @return the regionList of the map.
+     */
     public Region[] getRegionList(){
         return regionList;
     }
 
+
+    /**
+     * Function updates the region according to the owners unit.
+     * @param owner the player has the region.
+     * @param region the target region is going to be checked.
+     * @param newUnitCount last unit count of the region.
+     */
     public void updateRegion(Region region, int newUnitCount, Player owner ){
         int location = -1;
         //location = java.util.Arrays.binarySearch(regionList,region);
@@ -106,28 +128,50 @@ public class Map implements Serializable{
     }
 
 
-
+    /**
+     * Function gets the name of the map.
+     * @return  name of the map.
+     */
     public String getMapName(){
         return mapName;
     }
 
+
+    /**
+     * Function gets the bonus of the continent
+     * @return int[]  bonus of the continent.
+     */
     public int[] getContinentBonus(){
         return continentBonus;
     }
 
+    /**
+     * @return  int region count of the map.
+     */
     public int getMapRegionCount() {
         return mapRegionCount;
     }
 
+    /**
+     * @return int[] count of the continent.
+     */
     public int getMapContinentCount(){
         return mapContinentCount;
     }
 
+
+    /**
+     * @return  int [] continent region numbers.
+     */
     public int[] getContinentRegionNumbers(){
         return continentRegionNumbers;
     }
 
 
+    /**
+     * @param Region region that is the target region
+     * @return ArrayList<Region> neighbour regions of the region parameter
+     */
     public ArrayList<Region> getNeighbourOf(Region r){
         ArrayList<Region> list = new ArrayList<Region>();
         for(int i = 0; i< adjacenyMatrix[r.RegionID()].length;i++){
@@ -137,6 +181,12 @@ public class Map implements Serializable{
         return list;
     }
 
+
+    /**
+     * Function finds the Region according to the ID
+     * @param id  gets the target id
+     * @return  name of the map.
+     */
     private Region findByID(int id){
         for(int i = 0;i < regionList.length;i++){
             if(regionList[i].RegionID() == id)
@@ -145,6 +195,10 @@ public class Map implements Serializable{
         return null;
     }
 
+    /**
+     * Function updates the region according to the owners unit.
+     * @return  name of the map.
+     */
     public boolean isConnected(Region source, Region target){
 
         boolean[] available = new boolean[adjacenyMatrix[0].length];
@@ -155,6 +209,10 @@ public class Map implements Serializable{
         return isConnected(target,source,available);
     }
 
+    /**
+     * Function updates the region according to the owners unit.
+     * @return  name of the map.
+     */
     private boolean isConnected(Region target,Region current, boolean[] available){
         if(current == target)
             return true;
@@ -174,9 +232,18 @@ public class Map implements Serializable{
 
     }
 
+    /**
+     * Function updates the region according to the owners unit.
+     * @return  name of the map.
+     */
     public String[] getContinentNames(){
         return continentNames;
     }
+
+    /**
+     * Function updates the region according to the owners unit.
+     * @return  name of the map.
+     */
     public String getContinentName(int continentID){
         return continentNames[continentID];
     }
