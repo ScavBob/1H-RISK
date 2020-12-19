@@ -37,6 +37,7 @@ public class AIMoveGenerator {
         Map map = Game.getInstance().getGameManager().getMatch().getMap();
         boolean endPhase = true;
         int armyCount = 0;
+        int difference = 0;
         for(Region r:currentPlayer.getRegions()){
 
             Region tempSource;
@@ -62,7 +63,7 @@ public class AIMoveGenerator {
             }
 
         }
-        int difference = source.getUnitCount()-target.getUnitCount();
+        difference = source.getUnitCount()-target.getUnitCount();
 
         if(source != null && target != null && (difference >= 4)){
             endPhase = false;
@@ -76,9 +77,71 @@ public class AIMoveGenerator {
 
     public static void getFortifyAction(GameController controller, int level)
     {
-        PlayerAction playerAction = new PlayerAction(true, GameController.FORTIFY_PHASE, null, null, 0);
+
+        Player currentPlayer = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
+        Region source = null;
+        Region target = null;
+        Map map = Game.getInstance().getGameManager().getMatch().getMap();
+        boolean endPhase = true;
+        int armyCount = 0;
+
+        for(Region r:currentPlayer.getRegions()){
+
+            ArrayList<Region> nList = map.getNeighbourOf(r);
+            boolean noEnemy = true;
+            for(Region nR:nList){
+                if(nR.getOwner() != currentPlayer){
+                    noEnemy = false;
+                    break;
+                }
+            }
+            if(noEnemy && r.getUnitCount()>1){
+                endPhase = false;
+                if(source == null)
+                    source = r;
+                else if(source.getUnitCount() < r.getUnitCount())
+                    source = r;
+            }
+        }
+
+        if(endPhase){
+            PlayerAction playerAction = new PlayerAction(endPhase, GameController.FORTIFY_PHASE, source, target, armyCount);
+            sendDelayedAction(controller, DEFAULT_DELAY_MS, playerAction);
+            return;
+        }
+
+        int difference = 0;
+        int totalEnemyUnitCount = 0;
+        for(Region r:currentPlayer.getRegions()){
+            int tempDifference;
+            int tempEnemyUnit = 0;
+
+            ArrayList<Region> nList = map.getNeighbourOf(r);
+            for(Region nR:nList){
+
+                if(nR.getOwner() != currentPlayer){
+                    tempEnemyUnit += nR.getUnitCount();
+                    tempDifference = r.getUnitCount() - tempEnemyUnit;
+                    if(!map.isConnected(source,r))
+                        continue;
+                    if (target == null){
+                        target = r;
+                        difference = tempDifference;
+                    }
+                    else if (difference >= tempDifference){
+                        target = r;
+                        difference = tempDifference;
+                    }
+                }
+            }
+
+        }
+
+        armyCount = source.getUnitCount()-1;
+
+        PlayerAction playerAction = new PlayerAction(endPhase, GameController.FORTIFY_PHASE, source, target, armyCount);
         sendDelayedAction(controller, DEFAULT_DELAY_MS, playerAction);
-        return;
+
     }
 
     public static void getReinforcementAction(GameController controller, int level)
