@@ -14,9 +14,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import managers.StorageManager;
 
 import java.nio.file.Paths;
@@ -73,6 +76,22 @@ public class GameScreen implements UpdatableScreen{
         timer.setFont(Font.font("Helvenica",30));
         timer.setFill(Paint.valueOf("white"));
         root.getChildren().add(timer);
+    }
+
+    public boolean confirmBattle(int attacking, int defending){
+        Stage dialog = new Stage();
+        dialog.initStyle(StageStyle.UTILITY);
+        Group root = new Group();
+        Scene scene = new Scene(root, 500, 225, Color.BLACK);
+        Canvas canvas = new Canvas(500, 225);
+        dialog.setScene(scene);
+        Image background = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\Background.png").toUri().toString());
+        System.out.println(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\Background.png");
+        canvas.getGraphicsContext2D().drawImage(background, 0, 0);
+
+        root.getChildren().add(canvas);
+        dialog.showAndWait();
+        return true;
     }
 
     private void populateScreen() {
@@ -170,6 +189,7 @@ public class GameScreen implements UpdatableScreen{
                     armyCount = 0;
                     Game.getInstance().updateScreen();
                 }
+                confirmBattle(5, 5);
             }
         });
     }

@@ -5,13 +5,13 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Faction implements Serializable {
-    private static Faction Ottoman = new Faction(); // +%30 starting bonus, %-0 continental bonus, %0, %0
-    private static Faction Germany = new Faction(); // -5 staring bonus +3 continental bonus
-    private static Faction France = new Faction(); // +5 starting bonus -1 continental bonus
-    private static Faction Britain = new Faction(); // -7 staring bonus +4 continental bonus
-    private static Faction America = new Faction(); //
-    private static Faction Italy = new Faction(); //
-    private static Faction Russia = new Faction(); //
+    public static Faction Ottoman = new Faction(); // +%30 starting bonus, %-0 continental bonus, %0, %0
+    public static Faction Germany = new Faction(); // -5 staring bonus +3 continental bonus
+    public static Faction France = new Faction(); // +5 starting bonus -1 continental bonus
+    public static Faction Britain = new Faction(); // -7 staring bonus +4 continental bonus
+    public static Faction America = new Faction(); //
+    public static Faction Italy = new Faction(); //
+    public static Faction Russia = new Faction(); //
 
     private int factionID;
     private String factionName;

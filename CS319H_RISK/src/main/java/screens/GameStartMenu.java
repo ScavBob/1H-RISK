@@ -1,5 +1,6 @@
 package screens;
 
+import application.Faction;
 import application.Player;
 import game.Game;
 import javafx.event.ActionEvent;
@@ -27,6 +28,14 @@ import java.util.ArrayList;
 
 public class GameStartMenu extends Menu {
 
+    private final Faction[] factions = {Faction.Ottoman, Faction.Germany, Faction.France, Faction.Britain, Faction.America, Faction.Italy, Faction.Russia};
+    private String[] colors = {"Red", "Green", "Blue", "Yellow", "Purple", "Black", "Pink"};
+    private int map;
+    private Slot[] slots = new Slot[7];
+    private int gameMode;
+    private int AILevel;
+    private int turnTime;
+
     private class Slot {
         private int x, y;
         private Group root;
@@ -34,12 +43,14 @@ public class GameStartMenu extends Menu {
         private String playerName;
         private String playerColor;
         private boolean playerAdded;
+        private int selectedFaction;
 
-        private Button   addPlayer;
-        private Button   color;
-        private Button   delete;
-        private Button   changeType;
-        private Button   type;
+        private Button faction;
+        private Button addPlayer;
+        private Button color;
+        private Button delete;
+        private Button changeType;
+        private Button type;
         private TextArea name;
 
         protected Slot(Group root, int i, String playerColor){
@@ -48,16 +59,18 @@ public class GameStartMenu extends Menu {
             color = new Button();
             delete = new Button();
             changeType = new Button();
+            faction = new Button();
             type = new Button();
             name = new TextArea();
             this.playerColor = playerColor;
             playerName = "Player " + (i + 1);
             this.root = root;
+            selectedFaction = i;
             x = 55;
             y = 60 + i*90;
             addButton(addPlayer, x, y, 495, 77, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\AddPlayerButton.png");
             addButton(type, x, y, 495, 77, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Type.png");
-            //addButton(faction, x - 200, y, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Game\\Factions\\England.png");
+            addButton(faction, x - 200, y, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "Game\\Factions\\Faction" + i + ".png");
             addButton(color, x + 40, y + 25, 40, 26,  StorageManager.RESOURCES_FOLDER_NAME + "Game\\Colors\\" + playerColor + ".png");
             addButton(delete, x + 420, y + 13, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Delete.png");
             addButton(changeType, x + 340, y + 8, 68, 60, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\HUMAN.png");
@@ -119,7 +132,7 @@ public class GameStartMenu extends Menu {
             root.getChildren().remove(addPlayer);
             root.getChildren().add(type);
             root.getChildren().add(delete);
-            //root.getChildren().add(faction);
+            root.getChildren().add(faction);
             root.getChildren().add(color);
             root.getChildren().add(name);
             root.getChildren().add(changeType);
@@ -129,7 +142,7 @@ public class GameStartMenu extends Menu {
         private void removePlayer(){
             root.getChildren().remove(type);
             root.getChildren().remove(delete);
-            //root.getChildren().remove(faction);
+            root.getChildren().remove(faction);
             root.getChildren().remove(color);
             root.getChildren().remove(name);
             root.getChildren().remove(changeType);
@@ -138,13 +151,6 @@ public class GameStartMenu extends Menu {
         }
 
     }
-
-    private String[] colors = {"Red", "Green", "Blue", "Yellow", "Purple", "Black", "Pink"};
-    private int map;
-    private Slot[] slots = new Slot[7];
-    private int gameMode;
-    private int AILevel;
-    private int turnTime;
 
     public GameStartMenu(int map) {
         this.map = map;
@@ -161,12 +167,14 @@ public class GameStartMenu extends Menu {
         for(int i = 0; i < 7; i++) {
             slots[i] = new Slot(root, i, colors[i]);
         }
-        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\" + map + "MapPreview.png", 600, 40);
-        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\MapPreview.png", 598, 38);
+        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\MapPreview\\" + map + "Preview.png", 600, 40);   //591x270
+        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\MapPreview\\MapPreview.png", 598, 38);   //594x273
         drawRect("#bfbfbf7f", 598, 331, 594, 361);
         drawRect("0000007f", 607, 341, 574, 341);
         drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\GameRules.png", 776, 346);
         drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\GameMode\\GameMode.png", 836, 400);
+        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\AI\\AIDifficulty.png", 836, 490);
+        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\Timer\\TurnTimer.png", 836, 580);
         addButtons(root);
         return scene;
     }
@@ -193,6 +201,25 @@ public class GameStartMenu extends Menu {
                 Game.getInstance().getGameManager().getSoundManager().playClick();
             }
         });
+        addButtons(root, "", 823, 520, 143, 49, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\AI\\2.png", new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                AILevel = 2;
+            }
+        });
+        addButtons(root, "", 675, 520, 143, 49, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\AI\\1.png", new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                AILevel = 1;
+            }
+        });
+        addButtons(root, "", 971, 520, 143, 49, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\AI\\3.png", new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                AILevel = 3;
+            }
+        });
+        //addButtons(root, "", )
 
     }
 
@@ -200,7 +227,8 @@ public class GameStartMenu extends Menu {
         ArrayList<Player> playerList = new ArrayList<Player>();
         for (Slot s : slots) {
             if(s.playerAdded) {
-                playerList.add(new Player(s.playerName, s.playerColor, s.humanPlayer));
+                System.out.println(factions[s.selectedFaction]);
+                playerList.add(new Player(s.playerName, s.playerColor, s.humanPlayer, factions[s.selectedFaction]));
             }
         }
         if (playerList.size() >= 2) {

@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import managers.SoundManager;
 import org.w3c.dom.events.Event;
 
 import java.nio.file.Paths;
@@ -34,6 +35,7 @@ public class TransitionButton extends Button implements EventHandler<ActionEvent
 
     @Override
     public void handle(ActionEvent event) {
+        Game.getInstance().getGameManager().getSoundManager().playClick();
         Game.getInstance().setScreen(this.screenToShow);
     }
 }
