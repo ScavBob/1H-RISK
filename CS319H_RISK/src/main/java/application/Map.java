@@ -196,8 +196,10 @@ public class Map implements Serializable{
     }
 
     /**
-     * Function updates the region according to the owners unit.
-     * @return  name of the map.
+     * Function checks the is there a connection beetween two region.
+     * @param source The source region is going to checked for a connection.
+     * @param target  The target region is going to checked for a connection.
+     * @return boolean returns the connection status as calling the isConnected method.
      */
     public boolean isConnected(Region source, Region target){
 
@@ -210,8 +212,11 @@ public class Map implements Serializable{
     }
 
     /**
-     * Function updates the region according to the owners unit.
-     * @return  name of the map.
+     * Function returns the connection status of two region
+     * @param target target region is going to be checked for connection
+     * @param available boolean array of the available regions.
+     * @param current source region is going to be checked for connection
+     * @return  the connection status.
      */
     private boolean isConnected(Region target,Region current, boolean[] available){
         if(current == target)
@@ -233,16 +238,14 @@ public class Map implements Serializable{
     }
 
     /**
-     * Function updates the region according to the owners unit.
-     * @return  name of the map.
+     * @return String[] array of the continent names.
      */
     public String[] getContinentNames(){
         return continentNames;
     }
 
     /**
-     * Function updates the region according to the owners unit.
-     * @return  name of the map.
+     * @return  gets the name of the continent.
      */
     public String getContinentName(int continentID){
         return continentNames[continentID];
