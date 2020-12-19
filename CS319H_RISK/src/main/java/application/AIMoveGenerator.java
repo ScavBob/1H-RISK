@@ -11,7 +11,7 @@ import java.util.List;
 
 public class AIMoveGenerator {
 
-    private static final int DEFAULT_DELAY_MS = 2000;
+    private static final int DEFAULT_DELAY_MS = 3000;
 
 
     public static void awaitAIAction(GameController controller, int phase, int level)
@@ -63,9 +63,9 @@ public class AIMoveGenerator {
 
         }
 
-        if(source != null && target != null && (source.getUnitCount()-target.getUnitCount() >= (4+level/2))){
+        if(source != null && target != null && (source.getUnitCount()-target.getUnitCount() >= 1)){
             endPhase = false;
-            armyCount = source.getUnitCount()-3;
+            armyCount = source.getUnitCount()-1;
         }
 
         PlayerAction playerAction = new PlayerAction(endPhase, GameController.ATTACK_PHASE, source, target, armyCount);
