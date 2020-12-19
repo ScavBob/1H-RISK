@@ -5,8 +5,11 @@ import java.lang.String;
 
 public class Mission implements Serializable {
     private int missionID;
-
     private CheckWinStrategy strategy;
+
+    Mission(CheckWinStrategy start){
+        strategy = start;
+    }
 
     public boolean checkWin(Player p){
         return strategy.checkWin(p);
