@@ -2,6 +2,7 @@ package screens;
 
 import application.Region;
 import game.Game;
+
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -98,6 +99,7 @@ public class GameScreen implements UpdatableScreen{
     public boolean confirmBattle(int attacking, int defending){
         confirmation = false;
         Stage dialog = new Stage();
+        dialog.setResizable(false);
         dialog.initStyle(StageStyle.UTILITY);
         Group root = new Group();
         Scene scene = new Scene(root, 500, 270, Color.BLACK);
@@ -149,6 +151,7 @@ public class GameScreen implements UpdatableScreen{
     public int showBattleResults(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results, boolean won, int maxMovableArmies){
         currentArmyCount = 0;
         Stage dialog = new Stage();
+        dialog.setResizable(false);
         dialog.initStyle(StageStyle.UTILITY);
         Group root = new Group();
         Scene scene = new Scene(root, 500, 270, Color.BLACK);
