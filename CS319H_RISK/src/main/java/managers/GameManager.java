@@ -64,6 +64,11 @@ public class GameManager
         Map matchMap = Game.getInstance().getGameManager().mapManager.getMap(map);
         match.setMap(matchMap);
         match.initialize();
+
+        if (isWorldDomination)
+            match.assignMissionWorldDomination();
+        else
+            match.assignMissionSecretMission();
     }
 
     public Match getMatch() {

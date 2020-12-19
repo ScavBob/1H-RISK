@@ -16,7 +16,7 @@ public class Player implements Serializable {
     private ArrayList<Region> regions;
     private Region capital;
     private ArrayList<Card> unusedCards;
-    private Mission secretMission;
+    private Mission mission;
     private int totalUnitCount;
     private PlayStrategy strategy;
     private ArrayList<Player> allies;
@@ -196,8 +196,17 @@ public class Player implements Serializable {
         return result;
     }
 
-    public boolean checkWin(){
-        //return secretMission.checkWin(this);
-        return false;
+
+    public Mission getMission() {
+        return mission;
     }
+
+    public void setMission(Mission mission) {
+        this.mission = mission;
+    }
+
+    public boolean checkWin(){
+        return mission.checkWin(this);
+    }
+
 }
