@@ -110,9 +110,13 @@ public class InputManager
             }
             else if (secondRegion == null)
             {
-                waitingInputType = WAITING_ARMY_COUNT;
-                secondRegion = region;
-                return true;
+                if (region != firstRegion)
+                {
+                    waitingInputType = WAITING_ARMY_COUNT;
+                    secondRegion = region;
+                    return true;
+                }
+                return false;
             }
             else
             {
