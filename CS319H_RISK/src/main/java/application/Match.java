@@ -13,7 +13,6 @@ public class Match implements Serializable {
     private int maxRound;
     private ArrayList<Player> players;
     private Player currentPlayer;
-    private ArrayList<Mission> missionList;
     private HashMap<Faction, Boolean> availableFactions;
     private Map map;
     private GameController controller;
@@ -23,7 +22,6 @@ public class Match implements Serializable {
         this.round = 0;
         this.maxRound = 100;
         this.players = new ArrayList<>();
-        this.missionList = new ArrayList<>();
         this.currentPlayer = null;
         this.availableFactions = new HashMap<>();
         this.map = null;
@@ -31,21 +29,6 @@ public class Match implements Serializable {
         numberOfCardTrades = 0;
     }
 
-
-    public Match(int round, int maxRound, ArrayList<Player> players,
-                 ArrayList<Mission> missionList, HashMap<Faction, Boolean> availableFactions,
-                 Map map, GameController controller) {
-        this.round = 0;
-        this.maxRound = maxRound;
-        this.players = players;
-        this.missionList = missionList;
-        this.currentPlayer = players.get(0);
-        this.availableFactions = availableFactions;
-        this.map = map;
-        this.controller = controller;
-
-
-    }
 
     //isMatcOver method returns true if match is over, false if match is continues
     public boolean isMatchOver(){
@@ -229,6 +212,32 @@ public class Match implements Serializable {
         numberOfCardTrades++;
     }
 
+
+    public void assignMissionSecretMission(){
+        for (int i = 0; i < players.size(); i++) {
+            int random =  (int)(Math.random() * 3);
+            switch (random){
+                case 0:
+                    players.get(i).setMission(new Mission(new DestroyPlayerWin(players.get(i))));
+                    break;
+                case 1:
+                    players.get(i).setMission(new Mission(new TwoContinentWin()));
+                    break;
+                case 2:
+                    players.get(i).setMission(new Mission(new DominantPlayerWin()));
+                    break;
+            }
+        }
+
+
+    }
+
+    public void assignMissionWorldDomination() {
+        for (int i = 0; i < players.size(); i++) {
+            players.get(i).setMission(new Mission(new WorldDomination()));
+        }
+
+    }
     public ArrayList<Player> getPlayers(){
         return players;
     }

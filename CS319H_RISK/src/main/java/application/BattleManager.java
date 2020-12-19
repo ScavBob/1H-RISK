@@ -42,19 +42,18 @@ public class BattleManager implements Serializable {
 
     public void initBattle(Region atkRegion, Region defRegion, int attackingArmyCount) {
         Player currentPlayer = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
-        atkRegion.setUnitCount(atkRegion.getUnitCount() - attackingArmyCount);
-
         int defendingArmyCount = Math.min(2, defRegion.getUnitCount());
 
-        boolean battleConfirmed = true;
-        //boolean battleConfirmed = Game.getInstance().confirmBattle(attackingArmyCount, defendingArmyCount);
+        boolean battleConfirmed = Game.getInstance().confirmBattle(attackingArmyCount, defendingArmyCount);
 
         if (!battleConfirmed)
         {
+            System.out.println("Battle is denied.");
             return;
         }
         else
         {
+            System.out.println("Battle is confirmed.");
             List<Integer> attackerDice = new ArrayList<>();
             List<Integer> defenderDice = new ArrayList<>();
             List<Boolean> results = new ArrayList<>();
@@ -92,20 +91,13 @@ public class BattleManager implements Serializable {
             mapManager.increaseArmyCount(atkRegion, -attackerLoss);
             mapManager.increaseArmyCount(defRegion, -defenderLoss);
 
+            //Attacker has captured the region.
+            if (defRegion.getUnitCount() == 0)
+            {
+                defRegion.setOwner(currentPlayer);
+            }
             //Game.getInstance().showBattleResult(attackerDice, defenderDice, results);
 
-        }
-
-
-        //Old simple logic for test
-        if (attackingArmyCount > defRegion.getUnitCount())
-        {
-            defRegion.setOwner(currentPlayer);
-            defRegion.setUnitCount(attackingArmyCount - defRegion.getUnitCount());
-        }
-        else
-        {
-            defRegion.setUnitCount(defRegion.getUnitCount() - attackingArmyCount);
         }
     }
 }
