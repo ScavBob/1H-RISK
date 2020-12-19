@@ -102,6 +102,7 @@ public class Player implements Serializable {
         this.availableReinforcements = availableReinforcements;
     }
 
+
     public boolean isAccessible(Region r1, Region r2){
         boolean accessibility = false;
         int startNode = r1.RegionID();
@@ -112,12 +113,12 @@ public class Player implements Serializable {
 
         return accessibility;
     }
-
+    
     public int checkForContinentBonuses(){
         int bonusReinforcements = 0;
         boolean rowAllOccupied = true;
         Map map = Game.getInstance().getGameManager().getMatch().getMap();
-        int[] continetBonus = map.getContinentBonus();
+        int[] continentBonus = map.getContinentBonus();
         int[][] temp;
         temp = new int[map.getMapContinentCount()][];
         //temp initialization
@@ -149,7 +150,7 @@ public class Player implements Serializable {
                 }
             }
             if(rowAllOccupied){
-                bonusReinforcements += continetBonus[i];
+                bonusReinforcements += continentBonus[i];
             }
             rowAllOccupied = true;
         }
