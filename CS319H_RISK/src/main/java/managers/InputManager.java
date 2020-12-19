@@ -8,9 +8,18 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Manager class that handles taking the player inputs from the screen
+ * and directing them to the awaiting GameController.
+ *
+ * @author Ruzgar Ayan
+ */
 public class InputManager
 {
 
+    /**
+     * These represent what kind of inputs this InputManager is waiting for right now.
+     */
     private enum WaitingState {
         NOT_WAITING,
         ATTACK,
@@ -18,30 +27,68 @@ public class InputManager
         FORTIFY
     }
 
+    /**
+     * These represent what kind of inputs this InputManager is waiting for right now in even more detail.
+     * Not used currently externally, can be removed.
+     */
     public static final int NOT_WAITING = 0;
     public static final int WAITING_FIRST_REGION = 1;
     public static final int WAITING_SECOND_REGION = 2;
     public static final int WAITING_ARMY_COUNT = 3;
 
+    /**
+     * This represents what kind of inputs this InputManager is waiting for right now.
+     */
     private WaitingState waitingState;
 
+    /**
+     * Armies that have been selected and waiting to be directed.
+     */
     private Region firstRegion;
     private Region secondRegion;
+
+    /**
+     * Army count for an action that have been selected and waiting to be directed.
+     */
     private int armyCount;
 
+    /**
+     * True if the player has made a end phase request, false if the player did any other request.
+     */
     private boolean endPhase;
 
+    /**
+     * Thi represents what kind of inputs this InputManager is waiting for right now in even more detail.
+     * Not used currently externally, can be removed.
+     */
     private int waitingInputType;
 
+    /**
+     * InputManager directs the user inputs from the screen,
+     * to this specified GameController.
+     */
     private GameController awaitingController;
+    /**
+     * This is the phase that the GameController is awaiting an action for.
+     */
     private int awaitingPhase;
 
+    /**
+     * Timer is used to inform the awaiting controller in specified time intervals.
+     */
     private Timer timer;
+
+    /**
+     * The time interval for which the awaiting timer is informed each time.
+     */
+    private static final int INFORM_TIME_INTERVAL_MS = 50;
 
     public InputManager()
     {
         resetInputs();
-        timer = new Timer(100, new ActionListener() {
+
+        //Start the timer that informs the controller.
+        timer = new Timer(INFORM_TIME_INTERVAL_MS, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 informAwaitingController();
@@ -72,6 +119,10 @@ public class InputManager
         return armyCount;
     }
 
+    /**
+     * If all the required input have been taken by the screen,
+     * inform the GameController by first using the corresponding methods for each phase.
+     */
     public void informAwaitingController()
     {
         PlayerAction playerAction = null;
@@ -102,6 +153,12 @@ public class InputManager
         secondRegion = null;
     }
 
+    /**
+     * Sets the region as one of its attribute Regions if the phase-related conditions are satisfied.
+     *
+     * @param region The input region that comes from the player
+     * @return true if successful, false otherwise
+     */
     public boolean chooseRegion(Region region)
     {
         if (waitingState == WaitingState.NOT_WAITING) return false;
@@ -147,6 +204,12 @@ public class InputManager
         return true;
     }
 
+    /**
+     * Sets the army count as one of its attributes.
+     *
+     * @param armyCount The number or army units that the player have chosen.
+     * @return true if successful, false otherwise
+     */
     public boolean chooseArmyCount(int armyCount)
     {
         if (waitingState == WaitingState.NOT_WAITING) return false;
@@ -155,12 +218,24 @@ public class InputManager
         return true;
     }
 
+    /**
+     * Sets the endPhase attribute to true.
+     *
+     * @return true if successful, false otherwise
+     * Currently, only return true.
+     */
     public boolean endPhase()
     {
         endPhase = true;
         return true;
     }
 
+    /**
+     * The maximum amount of army that can be chosen by the player in the screen
+     * according to the current phase's conditions.
+     *
+     * @return maximum choosable army.
+     */
     public int getMaxChoosableArmy(){
         if(awaitingPhase == GameController.REINFORCEMENT_PHASE){
             return Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getAvailableReinforcements();
