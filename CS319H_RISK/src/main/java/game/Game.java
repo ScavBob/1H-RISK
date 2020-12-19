@@ -97,12 +97,6 @@ public class Game {
         this.currentGameScreen = gameScreen;
     }
 
-    public void showBattleResults(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results)
-    {
-        if (currentGameScreen == null) return;
-        currentGameScreen.showBattleResults(attackerDice, defenderDice,results);
-    }
-
     public void updateScreen()
     {
         Platform.runLater(new Runnable() {
@@ -113,12 +107,19 @@ public class Game {
         });
     }
 
-    public void showBattleResult(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results) {
-        Platform.runLater(new Runnable() {
+    public int showBattleResult(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results, boolean won, int maxChoosableArmyCount) {
+        if (currentGameScreen == null) return -1;
+        final FutureTask query = new FutureTask(new Callable() {
             @Override
-            public void run() {
-                currentGameScreen.showBattleResults(attackerDice, defenderDice, results);
+            public Object call() throws Exception {
+                return currentGameScreen.showBattleResults(attackerDice, defenderDice, results, won, maxChoosableArmyCount);
             }
         });
+        Platform.runLater(query);
+        try {
+            return (Integer) (query.get());
+        } catch (InterruptedException | ExecutionException e) {
+            return -1;
+        }
     }
 }
