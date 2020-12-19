@@ -80,7 +80,7 @@ public class SoundManager {
         background_theme.play();
     }
 
-    public void stop
+
     public void playCongrats() {
         congratsSound.seek(Duration.ZERO);
         congratsSound.play();
