@@ -65,9 +65,14 @@ public class AIMoveGenerator {
         }
         difference = source.getUnitCount()-target.getUnitCount();
 
-        if(source != null && target != null && (difference >= 4)){
+        if(source != null && target != null && (difference >= 3)){
             endPhase = false;
-            armyCount = source.getUnitCount()-(1+difference/3);
+            if (source.getUnitCount() >= 4)
+                armyCount = 3;
+            else if(source.getUnitCount() == 3)
+                armyCount = 2;
+            else
+                armyCount = 1;
         }
 
         PlayerAction playerAction = new PlayerAction(endPhase, GameController.ATTACK_PHASE, source, target, armyCount);
@@ -146,8 +151,9 @@ public class AIMoveGenerator {
 
     public static void getReinforcementAction(GameController controller, int level)
     {
+        Region chosenRegion = null;
         Player currentPlayer = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
-
+        Map map = Game.getInstance().getGameManager().getMatch().getMap();
         PlayerAction playerAction;
 
         if (currentPlayer.getAvailableReinforcements() == 0) {
@@ -156,11 +162,35 @@ public class AIMoveGenerator {
             return;
         }
 
-        int randomCount = (int)(Math.random() * currentPlayer.getAvailableReinforcements()) + 1;
-        List<Region> regions = currentPlayer.getRegions();
-        int randomRegion = (int)(Math.random() * regions.size());
-        Region chosenRegion = regions.get(randomRegion);
 
+
+
+        int difference = 0;
+        int totalEnemyUnitCount = 0;
+        for(Region r:currentPlayer.getRegions()){
+            int tempDifference;
+            int tempEnemyUnit = 0;
+
+            ArrayList<Region> nList = map.getNeighbourOf(r);
+            for(Region nR:nList){
+
+                if(nR.getOwner() != currentPlayer){
+                    tempEnemyUnit += nR.getUnitCount();
+                    tempDifference = r.getUnitCount() - tempEnemyUnit;
+
+                    if (chosenRegion == null){
+                        chosenRegion = r;
+                        difference = tempDifference;
+                    }
+                    else if (difference >= tempDifference){
+                        chosenRegion = r;
+                        difference = tempDifference;
+                    }
+                }
+            }
+
+        }
+        int randomCount = (int)(Math.random() * currentPlayer.getAvailableReinforcements()) + 1;
         playerAction = new PlayerAction(false, GameController.REINFORCEMENT_PHASE, chosenRegion, null, randomCount);
         sendDelayedAction(controller, DEFAULT_DELAY_MS, playerAction);
     }
