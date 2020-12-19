@@ -99,7 +99,6 @@ public class BattleManager implements Serializable {
             //Game.getInstance().showBattleResult(attackerDice, defenderDice, results);
 
         }
-        }
     }
 }
 
