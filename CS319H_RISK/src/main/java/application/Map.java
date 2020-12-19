@@ -65,8 +65,6 @@ public class Map implements Serializable{
                 regionName = scanner.next();
                 regionName = regionName.replaceAll("_", " ");
                 Region tmpRegion = new Region(regionID,regionName,regionX,regionY, continentID);
-                System.out.println(regionID + ", " + regionName + ", " + regionX + ", " + regionY);
-                System.out.println("j:" + j + ", regionCount:" + regionCount);
                 regionList[regionCounter++]= tmpRegion;
             }
         }
@@ -82,10 +80,6 @@ public class Map implements Serializable{
             int secondRegion = scanner.nextInt();
             adjacenyMatrix[firstRegion][secondRegion] = true;
             adjacenyMatrix[secondRegion][firstRegion] = true;
-        }
-
-        for(int i = 0; i < continentCount; i++ ){
-            System.out.println(continentBonus[i]);
         }
     }
 
@@ -104,7 +98,6 @@ public class Map implements Serializable{
             if(regionList[i] == region)
                 location = i;
         }
-        System.out.println("location =" + location);
         regionList[location].setOwner(owner);
         regionList[location].setUnitCount(newUnitCount);
 
