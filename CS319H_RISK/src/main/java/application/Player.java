@@ -16,13 +16,14 @@ public class Player implements Serializable {
     private ArrayList<Region> regions;
     private Region capital;
     private ArrayList<Card> unusedCards;
-    //private Mission secretMission;
+    private Mission secretMission;
     private int totalUnitCount;
     private PlayStrategy strategy;
     private ArrayList<Player> allies;
     private String name;
     private String color;
     private int availableReinforcements;
+
 
 
     public Player(String name, String color, boolean isHuman, Faction faction){
@@ -81,6 +82,7 @@ public class Player implements Serializable {
 
     public void getPlayerAction(GameController gameController, int currentPhase)
     {
+
         this.strategy.getNextAction(gameController, currentPhase);
     }
 
@@ -118,15 +120,28 @@ public class Player implements Serializable {
     }
 
     public int checkForContinentBonuses(){
+        int continentBonuses = 0;
+        boolean[] continents = hasContinents();
+
+        for (int i = 0; i < continents.length; i++){
+            continentBonuses += (continents[i]) ? continentBonuses : 0 ;
+        }
+        return continentBonuses;
+    }
+
+    public boolean[] hasContinents(){
+        Map map = Game.getInstance().getGameManager().getMatch().getMap();
+        boolean[] continents = new boolean[map.getMapContinentCount()];
+
         int bonusReinforcements = 0;
         boolean rowAllOccupied = true;
-        Map map = Game.getInstance().getGameManager().getMatch().getMap();
         int[] continentBonus = map.getContinentBonus();
         int[][] temp;
         temp = new int[map.getMapContinentCount()][];
         //temp initialization
 
         for(int i = 0; i <map.getMapContinentCount() ; i++){
+            continents[i] = false;
             temp[i] = new int[map.getContinentRegionNumbers()[i]];
         }
         for(int i = 0; i <map.getMapContinentCount() ; i++){
@@ -153,11 +168,12 @@ public class Player implements Serializable {
                 }
             }
             if(rowAllOccupied){
-                bonusReinforcements += continentBonus[i];
+                continents[i] = true;
             }
             rowAllOccupied = true;
         }
-        return bonusReinforcements;
+        return continents;
+
     }
 
     public Faction getFaction() {
@@ -178,5 +194,9 @@ public class Player implements Serializable {
         unusedCards.remove(card2);
         unusedCards.remove(card3);
         return result;
+    }
+
+    public boolean checkWin(){
+        return secretMission.checkWin(this);
     }
 }

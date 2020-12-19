@@ -49,15 +49,11 @@ public class Match implements Serializable {
 
     //isMatcOver method returns true if match is over, false if match is continues
     public boolean isMatchOver(){
-           boolean isOver = false;
-           int alivePlayerCount = 0;
-           for (int i = 0; i < players.size(); i++ ){
-               if (isPlayerAlive(players.get(i)) == true ) {
-                    alivePlayerCount +=  1;
-               }
+           for(Player p: players){
+               if(p.checkWin())
+                   return true;
            }
-           isOver = (alivePlayerCount == 1) ? true : false;
-        return isOver;
+           return false;
     }
 
     //skips to the next player in line
@@ -231,5 +227,9 @@ public class Match implements Serializable {
 
     public void increaseNumberOfTrades(){
         numberOfCardTrades++;
+    }
+
+    public ArrayList<Player> getPlayers(){
+        return players;
     }
 }
