@@ -120,12 +120,16 @@ public class Player implements Serializable {
     }
 
     public int checkForContinentBonuses(){
+        Map map = Game.getInstance().getGameManager().getMatch().getMap();
         int continentBonuses = 0;
         boolean[] continents = hasContinents();
-
         for (int i = 0; i < continents.length; i++){
-            continentBonuses += (continents[i]) ? continentBonuses : 0 ;
+            System.out.println(continents[i]);
         }
+        for (int i = 0; i < continents.length; i++){
+            continentBonuses += (continents[i]) ? map.getContinentBonus()[i] : 0 ;
+        }
+        System.out.println(continentBonuses);
         return continentBonuses;
     }
 
@@ -172,6 +176,7 @@ public class Player implements Serializable {
             }
             rowAllOccupied = true;
         }
+
         return continents;
 
     }
