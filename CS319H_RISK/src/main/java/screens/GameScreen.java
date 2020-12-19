@@ -23,6 +23,7 @@ import javafx.stage.StageStyle;
 import managers.StorageManager;
 
 import java.nio.file.Paths;
+import java.util.List;
 
 public class GameScreen implements UpdatableScreen{
 
@@ -80,10 +81,6 @@ public class GameScreen implements UpdatableScreen{
         root.getChildren().add(timer);
     }
 
-    private void addButton(Group root, String title, int x, int y, int width, int height, EventHandler<ActionEvent> handler){
-
-    }
-
     public boolean confirmBattle(int attacking, int defending){
         confirmation = false;
         Stage dialog = new Stage();
@@ -136,6 +133,30 @@ public class GameScreen implements UpdatableScreen{
         return confirmation;
     }
 
+    public void showBattleResults(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results){
+        Stage dialog = new Stage();
+        dialog.initStyle(StageStyle.UTILITY);
+        Group root = new Group();
+        Scene scene = new Scene(root, 500, 270, Color.BLACK);
+        Canvas canvas = new Canvas(500, 270);
+        dialog.setScene(scene);
+        Image background = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\Background.png").toUri().toString());
+        System.out.println(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\Background.png");
+        canvas.getGraphicsContext2D().drawImage(background, 0, 0);
+        addText(root, "Attacking Armies", 10, 30, new Font("Impact", 25), "white");
+        addText(root, "Defending Armies", 310, 30, new Font("Impact", 25), "white");
+        for(int i = 0; i < attackerDice.size(); i++){
+            Image dice = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\" + attackerDice.get(i) + ".png").toUri().toString());
+            canvas.getGraphicsContext2D().drawImage(dice, 5, 40 + (240/attackerDice.size())*i);
+        }
+        for(int i = 0; i < defenderDice.size(); i++){
+            Image dice = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "Game\\RollingDice\\" + defenderDice.get(i) + ".png").toUri().toString());
+            canvas.getGraphicsContext2D().drawImage(dice, 435, 60 + (280/defenderDice.size())*i);
+        }
+        root.getChildren().add(canvas);
+        dialog.showAndWait();
+    }
+
     private void populateScreen() {
         for(Region r: regions){
             addLabels(r);
@@ -158,9 +179,13 @@ public class GameScreen implements UpdatableScreen{
 
     private void addElements(int phase){
         addButton(root, "", 0, 420, 250 , 300, StorageManager.RESOURCES_FOLDER_NAME + "Game\\UI\\Source-Destination\\Background.png", null);
-        canvas.getGraphicsContext2D().setFill(Paint.valueOf(Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getColor()));
-        canvas.getGraphicsContext2D().fillRect(15, 15, 250, 50);
-        addText("It's " + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getName() + "'s Turn", 50, 50, 25);
+        String color = Paint.valueOf(Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getColor()).toString();
+        System.out.println(color);
+        color = color.substring(0, color.length() - 2) + "5f";
+        System.out.println(color);
+        canvas.getGraphicsContext2D().setFill(Paint.valueOf(color));
+        canvas.getGraphicsContext2D().fillRect(15, 15, 400, 50);
+        addText("It's the " + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getFaction().getFactionName() + " Turn (" + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getName() + ")", 50, 50, 25);
         Region region = Game.getInstance().getGameManager().getInputManager().getFirstRegion();
         if(phase == 0){
             if(region == null)
