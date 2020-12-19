@@ -113,8 +113,6 @@ public class GameController implements Serializable {
         int armyCount = playerAction.getArmyCount();
         Map map = Game.getInstance().getGameManager().getMatch().getMap();
 
-        //Game.getInstance().showNotification("deneme");
-
         if (armyCount > srcRegion.getUnitCount() || armyCount == 0) return false;
         if (!srcRegion.getOwner().equals(currentPlayer)) return false;
         if (dstRegion.getOwner().equals(currentPlayer)) return false;

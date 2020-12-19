@@ -206,7 +206,12 @@ public class Player implements Serializable {
     }
     public boolean checkWin(){
 
+
         return mission.checkWin(this);
+
+        //return secretMission.checkWin(this);
+        return false;
+
     }
 
 }

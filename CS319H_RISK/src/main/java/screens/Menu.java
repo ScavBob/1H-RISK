@@ -37,6 +37,13 @@ public abstract class Menu implements Screen {
 		graphics.fillRect(x, y ,width ,height );
 	}
 
+	public void strokeRect(String color, int x, int y, int width, int height, int girth){
+		GraphicsContext graphics = canvas.getGraphicsContext2D();
+		graphics.setStroke(Paint.valueOf(color));
+		graphics.setLineWidth(girth);
+		graphics.strokeRect(x, y, width, height);
+	}
+
 	public void addTransitionButton(Group root, String text, int x, int y, int width, int height, String imagePath, Screen screen) {
 		TransitionButton button = new TransitionButton(text, x, y, width, height, imagePath, screen);
 		root.getChildren().add(button);
