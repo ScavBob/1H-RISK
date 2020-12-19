@@ -1,6 +1,6 @@
 package application;
 
-import com.sun.javaws.IconUtil;
+
 import game.Game;
 import managers.MapManager;
 
