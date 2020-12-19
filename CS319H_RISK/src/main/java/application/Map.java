@@ -13,6 +13,7 @@ public class Map implements Serializable{
     private int mapContinentCount;
     private int[] continentBonus;
     private int[] continentRegionNumbers;
+    private String[] continentNames;
 
 
     public Map(String mapName, File mapData) {
@@ -42,6 +43,7 @@ public class Map implements Serializable{
         }
         int continentCount = scanner.nextInt();
         mapContinentCount = continentCount;
+        continentNames = new String[mapContinentCount];
         int totalRegionCount = scanner.nextInt();
         mapRegionCount = totalRegionCount;
         int regionCount,regionID,regionX,regionY,continentID;
@@ -56,7 +58,7 @@ public class Map implements Serializable{
             regionCount = scanner.nextInt();
             continentRegionNumbers[i] = regionCount;
             continentBonus[i] = scanner.nextInt();
-            continentName = scanner.next();
+            continentNames[i] = scanner.next();
 
             for (int j = 0; j < regionCount; j++){
                 regionID = scanner.nextInt();
@@ -170,5 +172,12 @@ public class Map implements Serializable{
         }
         return false;
 
+    }
+
+    public String[] getContinentNames(){
+        return continentNames;
+    }
+    public String getContinentName(int continentID){
+        return continentNames[continentID];
     }
 }
