@@ -5,36 +5,44 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Faction implements Serializable {
-    public static Faction Ottoman = new Faction(0.30,0,0,0); // +%30 starting bonus, %-0 continental bonus, %0, %0
-    public static Faction Germany = new Faction(0,0,0,0); // -5 staring bonus +3 continental bonus
-    public static Faction France = new Faction(0,0,0,0); // +5 starting bonus -1 continental bonus
-    public static Faction Britain = new Faction(0,0,0,0); // -7 staring bonus +4 continental bonus
-    public static Faction America = new Faction(0,0,0,0); //
-    public static Faction Italy = new Faction(0,0,0,0); //
-    public static Faction Russia = new Faction(0,0,0,0); //
+    public static Faction Ottoman = new Faction("Ottoman", 0.30, 0, 0, 0, 0, 0); // +%30 starting bonus, %-0 continental bonus, %0, %0
+    public static Faction Germany = new Faction("Germany", 0, 0, 0, 0, 0, 0); // -5 staring bonus +3 continental bonus
+    public static Faction France = new Faction("France", 0, 0, 0, 0, 0, 0); // +5 starting bonus -1 continental bonus
+    public static Faction Britain = new Faction("Britain", 0, 0, 0, 0, 0, 0); // -7 staring bonus +4 continental bonus
+    public static Faction America = new Faction("America", 0, 0, 0, 0, 0, 0); //
+    public static Faction Italy = new Faction("Italy", 0, 0, 0, 0, 0, 0); //
+    public static Faction Russia = new Faction("Russia", 0, 0, 0, 0, 0, 0); //
 
     private int factionID;
     private String factionName;
-    private Color factionColor;
     private double continentalBonus;
     private double startingBonus;
     private double turnBonus;
     private double tradeBonus; //TODO
+    private int attackDiceBonus;
+    private int defenceDiceBonus;
 
+    public String getFactionName() {
+        return factionName;
+    }
 
-    // Player could not be seen in the project.7
+    public int getAttackDiceBonus() {
+        return attackDiceBonus;
+    }
 
-    Faction(double startingBonus, double continentalBonus , double turnBonus, double tradeBonus ){
+    public int getDefenceDiceBonus() {
+        return defenceDiceBonus;
+    }
+
+    public Faction(String factionName, double continentalBonus, double startingBonus, double turnBonus, double tradeBonus, int attackDiceBonus, int defenceDiceBonus) {
+        this.factionName = factionName;
         this.continentalBonus = continentalBonus;
         this.startingBonus = startingBonus;
         this.turnBonus = turnBonus;
         this.tradeBonus = tradeBonus;
+        this.attackDiceBonus = attackDiceBonus;
+        this.defenceDiceBonus = defenceDiceBonus;
     }
-
-    Faction(){
-
-    }
-
 
     public double getContinentalBonus(){
         return continentalBonus;
