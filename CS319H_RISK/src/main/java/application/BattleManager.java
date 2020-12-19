@@ -14,10 +14,13 @@ import javax.lang.model.util.ElementScanner6;
 public class BattleManager implements Serializable {
     private ArrayList<Player> players;
 
-    // Return 1 means attacker wins the battle,
-    // Return 0 means they are even,
-    // Return -1 means defender wins the battle.
-
+    /**
+     *    Return 1 means attacker wins the battle,
+     *    Return 0 means they are even,
+     *    Return -1 means defender wins the battle.
+     *
+     * @return the coded result of the battle.
+     */
     public int battle(Player attacker, int attackerSoldiers, Player defender, int defenderSoldiers, Card location) {
         int remainingSoldier;
         if (attackerSoldiers > defenderSoldiers) {

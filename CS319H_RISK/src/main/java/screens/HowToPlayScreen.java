@@ -25,7 +25,7 @@ public class HowToPlayScreen extends Menu {
     private final int SWIDTH  = 1280;
     private final int SHEIGHT = 720;
     private final int IWIDTH = SWIDTH * 2 / 3;
-    private final int IHEIGHT = IWIDTH * 9 / 16;
+    private final int IHEIGHT = SHEIGHT * 2 / 3;
     Image[] imageArray = new Image[HowToPlayImgNum];
     int currentImageNumber = 0;
     ImageView imageView;
@@ -33,7 +33,7 @@ public class HowToPlayScreen extends Menu {
 
     private void initImageArray(){
         imageArray[0] = new Image(getClass().getResource("/PregameMenu/BilkentButton.png").toExternalForm());
-        imageArray[1] =  new Image(getClass().getResource("/PregameMenu/Bilkent.png").toExternalForm());
+        imageArray[1] = new Image(getClass().getResource("/PregameMenu/Bilkent.png").toExternalForm());
         imageArray[2] = new Image(getClass().getResource("/PregameMenu/ChooseMap.png").toExternalForm());
         imageArray[3] = new Image(getClass().getResource("/PregameMenu/WorldButton.png").toExternalForm());
         imageArray[4] = new Image(getClass().getResource("/PregameMenu/World.png").toExternalForm());
