@@ -1,5 +1,7 @@
 package application;
 
+import game.Game;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +22,6 @@ public class Player implements Serializable {
     private ArrayList<Player> allies;
     private String name;
     private String color;
-
     private int availableReinforcements;
 
 
@@ -46,7 +47,6 @@ public class Player implements Serializable {
     }
     public void addRegion(Region aRegion){
         regions.add(aRegion);
-
         aRegion.setOwner(this);
         refreshUnitCount();
     }
@@ -100,5 +100,48 @@ public class Player implements Serializable {
 
     public void setAvailableReinforcements(int availableReinforcements) {
         this.availableReinforcements = availableReinforcements;
+    }
+
+    public int checkForContinentBonuses(){
+        int bonusReinforcements = 0;
+        boolean rowAllOccupied = true;
+        Map map = Game.getInstance().getGameManager().getMatch().getMap();
+        int[] continentBonus = map.getContinentBonus();
+        int[][] temp;
+        temp = new int[map.getMapContinentCount()][];
+        //temp initialization
+
+        for(int i = 0; i <map.getMapContinentCount() ; i++){
+            temp[i] = new int[map.getContinentRegionNumbers()[i]];
+        }
+        for(int i = 0; i <map.getMapContinentCount() ; i++){
+            for(int j= 0; j < temp[i].length; j++){
+                temp[i][j] = -1;
+            }
+        }
+
+        int regionCounter = 0;
+        for(int i = 0; i < map.getMapContinentCount(); i++){
+
+            for (int j = 0; j < regions.size(); j++ ){
+                if(temp[i][regionCounter] == -1 && i == regions.get(j).getContinentID() ){
+                    temp[i][regionCounter] = regions.get(j).RegionID();
+                    regionCounter = regionCounter < temp[i].length -1  ? regionCounter + 1 : regionCounter % temp[i].length;
+                }
+            }
+            regionCounter = 0;
+        }
+        for(int i = 0; i < map.getMapContinentCount(); i++){
+            for (int j = 0; j < temp[i].length; j++ ){
+                if(temp[i][j] == -1){
+                    rowAllOccupied = false;
+                }
+            }
+            if(rowAllOccupied){
+                bonusReinforcements += continentBonus[i];
+            }
+            rowAllOccupied = true;
+        }
+        return bonusReinforcements;
     }
 }

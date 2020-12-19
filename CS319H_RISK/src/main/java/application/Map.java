@@ -8,15 +8,20 @@ public class Map implements Serializable{
     private String mapName;
     private boolean [][] adjacenyMatrix;
     private Region[] regionList;
+    private int mapRegionCount;
+    private int mapContinentCount;
     private int[] continentBonus;
+    private int[] continentRegionNumbers;
+
 
     public Map(String mapName, File mapData) {
         this.mapName = mapName;
         initializeRegions(mapData);
     }
 
-    public int getContinetBonus(int contID){
-        return continentBonus[contID];
+    public int getContinetBonus(Player player){
+        int continentBonus = 0;
+        return continentBonus;
     }
 
     public void printRegions(){
@@ -35,16 +40,20 @@ public class Map implements Serializable{
             e.printStackTrace();
         }
         int continentCount = scanner.nextInt();
+        mapContinentCount = continentCount;
         int totalRegionCount = scanner.nextInt();
+        mapRegionCount = totalRegionCount;
         int regionCount,regionID,regionX,regionY,continentID;
         String regionName,continentName;
         regionList = new Region[totalRegionCount];
         int regionCounter = 0;
         continentBonus = new int[continentCount];
+        continentRegionNumbers = new int[continentCount];
 
         for (int i = 0; i < continentCount; i++){
             continentID = scanner.nextInt();
             regionCount = scanner.nextInt();
+            continentRegionNumbers[i] = regionCount;
             continentBonus[i] = scanner.nextInt();
             continentName = scanner.next();
 
@@ -104,4 +113,19 @@ public class Map implements Serializable{
         return mapName;
     }
 
+    public int[] getContinentBonus(){
+        return continentBonus;
+    }
+
+    public int getMapRegionCount() {
+        return mapRegionCount;
+    }
+
+    public int getMapContinentCount(){
+        return mapContinentCount;
+    }
+
+    public int[] getContinentRegionNumbers(){
+        return continentRegionNumbers;
+    }
 }
