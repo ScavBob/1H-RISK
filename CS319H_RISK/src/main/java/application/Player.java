@@ -38,7 +38,10 @@ public class Player implements Serializable {
         else
             strategy = new AI();
         availableReinforcements = 0;
+
+
     }
+
     public void addCurrentMatch(Match match){
         currentMatch = match;
     }
@@ -155,5 +158,21 @@ public class Player implements Serializable {
             rowAllOccupied = true;
         }
         return bonusReinforcements;
+    }
+
+    public void addTradeCard(Card c){
+        unusedCards.add(c);
+    }
+
+    public int tradeInCards(Card card1, Card card2, Card card3){
+        int result = Card.tradeCards(card1,card2,card3,currentMatch.getTotalTrades());
+        if(result == -1)
+            return 0;
+
+        currentMatch.increaseNumberOfTrades();
+        unusedCards.remove(card1);
+        unusedCards.remove(card2);
+        unusedCards.remove(card3);
+        return result;
     }
 }

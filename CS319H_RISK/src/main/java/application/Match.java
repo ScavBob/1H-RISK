@@ -13,7 +13,7 @@ public class Match implements Serializable {
     private HashMap<Faction, Boolean> availableFactions;
     private Map map;
     private GameController controller;
-
+    private int numberOfCardTrades;
     //constructor
     public Match(int maxTurnTime){
         this.round = 0;
@@ -24,6 +24,7 @@ public class Match implements Serializable {
         this.availableFactions = new HashMap<>();
         this.map = null;
         this.controller = new GameController(this, maxTurnTime);
+        numberOfCardTrades = 0;
     }
 
 
@@ -38,6 +39,8 @@ public class Match implements Serializable {
         this.availableFactions = availableFactions;
         this.map = map;
         this.controller = controller;
+
+
     }
 
     //isMatcOver method returns true if match is over, false if match is continues
@@ -155,4 +158,30 @@ public class Match implements Serializable {
         return map;
     }
 
+    private void giveTradeCard(){
+        int chance = (int)(Math.random()*100);
+        Card c;
+        if(chance < 30)
+            c = new Card(getRandomRegion(),0);
+        else if(chance < 60)
+            c = new Card(getRandomRegion(),1);
+        else if(chance < 90)
+            c = new Card((getRandomRegion()),2);
+        else
+            c = new Card(getRandomRegion(),3);
+        currentPlayer.addTradeCard(c);
+    }
+
+    private Region getRandomRegion(){
+        int loc = (int)(Math.random()*map.getRegionList().length);
+        return map.getRegionList()[loc];
+    }
+
+    public int getTotalTrades(){
+        return numberOfCardTrades;
+    }
+
+    public void increaseNumberOfTrades(){
+        numberOfCardTrades++;
+    }
 }
