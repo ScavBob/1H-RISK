@@ -28,6 +28,12 @@ public class Card implements Serializable {
     public String getTypeName(){
         return typeName;
     }
+    /**
+     * Sets the typename of each card by using the int coded type.
+     *
+     * @param  type  int random varaible of the card type
+     */
+    
     private void setTypeName(int type){
         switch(type){
             case 0:
