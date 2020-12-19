@@ -11,7 +11,7 @@ public class Player implements Serializable {
     Match currentMatch;
     private static int ids = 1;
     private int playerID;
-    //private Faction faction;
+    private Faction faction;
     private int reinforcementNum;
     private ArrayList<Region> regions;
     private Region capital;
@@ -25,7 +25,7 @@ public class Player implements Serializable {
     private int availableReinforcements;
 
 
-    public Player(String name, String color, boolean isHuman){
+    public Player(String name, String color, boolean isHuman, Faction faction){
         this.name = name;
         this.color = color;
         playerID = ids++;
@@ -33,13 +33,13 @@ public class Player implements Serializable {
         totalUnitCount = 0;
         allies = new ArrayList<Player>();
         totalUnitCount = 40;
+        this.faction = faction;
+
         if(isHuman)
             strategy = new Human();
         else
             strategy = new AI();
         availableReinforcements = 0;
-
-
     }
 
     public void addCurrentMatch(Match match){
@@ -158,6 +158,10 @@ public class Player implements Serializable {
             rowAllOccupied = true;
         }
         return bonusReinforcements;
+    }
+
+    public Faction getFaction() {
+        return faction;
     }
 
     public void addTradeCard(Card c){

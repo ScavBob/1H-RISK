@@ -76,13 +76,17 @@ public class Match implements Serializable {
         int reinforcementsFromRegions;
         if (player.getRegions().size()/ 3 > 3){
             reinforcementsFromRegions = player.getRegions().size() / 3;
+            reinforcementsFromRegions += (int) (reinforcementsFromRegions * player.getFaction().getTurnBonus());
         }
         else{
             reinforcementsFromRegions = 3;
+            reinforcementsFromRegions += (int) (reinforcementsFromRegions * player.getFaction().getTurnBonus());
         }
 
         //TODO
         int reinforcementsFromContinents = player.checkForContinentBonuses();
+        reinforcementsFromContinents += (int) (reinforcementsFromContinents * player.getFaction().getContinentalBonus());
+
         System.out.println(reinforcementsFromContinents);
         player.setAvailableReinforcements(reinforcementsFromRegions + reinforcementsFromContinents);
     }
@@ -112,6 +116,7 @@ public class Match implements Serializable {
         for (int i = 0; i < numPlayers; i++)
         {
             remainingTroops[i] = troopPerPlayer[numPlayers];
+            remainingTroops[i] += (int) (remainingTroops[i] * players.get(i).getFaction().getStartingBonus());
         }
 
         for (int i = 0; i < numRegions; i++)

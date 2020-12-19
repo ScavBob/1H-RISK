@@ -19,7 +19,7 @@ public class Faction implements Serializable {
     private double continentalBonus;
     private double startingBonus;
     private double turnBonus;
-    private double tradeBonus;
+    private double tradeBonus; //TODO
 
 
     // Player could not be seen in the project.7
