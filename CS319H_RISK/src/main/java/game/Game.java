@@ -112,4 +112,8 @@ public class Game {
             }
         });
     }
+
+    public void showBattleResult(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results) {
+        
+    }
 }
