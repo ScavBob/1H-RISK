@@ -44,8 +44,14 @@ public class PauseMenu extends Menu {
             @Override
             public void handle(ActionEvent event) {
                 saveWindow.showAndWait();
-                Game.getInstance().getGameManager().getStorageManager().saveGame(Game.getInstance().getGameManager().getMatch(),
-                        saveWindow.getEditor().getText());
+                if(saveWindow.getEditor().getText().equals("")){
+
+                }
+                else{
+                    Game.getInstance().getGameManager().getStorageManager().saveGame(Game.getInstance().getGameManager().getMatch(),
+                            saveWindow.getEditor().getText());
+                }
+
             }
         });
 

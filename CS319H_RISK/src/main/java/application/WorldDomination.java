@@ -2,7 +2,9 @@ package application;
 
 import game.Game;
 
-public class WorldDomination implements CheckWinStrategy{
+import java.io.Serializable;
+
+public class WorldDomination implements CheckWinStrategy, Serializable {
 
     WorldDomination(){
 

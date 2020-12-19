@@ -2,7 +2,9 @@ package application;
 
 import game.Game;
 
-public class DominantPlayerWin implements CheckWinStrategy{
+import java.io.Serializable;
+
+public class DominantPlayerWin implements CheckWinStrategy, Serializable {
     private int threshold;
     DominantPlayerWin(){
         threshold = Game.getInstance().getGameManager().getMatch().getMap().getRegionList().length/2 + 2;

@@ -2,9 +2,10 @@ package application;
 
 import game.Game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TwoContinentWin implements CheckWinStrategy{
+public class TwoContinentWin implements CheckWinStrategy, Serializable {
     private int continent1;
     private int continent2;
     private String continent1Name;
