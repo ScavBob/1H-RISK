@@ -1,5 +1,11 @@
 package application;
 
+import application.controller.GameController;
+import application.winstrategy.DestroyPlayerWin;
+import application.winstrategy.DominantPlayerWin;
+import application.winstrategy.TwoContinentWin;
+import application.winstrategy.WorldDomination;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,10 +1,13 @@
 package application;
 
-import game.Game;
+import application.controller.GameController;
+import application.playstrategy.AI;
+import application.playstrategy.Human;
+import application.playstrategy.PlayStrategy;
+import gamelauncher.Game;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Player implements Serializable {

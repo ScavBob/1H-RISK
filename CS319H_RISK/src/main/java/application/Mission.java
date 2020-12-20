@@ -1,5 +1,7 @@
 package application;
 
+import application.winstrategy.CheckWinStrategy;
+
 import java.io.Serializable;
 import java.lang.String;
 
