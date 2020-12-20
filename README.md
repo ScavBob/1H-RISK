@@ -53,7 +53,7 @@ We are still considering our approach on how to implement a board game to a digi
 
 ### Final:
 - - -
-+ [Final Report](Report/Final/CS319_Group1-H_FinalReport_I1.pdf)
++ [Final Report](Reports/Final/CS319_Group1-H_FinalReport_I1.pdf)
 
 ## References:
 Reference link to original Risk :  
