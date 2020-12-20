@@ -219,8 +219,12 @@ public class GameStartMenu extends Menu {
                 AILevel = 3;
             }
         });
-        //addButtons(root, "", )
-
+        int[] times = {0, 1, 2, 3, 5, 10, 15, 30};
+        for(int i = 0; i < times.length; i++){
+            addButtons(root, (times[i] == 0 ? "∞" : times[i] + ""), 679 + 53*i, 610, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\Timer\\Time.png", event -> {
+                System.out.println(((Button)event.getSource()).getText());
+            });
+        }
     }
 
     private void startGame() {
