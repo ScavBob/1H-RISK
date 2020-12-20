@@ -22,6 +22,8 @@ public class GameLauncher extends Application {
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
+                if(Game.getInstance().getGameManager().getMatch() != null)
+                    Game.getInstance().getGameManager().getStorageManager().saveGame(Game.getInstance().getGameManager().getMatch(), "lastSave.risk");
                 System.exit(0);
             }
         });

@@ -1,5 +1,7 @@
 package screens;
 
+import application.Faction;
+import application.Player;
 import game.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

@@ -44,6 +44,7 @@ public class GameScreen implements UpdatableScreen{
         root = new Group();
         scene = new Scene(root, 1280, 720);
         battleLog = new Text();
+        timer = new Text();
         update();
 
         Game.getInstance().subscribeForUpdate(this);
@@ -66,6 +67,7 @@ public class GameScreen implements UpdatableScreen{
         gc.fillRect(757, 694, 523, 26);
         drawBattleLog();
         root.getChildren().add(battleLog);
+        root.getChildren().add(timer);
         populateScreen();
     }
 
@@ -91,15 +93,12 @@ public class GameScreen implements UpdatableScreen{
     }
 
     private void runTimer() {
-        int remainingTime = Game.getInstance().getGameManager().getMatch().getRemainingTime();
-        timer = new Text();
         timer.setX(1180);
         timer.setY(50);
         timer.setFont(Font.font("Helvenica", 30));
         timer.setFill(Paint.valueOf("white"));
-        root.getChildren().add(timer);
+        int remainingTime = Game.getInstance().getGameManager().getMatch().getRemainingTime();
         if(remainingTime <= 50000) {
-
             String time = "";
             if (remainingTime / 60 < 10)
                 time += "0" + remainingTime / 60;
@@ -201,32 +200,35 @@ public class GameScreen implements UpdatableScreen{
         root.getChildren().add(canvas);
         if(!isAI) {
             if (won) {
-                Slider armySlider = new Slider(1, maxMovableArmies, 1);
-                armySlider.setSnapToTicks(true);
-                armySlider.setMinWidth(100);
-                armySlider.setLayoutX(185);
-                armySlider.setLayoutY(185);
-                armySlider.setMinorTickCount(0);
-                armySlider.setMajorTickUnit(1);
-                armySlider.setSnapToTicks(true);
-                armySlider.setShowTickMarks(true);
-                armySlider.setShowTickLabels(true);
-                armySlider.getStyleClass().setAll("slider");
-                addText(root, "# of Armies to move:", 150, 100, new Font("Helvetica", 20), "white");
-                Text armyCount = new Text(String.valueOf(currentArmyCount));
-                armySlider.valueProperty().addListener(new ChangeListener<Number>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                        currentArmyCount = newValue.intValue();
-                        armyCount.setText(currentArmyCount + "");
-                    }
-                });
-                armyCount.setLayoutX(250);
-                armyCount.setLayoutY(150);
-                armyCount.setFill(Paint.valueOf("white"));
-                armyCount.setFont(new Font("Helvetica", 25));
-                root.getChildren().add(armySlider);
-                root.getChildren().add(armyCount);
+                if(maxMovableArmies == 1) {
+                    Slider armySlider = new Slider(1, maxMovableArmies, 1);
+                    armySlider.setSnapToTicks(true);
+                    armySlider.setMinWidth(100);
+                    armySlider.setLayoutX(185);
+                    armySlider.setLayoutY(185);
+                    armySlider.setMinorTickCount(0);
+                    armySlider.setMajorTickUnit(1);
+                    armySlider.setSnapToTicks(true);
+                    armySlider.setShowTickMarks(true);
+                    armySlider.setShowTickLabels(true);
+                    armySlider.getStyleClass().setAll("slider");
+
+                    addText(root, "# of Armies to move:", 150, 100, new Font("Helvetica", 20), "white");
+                    Text armyCount = new Text(String.valueOf(currentArmyCount));
+                    armySlider.valueProperty().addListener(new ChangeListener<Number>() {
+                        @Override
+                        public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                            currentArmyCount = newValue.intValue();
+                            armyCount.setText(currentArmyCount + "");
+                        }
+                    });
+                    armyCount.setLayoutX(250);
+                    armyCount.setLayoutY(150);
+                    armyCount.setFill(Paint.valueOf("white"));
+                    armyCount.setFont(new Font("Helvetica", 25));
+                    root.getChildren().add(armySlider);
+                    root.getChildren().add(armyCount);
+                }
             }
             Button confirm = new Button("Confirm");
             confirm.setLayoutX(217);
