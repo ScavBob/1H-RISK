@@ -12,6 +12,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
@@ -221,17 +222,6 @@ public class GameScreen implements UpdatableScreen{
         addText(root, "Defending Armies", 310, 30, new Font("Impact", 25), "white");
         dialog.showAndWait();
         return currentArmyCount;
-    }
-
-    public void showPopUpMessage(String string){
-        Stage dialog = new Stage();
-        dialog.setResizable(false);
-        dialog.initStyle(StageStyle.UTILITY);
-        Group root = new Group();
-        Scene scene = new Scene(root, 500, 270, Color.BLACK);
-        scene.getStylesheets().add("style.css");
-        Canvas canvas = new Canvas(500, 270);
-        dialog.setScene(scene);
     }
 
     private void populateScreen() {
