@@ -82,7 +82,7 @@ public class Game {
             }
         });
     }
-    public void showInformationMessage(String title, String header, String content, String imagePath)
+    public void showInformationMessage(String title, String header, String content)
     {
         Platform.runLater(new Runnable() {
             public void run() {
@@ -91,7 +91,6 @@ public class Game {
                 alert.setTitle(title);
                 alert.setHeaderText(header);
                 alert.showAndWait();
-                alert.setGraphic(new ImageView(new Image(imagePath)));
             }
         });
     }
