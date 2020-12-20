@@ -141,6 +141,16 @@ public class Game {
         });
     }
 
+    public void updateTimer()
+    {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                currentGameScreen.updateTimer();
+            }
+        });
+    }
+
     public int showBattleResult(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results,
                                 boolean won, int maxChoosableArmyCount, boolean isAttackAI) {
         if (currentGameScreen == null) return -1;

@@ -67,7 +67,6 @@ public class GameScreen implements UpdatableScreen{
         drawBattleLog();
         root.getChildren().add(battleLog);
         populateScreen();
-        runTimer();
     }
 
     public void nextPhaseInScreen()
@@ -84,6 +83,11 @@ public class GameScreen implements UpdatableScreen{
         battleLog.setLayoutY(714);
         battleLog.setFont(new Font("Helvenica", 20));
         battleLog.setFill(Paint.valueOf("white"));
+    }
+
+    public void updateTimer()
+    {
+        runTimer();
     }
 
     private void runTimer() {
@@ -328,6 +332,7 @@ public class GameScreen implements UpdatableScreen{
                 if(armyCount + 1 <= Game.getInstance().getGameManager().getInputManager().getMaxChoosableArmy())
                     armyCount = armyCount + 1;
                 armyCountText.setText(armyCount + "");
+                update();
             }
         });
         addButton(root, "", 25, 575, 50, 50, getClass().getResource("/GameResources/UI/Source-Destination/Remove.png").toExternalForm(), new EventHandler<ActionEvent>() {
@@ -336,6 +341,7 @@ public class GameScreen implements UpdatableScreen{
                 if(armyCount - 1 >= 0)
                     armyCount = armyCount - 1;
                 armyCountText.setText(armyCount + "");
+                update();
             }
         });
         addButton(root,"", 115, 650, 50, 50, getClass().getResource("/GameResources/UI/Source-Destination/Done.png").toExternalForm(), new EventHandler<ActionEvent>() {
@@ -345,6 +351,7 @@ public class GameScreen implements UpdatableScreen{
                     Game.getInstance().getGameManager().getInputManager().chooseArmyCount(armyCount);
                     armyCount = 0;
                     armyCountText.setText(armyCount + "");
+                    update();
                 }
             }
         });
@@ -352,6 +359,7 @@ public class GameScreen implements UpdatableScreen{
             @Override
             public void handle(ActionEvent event) {
                Game.getInstance().getGameManager().getInputManager().resetRegions();
+                update();
             }
         });
         addButton(root, "", 175, 650, 50, 50, getClass().getResource("/GameResources/UI/Source-Destination/Learn.png").toExternalForm(), event -> {
