@@ -75,7 +75,7 @@ public class GameScreen implements UpdatableScreen{
         armyCount = 0;
     }
 
-    public void setBattleLog(String log)
+    public void setBattleLog(String log) {
         battleLog.setText(log);
     }
 
