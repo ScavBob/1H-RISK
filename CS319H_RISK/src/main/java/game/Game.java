@@ -113,12 +113,14 @@ public class Game {
         });
     }
 
-    public int showBattleResult(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results, boolean won, int maxChoosableArmyCount) {
+    public int showBattleResult(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results,
+                                boolean won, int maxChoosableArmyCount, boolean isAttackAI) {
         if (currentGameScreen == null) return -1;
         final FutureTask query = new FutureTask(new Callable() {
             @Override
             public Object call() throws Exception {
-                return currentGameScreen.showBattleResults(attackerDice, defenderDice, results, won, maxChoosableArmyCount);
+                return currentGameScreen.showBattleResults(attackerDice, defenderDice, results, won,
+                        maxChoosableArmyCount,isAttackAI);
             }
         });
         Platform.runLater(query);
