@@ -1,5 +1,6 @@
 package screens;
 
+import application.Player;
 import application.Region;
 import game.Game;
 
@@ -12,7 +13,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
@@ -36,12 +36,15 @@ public class GameScreen implements UpdatableScreen{
     private Text timer;
     private boolean confirmation;
     private int currentArmyCount;
+    private Text battleLog;
 
     public GameScreen() {
         regions = Game.getInstance().getGameManager().getMatch().getMap().getRegionList();
         armyCount = Game.getInstance().getGameManager().getInputManager().getArmyCount();
         root = new Group();
         scene = new Scene(root, 1280, 720);
+        battleLog = new Text();
+        setBattleLog("Game Started...");
         update();
 
         Game.getInstance().subscribeForUpdate(this);
@@ -49,6 +52,7 @@ public class GameScreen implements UpdatableScreen{
     }
 
     public void update(){
+        currentArmyCount = 0;
         root.getChildren().clear();
         canvas = new Canvas(1280, 720);
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -59,6 +63,11 @@ public class GameScreen implements UpdatableScreen{
         gc.fillRect(1170, 20, 90, 40);
         populateScreen();
         runTimer();
+    }
+
+    public void setBattleLog(String log){
+        battleLog.setText(log);
+        //battleLog.;
     }
 
     private void runTimer() {
@@ -328,6 +337,10 @@ public class GameScreen implements UpdatableScreen{
             public void handle(ActionEvent event) {
                Game.getInstance().getGameManager().getInputManager().resetRegions();
             }
+        });
+        addButton(root, "", 175, 650, 50, 50, getClass().getResource("/GameResources/UI/Source-Destination/Learn.png").toExternalForm(), event -> {
+            Player player = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
+            Game.getInstance().showInformationMessage(player.getName()+ "'s Mission",player.getMission().getMissionName(),  player.getMission().getMissionDetails(), getClass().getResource("/GameResources/Factions/" + player.getFaction().getFactionID() + ".png").toExternalForm());
         });
     }
 

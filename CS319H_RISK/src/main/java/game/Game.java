@@ -2,9 +2,12 @@ package game;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import screens.GameScreen;
 import screens.MainMenu;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import managers.GameManager;
@@ -14,7 +17,6 @@ import screens.UpdatableScreen;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -75,7 +77,7 @@ public class Game {
             }
         });
     }
-    public void showInformationMessage(String title, String header, String content)
+    public void showInformationMessage(String title, String header, String content, String imagePath)
     {
         Platform.runLater(new Runnable() {
             public void run() {
@@ -84,6 +86,7 @@ public class Game {
                 alert.setTitle(title);
                 alert.setHeaderText(header);
                 alert.showAndWait();
+                alert.setGraphic(new ImageView(new Image(imagePath)));
             }
         });
     }
