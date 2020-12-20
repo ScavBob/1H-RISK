@@ -13,24 +13,27 @@ public class PauseMenu extends Menu {
 
     private final int SWIDTH  = 1280;
     private final int SHEIGHT = 720;
-   private final int BUTTONXLAYOUT = 495;
-   private final int BUTTONYLAYOUT = 490;
+    private final int BUTTONXLAYOUT = 495;
+    private final int BUTTONYLAYOUT = 490;
+    Group root;
+    Scene scene;
+    TextInputDialog saveWindow;
 
-    //Resume
-    //Save
-    //Exit
-    TextInputDialog saveWindow = new TextInputDialog("");
-
-    @Override
-    public Scene getScene() {
-        Group root = new Group();
-        Scene scene = new Scene(root, SWIDTH, SHEIGHT, Color.BLACK);
+    PauseMenu() {
+        root = new Group();
+        scene = new Scene(root, SWIDTH, SHEIGHT, Color.BLACK);
+        saveWindow = new TextInputDialog("");
         setBackground(root, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Background.png");
         addTransitionButtons(root);
         addEventButtons(root);
         saveWindow.setTitle("Save File");
         saveWindow.setContentText("Choose the name of your save game.");
         saveWindow.setHeaderText("");
+    }
+
+    @Override
+    public Scene getScene() {
+
         return scene;
     }
 

@@ -32,18 +32,15 @@ public class HowToPlayScreen extends Menu {
     int currentImageNumber = 0;
     ImageView imageView;
     Label pageNumberDisplay;
+    Group root;
+    Scene scene;
 
-
-    private void initImageArray(){
-        for(int i = 1; i <= HowToPlayImgNum; i++) {
-            imageArray[i-1] = new Image(getClass().getResource("/LearnToConquer/" + i + ".png").toExternalForm());
-        }
-    }
-
-
-    public Scene getScene() {
-        Group root = new Group();
-        Scene scene = new Scene(root, SWIDTH, SHEIGHT, Color.BLACK);
+    /**
+     * HowToPlayScreen constructor
+     */
+    HowToPlayScreen(){
+        root = new Group();
+        scene = new Scene(root, SWIDTH, SHEIGHT, Color.BLACK);
         setBackground(root, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Background.png");
         addButtons(root);
         initImageArray();
@@ -57,13 +54,32 @@ public class HowToPlayScreen extends Menu {
         pageNumberDisplay.setLayoutY(520);
         pageNumberDisplay.setFont(new Font("Helvetica", 24));
         pageNumberDisplay.setTextFill(Color.web("#ff0000", 0.8));
-        root.getChildren().addAll(imageView,pageNumberDisplay);
         pageNumberDisplay.setText(currentImageNumber+1 + "/" + HowToPlayImgNum);
+        root.getChildren().addAll(imageView,pageNumberDisplay);
+    }
+
+    /**
+     * A method that initializes image array to be displayed in the scene
+     */
+    private void initImageArray(){
+        for(int i = 1; i <= HowToPlayImgNum; i++) {
+            imageArray[i-1] = new Image(getClass().getResource("/LearnToConquer/" + i + ".png").toExternalForm());
+        }
+    }
+
+    /**
+     * A method tha initializes scene
+     * @return Scene returns the scene object for display
+     */
+    public Scene getScene() {
         return scene;
     }
 
 
-
+    /**
+     * A method for adding buttons to the scene
+     * @param root
+     */
     public void addButtons(Group root){
 
         addTransitionButton(root, "", 495, 561, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", new MainMenu());
@@ -72,13 +88,11 @@ public class HowToPlayScreen extends Menu {
             if (currentImageNumber < 0) {currentImageNumber += HowToPlayImgNum; }
             imageView.setImage(imageArray[currentImageNumber]);
             pageNumberDisplay.setText(currentImageNumber+1 + "/" + HowToPlayImgNum);
-
         } );
         addButtons(root, "", SWIDTH-51 , 400 , 51 , 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", event ->{
             currentImageNumber = (currentImageNumber + 1 )% HowToPlayImgNum;
             imageView.setImage(imageArray[currentImageNumber]);
             pageNumberDisplay.setText(currentImageNumber+1 + "/" + HowToPlayImgNum);
-
         } );
     }
 
