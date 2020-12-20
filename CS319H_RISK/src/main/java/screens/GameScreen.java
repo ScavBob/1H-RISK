@@ -25,8 +25,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -184,8 +182,8 @@ public class GameScreen implements UpdatableScreen {
         }
         addText(root, "Attacking Armies", 10, 30, new Font("Impact", 25), "white");
         addText(root, firstRegion.replaceAll("_", " "),  70, 70, new Font("Helvenica", 20), "white");
-        addText(root, "Defending Armies", 310, 30, new Font("Impact", 25), "white");
-        addText(root, secondRegion.replaceAll("_", " "),  330, 70, new Font("Helvenica", 20), "white");
+        addText(root, "Defending Armies", 300, 30, new Font("Impact", 25), "white");
+        addText(root, secondRegion.replaceAll("_", " "),  395, 70, new Font("Helvenica", 20), "white");
         dialog.showAndWait();
         return confirmation;
     }
@@ -294,8 +292,8 @@ public class GameScreen implements UpdatableScreen {
     private void addElements(int phase){
         addButton(root, "", 0, 420, 250 , 300, getClass().getResource("/GameResources/UI/Source-Destination/Background.png").toExternalForm(), null);
         String color = Paint.valueOf(Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getColor()).toString();
+        color = color.substring(0, color.length() - 2) + "7f";
 
-        color = color.substring(0, color.length() - 2) + "5f";
 
         canvas.getGraphicsContext2D().setFill(Paint.valueOf(color));
         canvas.getGraphicsContext2D().fillRect(15, 15, 400, 50);
