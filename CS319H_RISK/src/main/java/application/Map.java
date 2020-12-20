@@ -17,9 +17,10 @@ public class Map implements Serializable{
     private String[] continentNames;
     private int firstRegion,secondRegion;
     private int totalRegionCount, regionCount,regionID,regionX,regionY,continentID;
-    public Map(String mapName, File mapData) {
+
+    public Map(String mapName, String mapPath) {
         this.mapName = mapName;
-        initializeRegions(mapData);
+        initializeRegions(mapPath);
     }
 
     public int getContinetBonus(Player player){
@@ -35,17 +36,14 @@ public class Map implements Serializable{
 
     /**
      * Function intilailzes the regions and the instances of the map class by using the txt file.
-     * @param mapData takes the location of the file includes the map settings.
+     * @param mapPath takes the location of the file includes the map settings.
      */
-    private void initializeRegions(File mapData){
-        System.out.println(mapData);
+    private void initializeRegions(String mapPath){
 
         Scanner scanner = null;
-        try {
-            scanner = new Scanner(mapData);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        InputStream is = getClass().getResourceAsStream(mapPath);
+        scanner = new Scanner(is);
+
         continentCount = scanner.nextInt();
         mapContinentCount = continentCount;
         continentNames = new String[mapContinentCount];

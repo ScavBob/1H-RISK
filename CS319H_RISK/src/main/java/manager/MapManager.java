@@ -13,20 +13,18 @@ public class MapManager
     public static final int BILKENT_MAP = 2;
 
     public Map getMap(int map){
-        URL url = null;
-        if (map == WORLD_MAP)
-            url = getClass().getResource("/GameResources/worldmapdata.txt");
-        else if (map == BILKENT_MAP)
-            url = getClass().getResource("/GameResources/bilkentmapdata.txt");
-
-        if (url == null)
-            return null;
-        File file = new File(url.getPath());
-        String mapName = "Bilkent";
-        if(map == WORLD_MAP){
-            mapName = "World";
+        String path = "";
+        String name = "";
+        if (map == WORLD_MAP) {
+            name = "World";
+            path = "/GameResources/worldmapdata.txt";
         }
-        return new Map(mapName, file);
+        else if (map == BILKENT_MAP) {
+            name = "Bilkent";
+            path = "/GameResources/bilkentmapdata.txt";
+        }
+
+        return new Map(name, path);
     }
 
     public void increaseArmyCount(Region region, int increasetAmount)
