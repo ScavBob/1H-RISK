@@ -1,6 +1,6 @@
 4 34
 0 8 7 Republic_Of_Engineers
-0 1154 454 EE_Head_Quarters
+0 1154 454 Atalar's_Head_Quarters
 1 1014 563 Main_Food_Court
 2 894 571 Side_Food_Court
 3 765 507 Midterm_Bunker
