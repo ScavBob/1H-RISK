@@ -278,7 +278,9 @@ public class GameScreen implements UpdatableScreen{
     private void addElements(int phase){
         addButton(root, "", 0, 420, 250 , 300, getClass().getResource("/GameResources/UI/Source-Destination/Background.png").toExternalForm(), null);
         String color = Paint.valueOf(Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getColor()).toString();
+
         color = color.substring(0, color.length() - 2) + "5f";
+
         canvas.getGraphicsContext2D().setFill(Paint.valueOf(color));
         canvas.getGraphicsContext2D().fillRect(15, 15, 400, 50);
         addText("It's the " + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getFaction().getFactionName() + " Turn (" + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getName() + ")", 50, 50, 25);
