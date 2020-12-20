@@ -51,7 +51,6 @@ public class GameScreen implements UpdatableScreen {
         scene = new Scene(root, 1280, 720);
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.TAB) {
-                System.out.println("A key was pressed");
                 showScoreboard();
             }
         });
