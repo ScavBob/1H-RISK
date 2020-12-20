@@ -226,7 +226,8 @@ public class Match implements Serializable {
         return map.getRegionList()[loc];
     }
 
-    public int getTotalTrades(){
+    public int getTotalCardTrades(){
+
         return numberOfCardTrades;
     }
 

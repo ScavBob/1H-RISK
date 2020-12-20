@@ -16,6 +16,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -24,9 +25,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class GameScreen implements UpdatableScreen{
+public class GameScreen implements UpdatableScreen {
 
     private Group root;
     private Scene scene;
@@ -43,6 +49,11 @@ public class GameScreen implements UpdatableScreen{
         armyCount = Game.getInstance().getGameManager().getInputManager().getArmyCount();
         root = new Group();
         scene = new Scene(root, 1280, 720);
+        scene.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.TAB) {
+                showScoreboard();
+            }
+        });
         battleLog = new Text();
         timer = new Text();
         update();
@@ -122,6 +133,7 @@ public class GameScreen implements UpdatableScreen{
         dialog.initStyle(StageStyle.UTILITY);
         Group root = new Group();
         Scene scene = new Scene(root, 500, 270, Color.BLACK);
+
         Canvas canvas = new Canvas(500, 270);
         dialog.setScene(scene);
         Image background = new Image(getClass().getResource("/GameResources/RollingDice/Background.png").toExternalForm());
@@ -290,7 +302,7 @@ public class GameScreen implements UpdatableScreen{
         addText("It's the " + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getFaction().getFactionName() + " Turn (" + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getName() + ")", 50, 50, 25);
         Region region = Game.getInstance().getGameManager().getInputManager().getFirstRegion();
         Player player = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
-        addButton(root, "Show Cards", 90, 380, 50, 30, "", event -> {
+        addButton(root, "Show Cards", 110, 380, 50, 30, "", event -> {
             Game.getInstance().showInformationMessage(player.getName() + "'s Cards", player.getName() + "'s Cards",
                     "Player Infantry card count: " + player.getInfantryCardCount() +
                             "\nPlayer Cavalry card count: " + player.getCavalaryCardCount() +
@@ -300,13 +312,14 @@ public class GameScreen implements UpdatableScreen{
             addButton(root, "Use Cards", 20, 380, 50, 30, "", event -> {
                 int tradedCards = player.tradeInCards();
                 if(tradedCards > 0)
-                    Game.getInstance().showInformationMessage("Traded Cards!", player.getName() + "has recieved " + tradedCards + "many units", "");
+                    Game.getInstance().showInformationMessage("Traded Cards!", player.getName() + " has recieved " + tradedCards + " many units", "");
                 else
                     Game.getInstance().showWarningMessage("No Cards Traded!", player.getName() + " has no cards that can be traded",
                             player.getName() + "'s current Card list: "
                                     +"\nInfantry Card count: " + player.getInfantryCardCount()
                                     +"\nCavalry Card count: " + player.getCavalaryCardCount()
-                                    +"\nArtillery Card count: " + player.getArtilleryCardCount());
+                                    +"\nArtillery Card count: " + player.getArtilleryCardCount()
+                                    +"\nWildcard count:" + player.getWildCardCount());
             });
 
             if(region == null)
@@ -439,9 +452,51 @@ public class GameScreen implements UpdatableScreen{
         return button;
     }
 
+    private void showScoreboard(){
+        ArrayList<Player> players = Game.getInstance().getGameManager().getMatch().getPlayers();
+        Stage scoreboard = new Stage();
+        scoreboard.setResizable(false);
+        scoreboard.initStyle(StageStyle.UTILITY);
+        Group root = new Group();
+        Scene scene = new Scene(root, 500, players.size() * 70, Color.BLACK);
+        scene.getStylesheets().add("style.css");
+        Canvas canvas = new Canvas(500, players.size() * 90);
+        scoreboard.setScene(scene);
+        Image image = new Image(getClass().getResource("/Menu/Background.png").toExternalForm(), 500, players.size() * 90, false, false);
+        canvas.getGraphicsContext2D().drawImage(image, 0, 0);
+        root.getChildren().add(canvas);
+        Collections.sort(players, new Comparator<Player>() {
+            @Override
+            public int compare(Player o1, Player o2) {
+                if(o1.getRegions().size() > o2.getRegions().size())
+                    return 1;
+                else if(o1.getRegions().size() == o2.getRegions().size())
+                    return 0;
+                else
+                    return -1;
+            }
+        });
+        for(int i = 0; i < players.size(); i++){
+            int x = 25;
+            int y = 20 + i*70;
+            Image player = new Image(getClass().getResource("/GameResources/Colors/" + players.get(i).getColor() + ".png").toExternalForm(), 25, 25, false ,false);
+            canvas.getGraphicsContext2D().drawImage(player, x, y);
+            player = new Image(getClass().getResource("/GameResources/Factions/" + players.get(i).getFaction().getFactionID() + ".png").toExternalForm(), 50, 50, false ,false);
+            canvas.getGraphicsContext2D().drawImage(player, x + 30, y -12);
+            Text playerText = new Text("Player: " + players.get(i).getName()+ "\t\t\t# of regions: " + players.get(i).getRegions().size());
+            playerText.setFill(Paint.valueOf("white"));
+            playerText.setFont(new Font("Helvetica", 15));
+            playerText.setLayoutX(x + 100);
+            playerText.setLayoutY(y + 13);
+            root.getChildren().add(playerText);
+        }
+        scoreboard.showAndWait();
+    }
+
     @Override
     public Scene getScene() {
        update();
        return scene;
     }
+
 }

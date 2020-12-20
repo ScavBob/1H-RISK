@@ -23,6 +23,11 @@ public class Card implements Serializable {
         this.type = type;
         setTypeName(this.type);
     }
+    Card(int type){
+        this.region = null;
+        this.type = type;
+        setTypeName(this.type);
+    }
     public int getType(){
         return type;
     }
@@ -90,13 +95,10 @@ public class Card implements Serializable {
                     has = true;
                     break;
                 }
+                if(c1 == null || c2 == null || c3 == null)
+                    continue;
 
-                if(c1.type == c2.type && c2.type == c3.type){
-                    has = true;
-                    break;
-                }
-
-                if(c1.type != c2.type && c2.type != c3.type && c1.type != c3.type){
+                if(checkCombination(c1,c2,c3)){
                     has = true;
                     break;
                 }
@@ -115,11 +117,11 @@ public class Card implements Serializable {
                         loc3 = (int)(Math.random() * list.size());
                     }while(loc3 == loc2);
                 }while(loc2 == loc1);
-            }while(loc1 == loc2 || loc1 == loc3 || loc2 == loc3);
+                c1 = list.get(loc1);
+                c2 = list.get(loc2);
+                c3 = list.get(loc3);
+            }while(!checkCombination(c1,c2,c3));
 
-            c1 = list.get(loc1);
-            c2 = list.get(loc2);
-            c3 = list.get(loc3);
             list.remove(c1);
             list.remove(c2);
             list.remove(c3);
