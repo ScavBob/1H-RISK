@@ -9,6 +9,7 @@ package application;
     */
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Card implements Serializable {
     private Region region;
@@ -62,6 +63,75 @@ public class Card implements Serializable {
         if(numberOfTrades > 5)
             extra = 15 + (5*numberOfTrades);
         return extra;
+    }
+    public static int tradeCards(ArrayList<Card> list,int numberOfTrades){
+        if(list.size() < 3)
+            return 0;
+        Card c1 = null;
+        Card c2 = null;
+        Card c3 = null;
+        boolean has = false;
+
+        if(list.size() <=4){
+            for(Card c: list){
+                if(c1 == null)
+                    c1 = c;
+                else if(c2 == null)
+                    c2 = c;
+                else if (c3 == null)
+                    c3 = c;
+                if (c.type == 3){
+                    c1 = list.get(list.indexOf(c));
+                    list.remove(c1);
+                    c2 = list.get(0);
+                    list.remove(c2);
+                    c3 = list.get(0);
+                    list.remove(c3);
+                    has = true;
+                    break;
+                }
+
+                if(c1.type == c2.type && c2.type == c3.type){
+                    has = true;
+                    break;
+                }
+
+                if(c1.type != c2.type && c2.type != c3.type && c1.type != c3.type){
+                    has = true;
+                    break;
+                }
+
+            }
+        }
+        else if(list.size() >= 5){
+            int loc1;
+            int loc2;
+            int loc3;
+            do{
+                loc1 = (int)(Math.random() * list.size());
+                do{
+                    loc2 = (int)(Math.random() * list.size());
+                    do{
+                        loc3 = (int)(Math.random() * list.size());
+                    }while(loc3 == loc2);
+                }while(loc2 == loc1);
+            }while(loc1 == loc2 || loc1 == loc3 || loc2 == loc3);
+
+            c1 = list.get(loc1);
+            c2 = list.get(loc2);
+            c3 = list.get(loc3);
+            list.remove(c1);
+            list.remove(c2);
+            list.remove(c3);
+            has = true;
+        }
+
+
+        if(has){
+            return tradeCards(c1,c2,c3,numberOfTrades);
+        }
+
+        return 0;
     }
 
     private static boolean checkCombination(Card card1, Card card2, Card card3){

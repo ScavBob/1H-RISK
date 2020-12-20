@@ -12,10 +12,12 @@ public class Player implements Serializable {
     private static int ids = 1;
     private int playerID;
     private Faction faction;
+    private int reinforcementNum;
     private ArrayList<Region> regions;
     private Region capital;
     private ArrayList<Card> unusedCards;
     private Mission mission;
+    private int totalUnitCount;
     private PlayStrategy strategy;
     private ArrayList<Player> allies;
     private String name;
@@ -23,15 +25,17 @@ public class Player implements Serializable {
     private int availableReinforcements;
     private boolean takenTradeCardAlready;
 
+
+
     public Player(String name, String color, boolean isHuman, Faction faction){
         this.name = name;
         this.color = color;
         playerID = ids++;
         regions = new ArrayList<Region>();
+        totalUnitCount = 0;
         allies = new ArrayList<Player>();
+        totalUnitCount = 40;
         this.faction = faction;
-        takenTradeCardAlready = false;
-        unusedCards = new ArrayList<>();
 
         if(isHuman)
             strategy = new Human();
@@ -40,9 +44,27 @@ public class Player implements Serializable {
         availableReinforcements = 0;
     }
 
+    public void addCurrentMatch(Match match){
+        currentMatch = match;
+    }
+    public void addAlly(Player aPlayer){
+        allies.add(aPlayer);
+    }
     public void addRegion(Region aRegion){
         regions.add(aRegion);
         aRegion.setOwner(this);
+        refreshUnitCount();
+    }
+
+    public void passAction(){}
+    public void attack(int unitCount, Region baseRegion,Region target){
+        currentMatch.attackCommand(unitCount, baseRegion, target);
+    }
+    public void addReinforcement(int unitCount,Card target){
+    }
+    public void addExtraReinforcement(Card card1,Card card2, Card card3){}
+    private void refreshUnitCount(){
+        reinforcementNum = regions.size()%3;
     }
 
     public void update(Map m){
@@ -86,13 +108,6 @@ public class Player implements Serializable {
         this.availableReinforcements = availableReinforcements;
     }
 
-    public void setTakenTradeCardAlready(boolean takenTradeCardAlready) {
-        this.takenTradeCardAlready = takenTradeCardAlready;
-    }
-
-    public boolean isTakenTradeCardAlready() {
-        return takenTradeCardAlready;
-    }
 
     public boolean isAccessible(Region r1, Region r2){
         boolean accessibility = false;
@@ -177,13 +192,21 @@ public class Player implements Serializable {
 
     public int tradeInCards(Card card1, Card card2, Card card3){
         int result = Card.tradeCards(card1,card2,card3,currentMatch.getTotalTrades());
-        if(result == -1)
+        if(result <= 0)
             return 0;
 
         currentMatch.increaseNumberOfTrades();
         unusedCards.remove(card1);
         unusedCards.remove(card2);
         unusedCards.remove(card3);
+        return result;
+    }
+
+    public int tradeInCards(){
+        int result = Card.tradeCards(unusedCards,currentMatch.getTotalTrades());
+        if(result <= 0)
+            return 0;
+        currentMatch.increaseNumberOfTrades();
         return result;
     }
 
@@ -205,8 +228,48 @@ public class Player implements Serializable {
         return (strategy instanceof AI);
     }
 
-    public boolean isAlive(){
-        return !(regions.isEmpty());
+    public void setTakenTradeCardAlready(boolean takenTradeCardAlready) {
+        this.takenTradeCardAlready = takenTradeCardAlready;
+    }
+
+    public boolean isTakenTradeCardAlready() {
+        return takenTradeCardAlready;
+    }
+
+    public int getInfantryCardCount(){
+        int answer = 0;
+        for(Card c: unusedCards){
+            if( c.getType() == 0)
+                answer ++;
+        }
+        return answer;
+    }
+
+    public int getCavalaryCardCount(){
+        int answer = 0;
+        for(Card c: unusedCards){
+            if( c.getType() == 1)
+                answer ++;
+        }
+        return answer;
+    }
+
+    public int getArtilleryCardCount(){
+        int answer = 0;
+        for(Card c: unusedCards){
+            if( c.getType() == 2)
+                answer ++;
+        }
+        return answer;
+    }
+
+    public int getWildCardCount(){
+        int answer = 0;
+        for(Card c: unusedCards){
+            if( c.getType() == 3)
+                answer ++;
+        }
+        return answer;
     }
 
 }
