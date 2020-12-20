@@ -43,7 +43,18 @@ public class Player implements Serializable {
             strategy = new AI();
         availableReinforcements = 0;
         unusedCards = new ArrayList<Card>();
+        Card c1 = new Card(1);
+        Card c2 = new Card(1);
+        Card c3 = new Card(1);
+        Card c4 = new Card(2);
+        Card c5 = new Card(2);
+        unusedCards.add(c1);
+        unusedCards.add(c3);
+        unusedCards.add(c2);
+        unusedCards.add(c4);
+        unusedCards.add(c5);
         takenTradeCardAlready = false;
+
     }
 
     public void addCurrentMatch(Match match){
@@ -198,11 +209,11 @@ public class Player implements Serializable {
     }
 
     public int tradeInCards(Card card1, Card card2, Card card3){
-        int result = Card.tradeCards(card1,card2,card3,currentMatch.getTotalTrades());
+        int result = Card.tradeCards(card1,card2,card3,Game.getInstance().getGameManager().getMatch().getTotalCardTrades());
         if(result <= 0)
             return 0;
 
-        currentMatch.increaseNumberOfTrades();
+        Game.getInstance().getGameManager().getMatch().increaseNumberOfTrades();
         unusedCards.remove(card1);
         unusedCards.remove(card2);
         unusedCards.remove(card3);
@@ -210,16 +221,18 @@ public class Player implements Serializable {
     }
 
     public int tradeInCards(){
-        if(unusedCards.size() < 3)
-            return 0;
-        int result = Card.tradeCards(unusedCards,currentMatch.getTotalTrades());
+
+
+        //System.out.println(currentMatch.getTotalCardTrades());
+
+        int result = Card.tradeCards(unusedCards, Game.getInstance().getGameManager().getMatch().getTotalCardTrades());
         if(result <= 0)
             return 0;
-        currentMatch.increaseNumberOfTrades();
-        reinforcementNum += result;
+        Game.getInstance().getGameManager().getMatch().increaseNumberOfTrades();
+        availableReinforcements += result;
+        Game.getInstance().updateScreen();
         return result;
     }
-
 
     public Mission getMission() {
         return mission;
@@ -282,8 +295,5 @@ public class Player implements Serializable {
         return answer;
     }
 
-    public boolean isAlive(){
-        return !(regions.isEmpty());
-    }
 
 }
