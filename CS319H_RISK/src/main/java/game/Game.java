@@ -62,7 +62,12 @@ public class Game {
 
     public void setScreen(Screen screen)
     {
-        gameStage.setScene(screen.getScene());
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                gameStage.setScene(screen.getScene());
+            }
+        });
     }
 
     public void nextPhaseInScreen()
