@@ -27,9 +27,10 @@ import java.io.File;
 
 public class OptionsMenu extends Menu{
 
-    public OptionsMenu()
+    private Menu previous;
+    public OptionsMenu(Menu previous)
     {
-
+        this.previous = previous;
     }
 
     @Override
@@ -37,9 +38,9 @@ public class OptionsMenu extends Menu{
         Group root = new Group();
         Scene scene = new Scene(root, 1280, 720, Color.BLACK);
         scene.getStylesheets().add("style.css");
-        setBackground(root, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Background.png");
-        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\Options\\Label.png", 485, 10);
-        addTransitionButton(root, "", 495, 561, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", new MainMenu());
+        setBackground(root, getClass().getResource("/Menu/Background.png").toExternalForm());
+        drawImage(getClass().getResource("/Options/Label.png").toExternalForm(), 485, 10);
+        addTransitionButton(root, "", 495, 561, 294, 51, getClass().getResource("/Menu/Back.png").toExternalForm(), previous);
 
         HBox box = new HBox();
         //box.setBackground(new Background(new BackgroundFill(Paint.valueOf("#92D0507f")), CornerRadii.EMPTY, Insets.EMPTY));
@@ -64,9 +65,9 @@ public class OptionsMenu extends Menu{
         root.getChildren().add(box);
 
         //TODO
-        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\Options\\SoundLevels.png", 540, 175);
+        drawImage(getClass().getResource("/Options/SoundLevels.png").toExternalForm(), 540, 175);
 
-        addButtons(root, "", 565, 400, 150, 52, StorageManager.RESOURCES_FOLDER_NAME + "\\Options\\SaveFolder.png", new EventHandler<ActionEvent>() {
+        addButtons(root, "", 565, 400, 150, 52, getClass().getResource("/Options/SaveFolder.png").toExternalForm(), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 DirectoryChooser directoryChooser = new DirectoryChooser ();

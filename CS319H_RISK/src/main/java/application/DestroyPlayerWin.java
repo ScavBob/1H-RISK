@@ -2,9 +2,10 @@ package application;
 
 import game.Game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class DestroyPlayerWin implements CheckWinStrategy{
+public class DestroyPlayerWin implements CheckWinStrategy, Serializable {
     private Player target;
     static private ArrayList<Player> used = new ArrayList<Player>();
 
@@ -14,7 +15,7 @@ public class DestroyPlayerWin implements CheckWinStrategy{
         do {
             int number = (int) (Math.random() * list.size());
             target = list.get(number);
-        }while(target != p && !used.contains(target));
+        }while(target == p || used.contains(target));
 
         used.add(target);
     }

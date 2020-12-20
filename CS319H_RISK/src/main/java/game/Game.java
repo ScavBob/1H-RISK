@@ -1,9 +1,13 @@
 package game;
 
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import screens.GameScreen;
 import screens.MainMenu;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import managers.GameManager;
@@ -13,7 +17,6 @@ import screens.UpdatableScreen;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -62,6 +65,37 @@ public class Game {
         gameStage.setScene(screen.getScene());
     }
 
+    public void nextPhaseInScreen()
+    {
+        currentGameScreen.nextPhaseInScreen();
+    }
+
+    public void showWarningMessage(String title, String header, String content)
+    {
+        Platform.runLater(new Runnable() {
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText(content);
+                alert.setTitle(title);
+                alert.setHeaderText(header);
+                alert.showAndWait();
+            }
+        });
+    }
+    public void showInformationMessage(String title, String header, String content, String imagePath)
+    {
+        Platform.runLater(new Runnable() {
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText(content);
+                alert.setTitle(title);
+                alert.setHeaderText(header);
+                alert.showAndWait();
+                alert.setGraphic(new ImageView(new Image(imagePath)));
+            }
+        });
+    }
+
     public void gameInit(Stage primaryStage){
         gameStage = primaryStage;
         gameStage.setScene(new MainMenu().getScene());
@@ -75,13 +109,13 @@ public class Game {
         subscribedScreens.add(screen);
     }
 
-    public boolean confirmBattle(int attackingArmyCount, int defendingArmyCount)
+    public boolean confirmBattle(int attackingArmyCount, int defendingArmyCount, boolean showButtons)
     {
         if (currentGameScreen == null) return false;
         final FutureTask query = new FutureTask(new Callable() {
             @Override
             public Object call() throws Exception {
-                return currentGameScreen.confirmBattle(attackingArmyCount, defendingArmyCount);
+                return currentGameScreen.confirmBattle(attackingArmyCount, defendingArmyCount, showButtons);
             }
         });
         Platform.runLater(query);
@@ -107,12 +141,24 @@ public class Game {
         });
     }
 
-    public int showBattleResult(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results, boolean won, int maxChoosableArmyCount) {
+    public void updateTimer()
+    {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                currentGameScreen.updateTimer();
+            }
+        });
+    }
+
+    public int showBattleResult(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results,
+                                boolean won, int maxChoosableArmyCount, boolean isAttackAI) {
         if (currentGameScreen == null) return -1;
         final FutureTask query = new FutureTask(new Callable() {
             @Override
             public Object call() throws Exception {
-                return currentGameScreen.showBattleResults(attackerDice, defenderDice, results, won, maxChoosableArmyCount);
+                return currentGameScreen.showBattleResults(attackerDice, defenderDice, results, won,
+                        maxChoosableArmyCount,isAttackAI);
             }
         });
         Platform.runLater(query);
@@ -121,5 +167,9 @@ public class Game {
         } catch (InterruptedException | ExecutionException e) {
             return -1;
         }
+    }
+
+    public void setBattleLog(String battleLog) {
+        currentGameScreen.setBattleLog(battleLog);
     }
 }

@@ -214,4 +214,9 @@ public class Player implements Serializable {
         return mission.checkWin(this);
     }
 
+    public boolean isAI()
+    {
+        return (strategy instanceof AI);
+    }
+
 }

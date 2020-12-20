@@ -28,7 +28,7 @@ public class TransitionButton extends Button implements EventHandler<ActionEvent
         this.screenToShow = screenToShow;
         setOnAction(this);
 
-        Image background = new Image(Paths.get(imagePath).toUri().toString(), true);
+        Image background = new Image(imagePath, true);
         setBackground(new Background(new BackgroundImage(background, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
     }
 

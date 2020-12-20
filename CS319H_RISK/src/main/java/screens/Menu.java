@@ -27,7 +27,7 @@ public abstract class Menu implements Screen {
 	}
 
 	public void drawImage(String imagePath, int x, int y){
-		Image label = new Image(Paths.get(imagePath).toUri().toString());
+		Image label = new Image(imagePath);
 		canvas.getGraphicsContext2D().drawImage(label, x, y);
 	}
 
@@ -60,8 +60,9 @@ public abstract class Menu implements Screen {
 			button.setMinWidth(width);
 		if(eventHandler != null)
 			button.setOnAction(eventHandler);
-		Image image = new Image(Paths.get(imagePath).toUri().toString());
-		button.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+		Image image = new Image(imagePath, width, height, false, false);
+		if(image != null)
+			button.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 		root.getChildren().add(button);
 		return button;
 	}
