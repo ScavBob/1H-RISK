@@ -4,6 +4,7 @@ import game.Game;
 import javafx.application.Platform;
 import managers.InputManager;
 import managers.PlayerAction;
+import screens.EndgameScreen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,7 +70,7 @@ public class GameController implements Serializable {
     {
         if (match.isMatchOver())
         {
-            System.out.println("GameResources has ended.");
+            Game.getInstance().setScreen(new EndgameScreen(match.winner()));
             return;
         }
 
