@@ -1,6 +1,9 @@
 package managers;
 
+import application.GameController;
+import application.Player;
 import application.Region;
+import game.Game;
 
 public class PlayerAction {
 
@@ -12,13 +15,38 @@ public class PlayerAction {
 
     @Override
     public String toString() {
-        return "PlayerAction{" +
-                "endPhase=" + endPhase +
-                ", phase=" + phase +
-                ", firstRegion=" + (firstRegion == null ? firstRegion : firstRegion.getRegionName()) +
-                ", secondRegion=" + (secondRegion == null ? secondRegion : secondRegion.getRegionName()) +
-                ", armyCount=" + armyCount +
-                '}';
+        Player currentPlayer = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
+
+        String ans = "";
+
+        ans += currentPlayer.getName();
+
+        if (endPhase)
+        {
+            ans += " ended the ";
+
+            if (phase == GameController.REINFORCEMENT_PHASE)
+                ans += " reinforcement phase.";
+            else if (phase == GameController.ATTACK_PHASE)
+                ans += " attack phase.";
+            else if (phase == GameController.FORTIFY_PHASE)
+                ans += " reinforcement phase.";
+        }
+        else
+        {
+            if (phase == GameController.REINFORCEMENT_PHASE) {
+                ans = ans + " reinforced " + armyCount + " troops to " + firstRegion.getRegionName() + ".";
+            }
+            else if (phase == GameController.ATTACK_PHASE) {
+                ans += " attacked from " + firstRegion.getRegionName() + " to " +  secondRegion.getRegionName() +
+                        " with " + armyCount + " troops.";
+            }
+            else if (phase == GameController.FORTIFY_PHASE)
+                ans += " reinforced " + armyCount + " troops from " + firstRegion.getRegionName() + " to " +
+                        secondRegion.getRegionName() + ".";
+        }
+
+        return ans;
     }
 
     public PlayerAction(boolean endPhase, int phase, Region firstRegion, Region secondRegion, int armyCount) {

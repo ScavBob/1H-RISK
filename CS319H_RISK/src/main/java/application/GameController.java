@@ -1,6 +1,7 @@
 package application;
 
 import game.Game;
+import javafx.application.Platform;
 import managers.InputManager;
 import managers.PlayerAction;
 
@@ -93,13 +94,19 @@ public class GameController implements Serializable {
 
     public void performPlayerAction(PlayerAction playerAction)
     {
-        if (playerAction.getPhase() == ATTACK_PHASE)
-            performAttackAction(playerAction);
-        else if (playerAction.getPhase() == REINFORCEMENT_PHASE)
-            performReinforcementAction(playerAction);
-        else if (playerAction.getPhase() == FORTIFY_PHASE)
-            performFortifyAction(playerAction);
+        boolean successful = false;
 
+        if (playerAction.getPhase() == ATTACK_PHASE)
+            successful = performAttackAction(playerAction);
+        else if (playerAction.getPhase() == REINFORCEMENT_PHASE)
+            successful = performReinforcementAction(playerAction);
+        else if (playerAction.getPhase() == FORTIFY_PHASE)
+            successful = performFortifyAction(playerAction);
+
+        if (successful)
+        {
+            Game.getInstance().setBattleLog(playerAction.toString());
+        }
         Game.getInstance().updateScreen();
 
         getNextPlayerAction();
@@ -142,11 +149,12 @@ public class GameController implements Serializable {
         return true;
     }
 
-    public void performAttackAction(PlayerAction playerAction)
+    public boolean performAttackAction(PlayerAction playerAction)
     {
         if (playerAction.isEndPhase())
         {
             stateManager.nextPhase();
+            return true;
         }
         else
         {
@@ -156,12 +164,11 @@ public class GameController implements Serializable {
                 int armyCount = playerAction.getArmyCount();
 
                 battleManager.initBattle(srcRegion, dstRegion, armyCount);
+                return true;
             }
             else
             {
-                //TODO
-                //Maybe show a message on the screen?
-                System.out.println("Not a valid attack");
+                return false;
             }
         }
     }
@@ -184,11 +191,12 @@ public class GameController implements Serializable {
 
         return true;
     }
-    public void performReinforcementAction(PlayerAction playerAction)
+    public boolean performReinforcementAction(PlayerAction playerAction)
     {
         if (playerAction.isEndPhase())
         {
             stateManager.nextPhase();
+            return true;
         }
         else
         {
@@ -197,12 +205,11 @@ public class GameController implements Serializable {
                 int armyCount = playerAction.getArmyCount();
                 Game.getInstance().getGameManager().getMapManager().increaseArmyCount(chosenRegion, armyCount);
                 match.getCurrentPlayer().decreaseAvailableReinforcements(armyCount);
+                return true;
             }
             else
             {
-                //TODO
-                //Maybe show a message on the screen?
-                System.out.println("Not a valid reinforcement");
+                return false;
             }
         }
     }
@@ -237,11 +244,16 @@ public class GameController implements Serializable {
         }
         return true;
     }
-    public void performFortifyAction(PlayerAction playerAction)
+    public boolean performFortifyAction(PlayerAction playerAction)
     {
         if (playerAction.isEndPhase())
         {
             stateManager.nextPhase();
+
+            //After fortify, the game proceeds to the next turn.
+            match.nextTurn();
+            remainingTime = maxTurnTime;
+            return true;
         }
         else
         {
@@ -259,20 +271,17 @@ public class GameController implements Serializable {
                         increaseArmyCount(dstRegion, armyCount);
 
                 stateManager.nextPhase();
+
+                //After fortify, the game proceeds to the next turn.
+                match.nextTurn();
+                remainingTime = maxTurnTime;
+                return true;
             }
             else
             {
-                return;
+                return false;
             }
         }
-
-        //After fortify, the game proceeds to the next turn.
-        match.nextTurn();
-        remainingTime = maxTurnTime;
-    }
-
-    public void battle(){
-
     }
 
     public int getCurrentPhase() {
