@@ -7,6 +7,10 @@ import java.util.List;
 
 public class Match implements Serializable {
 
+    private static final double HARD_TROOP_MULTIPLIER = 1000;
+    private static final double NORMAL_TROOP_MULTIPLIER = 1;
+    private static final double EASY_TROOP_MULTIPLIER = 0.1;
+
     private final int[] troopPerPlayer = {0, 0, 40, 35, 30, 25, 20, 15};
 
     private int round;
@@ -85,7 +89,7 @@ public class Match implements Serializable {
         return player.getRegions().size() != 0;
     }
 
-    public void initialize(){
+    public void initialize(int AILevel){
         int numPlayers = players.size();
         int numRegions = map.getMapRegionCount();
 
@@ -96,6 +100,13 @@ public class Match implements Serializable {
         {
             remainingTroops[i] = troopPerPlayer[numPlayers];
             remainingTroops[i] += (int) (remainingTroops[i] * players.get(i).getFaction().getStartingBonus());
+
+            if (players.get(i).isAI())
+            {
+                if (AILevel == 1) remainingTroops[i] = (int) (remainingTroops[i] * EASY_TROOP_MULTIPLIER);
+                else if (AILevel == 2) remainingTroops[i] = (int) (remainingTroops[i] * NORMAL_TROOP_MULTIPLIER);
+                else if (AILevel == 3) remainingTroops[i] = (int) (remainingTroops[i] * HARD_TROOP_MULTIPLIER);
+            }
         }
 
         for (int i = 0; i < numRegions; i++)

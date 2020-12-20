@@ -241,8 +241,7 @@ public class GameStartMenu extends Menu {
             }
         }
         if (playerList.size() >= 2) {
-            Game.getInstance().getGameManager().startMatch(map, playerList, turnTime*60, gameMode);
-            Game.getInstance().setScreen(new GameScreen());
+            Game.getInstance().getGameManager().startMatch(map, playerList, turnTime*60, gameMode, AILevel);
         }
         else{
             //TODO
