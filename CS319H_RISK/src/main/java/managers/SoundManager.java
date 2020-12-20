@@ -12,9 +12,15 @@ import javafx.util.Duration;
 
 public class SoundManager {
 
+    private static final int NUM_OF_BATTLE_SOUNDS = 1;
+
     private String musicFilePath;
     private Media musicFile;
     private MediaPlayer background_theme;
+
+    private String dombraPath;
+    private Media dombraMusic;
+    private MediaPlayer dombraMusicPlayer;
 
     private String alternativePath;
     private Media alternative_music;
@@ -48,6 +54,10 @@ public class SoundManager {
         click = new Media(clickPath);
         clickSound = new MediaPlayer(click);
 
+        dombraPath = getClass().getResource("/musics/battle/dombra.mp3").toExternalForm();
+        dombraMusic = new Media(dombraPath);
+        dombraMusicPlayer = new MediaPlayer(dombraMusic);
+
         backgroundMusic.add(musicFile);
         backgroundMusic.add(alternative_music);
 
@@ -68,6 +78,32 @@ public class SoundManager {
         clickSound.setVolume((x + 0.0) / 30 );
     }
 
+    public void playRandomBattle()
+    {
+        pausePlayMusic();
+
+        int random = (int) (Math.random() * NUM_OF_BATTLE_SOUNDS ) + 1;
+        String randomBattleMusicPath = getClass().getResource("/musics/battle/battle" + random + ".mp3").toExternalForm();
+        System.out.println(randomBattleMusicPath);
+        Media randomBattleMusic = new Media(randomBattleMusicPath);
+        MediaPlayer randomBattleMusicPlayer = new MediaPlayer(randomBattleMusic);
+        randomBattleMusicPlayer.seek(Duration.ZERO);
+        randomBattleMusicPlayer.setVolume(Game.getInstance().getGameManager().getSettingsManager().getVolume());
+        randomBattleMusicPlayer.play();
+    }
+
+    public void playDombra()
+    {
+        dombraMusicPlayer.seek(Duration.ZERO);
+        dombraMusicPlayer.setVolume(Game.getInstance().getGameManager().getSettingsManager().getVolume());
+        dombraMusicPlayer.play();
+    }
+
+    public void pauseDombra()
+    {
+        dombraMusicPlayer.pause();
+    }
+
     public void updateSoundVolumeInitialPosition() {
         background_theme.setVolume(0.05);
         congratsSound.setVolume(1);
@@ -77,6 +113,14 @@ public class SoundManager {
     public void startPlayMusic() {
         background_theme.setCycleCount(Integer.MAX_VALUE);
         background_theme.seek(Duration.ZERO);
+        background_theme.play();
+    }
+
+    public void pausePlayMusic() {
+        background_theme.pause();
+    }
+
+    public void resumePlayMusic() {
         background_theme.play();
     }
 
