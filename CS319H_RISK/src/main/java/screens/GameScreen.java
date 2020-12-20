@@ -43,8 +43,6 @@ public class GameScreen implements UpdatableScreen{
         armyCount = Game.getInstance().getGameManager().getInputManager().getArmyCount();
         root = new Group();
         scene = new Scene(root, 1280, 720);
-        battleLog = new Text();
-        setBattleLog("Game Started...");
         update();
 
         Game.getInstance().subscribeForUpdate(this);
@@ -53,21 +51,34 @@ public class GameScreen implements UpdatableScreen{
 
     public void update(){
         currentArmyCount = 0;
+        armyCount = 0;
         root.getChildren().clear();
         canvas = new Canvas(1280, 720);
+        battleLog = new Text();
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage(new Image(getClass().getResource("/GameResources/" + Game.getInstance().getGameManager().getMatch().getMap().getMapName() + "Map.png").toExternalForm()), 0, 0, 1280, 720);
-        root.getChildren().add(canvas);
         gc.drawImage(new Image(getClass().getResource("/GameResources/Phases/" + Game.getInstance().getGameManager().getMatch().getCurrentPhase() + ".png").toExternalForm()), 495, 1, 291, 60);
         gc.setFill(Paint.valueOf("#0000007f"));
         gc.fillRect(1170, 20, 90, 40);
+        root.getChildren().add(canvas);
+        gc.setFill(Paint.valueOf("#0000007f"));
+        gc.fillRect(757, 694, 523, 26);
+        drawBattleLog();
+        setBattleLog("Game Started...");
+        root.getChildren().add(battleLog);
         populateScreen();
         runTimer();
     }
 
     public void setBattleLog(String log){
         battleLog.setText(log);
-        //battleLog.;
+    }
+
+    public void drawBattleLog(){   //757 x 694
+        battleLog.setLayoutX(767);
+        battleLog.setLayoutY(714);
+        battleLog.setFont(new Font("Helvenica", 20));
+        battleLog.setFill(Paint.valueOf("white"));
     }
 
     private void runTimer() {
@@ -305,13 +316,13 @@ public class GameScreen implements UpdatableScreen{
                 addText(region.getRegionName(), 50, 520, 20);
             }
         }
-        addText(String.valueOf(armyCount), 105, 610, 25);
+        Text armyCountText = addText(String.valueOf(armyCount), 105, 610, 25);
         addButton(root, "", 150, 575, 50, 50, getClass().getResource("/GameResources/UI/Source-Destination/Add.png").toExternalForm(), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if(armyCount + 1 <= Game.getInstance().getGameManager().getInputManager().getMaxChoosableArmy())
                     armyCount = armyCount + 1;
-                Game.getInstance().updateScreen();
+                armyCountText.setText(armyCount + "");
             }
         });
         addButton(root, "", 25, 575, 50, 50, getClass().getResource("/GameResources/UI/Source-Destination/Remove.png").toExternalForm(), new EventHandler<ActionEvent>() {
@@ -319,7 +330,7 @@ public class GameScreen implements UpdatableScreen{
             public void handle(ActionEvent event) {
                 if(armyCount - 1 >= 0)
                     armyCount = armyCount - 1;
-                Game.getInstance().updateScreen();
+                armyCountText.setText(armyCount + "");
             }
         });
         addButton(root,"", 115, 650, 50, 50, getClass().getResource("/GameResources/UI/Source-Destination/Done.png").toExternalForm(), new EventHandler<ActionEvent>() {
@@ -328,7 +339,7 @@ public class GameScreen implements UpdatableScreen{
                 if(Game.getInstance().getGameManager().getInputManager().getFirstRegion() != null) {
                     Game.getInstance().getGameManager().getInputManager().chooseArmyCount(armyCount);
                     armyCount = 0;
-                    Game.getInstance().updateScreen();
+                    armyCountText.setText(armyCount + "");
                 }
             }
         });
@@ -344,17 +355,18 @@ public class GameScreen implements UpdatableScreen{
         });
     }
 
-    private void addText(Group root, String title, int x, int y, Font font, String color){
+    private Text addText(Group root, String title, int x, int y, Font font, String color){
         Text text = new Text(title);
         text.setFill(Paint.valueOf(color));
         text.setLayoutX(x);
         text.setLayoutY(y);
         text.setFont(font);
         root.getChildren().add(text);
+        return text;
     }
 
-    private void addText(String title, int x, int y, int fontSize){
-        addText(root, title, x, y, new Font("Helvetica", fontSize), "white");
+    private Text addText(String title, int x, int y, int fontSize){
+        return addText(root, title, x, y, new Font("Helvetica", fontSize), "white");
     }
 
     private void addLabels(Region region){
