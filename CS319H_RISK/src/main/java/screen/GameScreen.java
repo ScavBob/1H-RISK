@@ -181,15 +181,17 @@ public class GameScreen implements UpdatableScreen {
             });
             root.getChildren().add(close);
         }
-        addText(root, "Attacking Armies", 10, 30, new Font("Impact", 25), "white");
+        addText(root, "Attacking Armies", 50, 30, new Font("Impact", 25), "white");
         addText(root, firstRegion.replaceAll("_", " "),  70, 70, new Font("Helvenica", 20), "white");
-        addText(root, "Defending Armies", 300, 30, new Font("Impact", 25), "white");
-        addText(root, secondRegion.replaceAll("_", " "),  395, 70, new Font("Helvenica", 20), "white");
+        addText(root, "Defending Armies", 270, 30, new Font("Impact", 25), "white");
+        addText(root, secondRegion.replaceAll("_", " "),  325, 70, new Font("Helvenica", 20), "white");
         dialog.showAndWait();
         return confirmation;
     }
 
     public int showBattleResults(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results, String firstRegion, String secondRegion, boolean won, int maxMovableArmies, boolean isAI){
+        System.out.println(won +", "+maxMovableArmies);
+        System.out.println(defenderDice.size());
         currentArmyCount = 1;
         Stage dialog = new Stage();
         dialog.setResizable(false);
@@ -215,8 +217,8 @@ public class GameScreen implements UpdatableScreen {
         root.getChildren().add(canvas);
         if(!isAI) {
             if (won) {
-                if(maxMovableArmies != 1) {
-                    Slider armySlider = new Slider(1, maxMovableArmies, 1);
+                if(maxMovableArmies <= 1) {
+                    Slider armySlider = new Slider(1, Math.max(maxMovableArmies,1), 1);
                     armySlider.setSnapToTicks(true);
                     armySlider.setMinWidth(100);
                     armySlider.setLayoutX(185);
@@ -264,8 +266,9 @@ public class GameScreen implements UpdatableScreen {
             root.getChildren().add(close);
         }
 
-        addText(root, "Armies in " + firstRegion.replaceAll("_", " "), 10, 30, new Font("Impact", 20), "white");
-        addText(root, "Armies in " + secondRegion.replaceAll("_", " "), 350, 30, new Font("Impact", 20), "white");
+        addText(root, "Armies in " + firstRegion.replaceAll("_", " "), 50, 30, new Font("Impact", 20), "white");
+        addText(root, "Armies in " + secondRegion.replaceAll("_", " "), 270, 30, new Font("Impact", 20), "white");
+        System.out.println("hello");
         dialog.showAndWait();
         return currentArmyCount;
     }

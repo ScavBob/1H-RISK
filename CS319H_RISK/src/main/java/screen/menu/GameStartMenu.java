@@ -62,12 +62,12 @@ public class GameStartMenu extends Menu {
             selectedFaction = i;
             x = 75;
             y = 60 + i*90;
-            addButton(addPlayer, x-20, y, 495, 77, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\AddPlayerButton.png");
-            addButton(type, x-20, y, 495, 77, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Type.png");
-            addButton(faction, x -10, y + 9, 60, 61, StorageManager.RESOURCES_FOLDER_NAME + "GameResources\\Factions\\" + (i+1) + ".png");
-            addButton(color, x + 60, y + 25, 40, 26,  StorageManager.RESOURCES_FOLDER_NAME + "GameResources\\Colors\\" + playerColor + ".png");
-            addButton(delete, x + 400, y + 13, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Delete.png");
-            addButton(changeType, x + 320, y + 8, 68, 60, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\HUMAN.png");
+            addButton(addPlayer, x-20, y, 495, 77, getClass().getResource("/GameStartMenu/AddPlayerButton.png").toExternalForm());
+            addButton(type, x-20, y, 495, 77, getClass().getResource("/GameStartMenu/Type.png").toExternalForm());
+            addButton(faction, x -10, y + 9, 60, 61, getClass().getResource("/GameResources/Factions/" + (i+1) + ".png").toExternalForm());
+            addButton(color, x + 60, y + 25, 40, 26,  getClass().getResource("/GameResources/Colors/" + playerColor + ".png").toExternalForm());
+            addButton(delete, x + 400, y + 13, 50, 50, getClass().getResource("/GameStartMenu/Delete.png").toExternalForm());
+            addButton(changeType, x + 320, y + 8, 68, 60, getClass().getResource("/GameStartMenu/HUMAN.png").toExternalForm());
             name.setLayoutX(x + 110);
             name.setLayoutY(y + 13);
             changeType.setOnAction(new EventHandler<ActionEvent>() {
