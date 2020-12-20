@@ -105,6 +105,11 @@ public class GameController implements Serializable {
         getNextPlayerAction();
     }
 
+    private void showInvalidMove(String content)
+    {
+        Game.getInstance().showWarningMessage("Warning", "Invalid move", content);
+    }
+
     public boolean isAttackValid(PlayerAction playerAction)
     {
         Player currentPlayer = match.getCurrentPlayer();
@@ -113,10 +118,26 @@ public class GameController implements Serializable {
         int armyCount = playerAction.getArmyCount();
         Map map = Game.getInstance().getGameManager().getMatch().getMap();
 
-        if (armyCount > srcRegion.getUnitCount() || armyCount == 0) return false;
-        if (!srcRegion.getOwner().equals(currentPlayer)) return false;
-        if (dstRegion.getOwner().equals(currentPlayer)) return false;
-        if (!map.isAdjacentRegion(srcRegion, dstRegion)) return false;
+        if (armyCount > srcRegion.getUnitCount() || armyCount == 0)
+        {
+            showInvalidMove("You are trying to attack with an incorrect amount of army.");
+            return false;
+        }
+        if (!srcRegion.getOwner().equals(currentPlayer))
+        {
+            showInvalidMove("You are trying to attack from someone else's region.");
+            return false;
+        }
+        if (dstRegion.getOwner().equals(currentPlayer))
+        {
+            showInvalidMove("You are trying to attack your own region.");
+            return false;
+        }
+        if (!map.isAdjacentRegion(srcRegion, dstRegion))
+        {
+            showInvalidMove("You are trying to attack a non-adjacent region.");
+            return false;
+        }
 
         return true;
     }
@@ -150,8 +171,16 @@ public class GameController implements Serializable {
         Player currentPlayer = match.getCurrentPlayer();
         int availableReinforcements = currentPlayer.getAvailableReinforcements();
 
-        if (playerAction.getArmyCount() > availableReinforcements) return false;
-        if (!playerAction.getFirstRegion().getOwner().equals(currentPlayer)) return false;
+        if (playerAction.getArmyCount() > availableReinforcements || playerAction.getArmyCount() <= 0)
+        {
+            showInvalidMove("You are trying to reinforce an incorrect amount of soldiers");
+            return false;
+        }
+        if (!playerAction.getFirstRegion().getOwner().equals(currentPlayer))
+        {
+            showInvalidMove("You are trying to reinforce to someone else's region");
+            return false;
+        }
 
         return true;
     }
@@ -186,10 +215,26 @@ public class GameController implements Serializable {
         int armyCount = playerAction.getArmyCount();
         Map map = Game.getInstance().getGameManager().getMatch().getMap();
 
-        if (armyCount > srcRegion.getUnitCount() || armyCount == 0) return false;
-        if (!srcRegion.getOwner().equals(currentPlayer)) return false;
-        if (!dstRegion.getOwner().equals(currentPlayer)) return false;
-        if (!map.isConnected(srcRegion, dstRegion)) return false;
+        if (armyCount > srcRegion.getUnitCount() || armyCount <= 0)
+        {
+            showInvalidMove("You are trying to fortify an incorrect amount of soldiers");
+            return false;
+        }
+        if (!srcRegion.getOwner().equals(currentPlayer))
+        {
+            showInvalidMove("You are trying to fortify from someone else's region");
+            return false;
+        }
+        if (!dstRegion.getOwner().equals(currentPlayer))
+        {
+            showInvalidMove("You are trying to fortify to someone else's region");
+            return false;
+        }
+        if (!map.isConnected(srcRegion, dstRegion))
+        {
+            showInvalidMove("You are trying to fortify to an unconnected region");
+            return false;
+        }
         return true;
     }
     public void performFortifyAction(PlayerAction playerAction)
@@ -217,7 +262,6 @@ public class GameController implements Serializable {
             }
             else
             {
-                System.out.println("Not a valid fortify");
                 return;
             }
         }
