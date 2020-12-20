@@ -83,13 +83,13 @@ public class HowToPlayScreen extends Menu {
     public void addButtons(Group root){
 
         addTransitionButton(root, "", 495, 561, 294, 51, getClass().getResource("/Menu/Back.png").toExternalForm(), new MainMenu());
-        addButtons(root, "", 0 , 400 , 51 , 51, getClass().getResource("/Menu/Back.png").toExternalForm(), event ->{
+        addButtons(root, "", 0 , 400 , 51 , 51, getClass().getResource("/LearnToConquer/Prev.png").toExternalForm(), event ->{
             currentImageNumber = (currentImageNumber - 1 )% HowToPlayImgNum;
             if (currentImageNumber < 0) {currentImageNumber += HowToPlayImgNum; }
             imageView.setImage(imageArray[currentImageNumber]);
             pageNumberDisplay.setText(currentImageNumber+1 + "/" + HowToPlayImgNum);
         } );
-        addButtons(root, "", SWIDTH-51 , 400 , 51 , 51, getClass().getResource("/Menu/Back.png").toExternalForm(), event ->{
+        addButtons(root, "", SWIDTH-51 , 400 , 51 , 51, getClass().getResource("/LearnToConquer/Next.png").toExternalForm(), event ->{
             currentImageNumber = (currentImageNumber + 1 )% HowToPlayImgNum;
             imageView.setImage(imageArray[currentImageNumber]);
             pageNumberDisplay.setText(currentImageNumber+1 + "/" + HowToPlayImgNum);
