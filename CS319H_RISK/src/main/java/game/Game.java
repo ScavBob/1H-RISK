@@ -1,6 +1,7 @@
 package game;
 
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
 import screens.GameScreen;
 import screens.MainMenu;
 import javafx.scene.Parent;
@@ -62,6 +63,31 @@ public class Game {
         gameStage.setScene(screen.getScene());
     }
 
+    public void showWarningMessage(String title, String header, String content)
+    {
+        Platform.runLater(new Runnable() {
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText(content);
+                alert.setTitle(title);
+                alert.setHeaderText(header);
+                alert.showAndWait();
+            }
+        });
+    }
+    public void showInformationMessage(String title, String header, String content)
+    {
+        Platform.runLater(new Runnable() {
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText(content);
+                alert.setTitle(title);
+                alert.setHeaderText(header);
+                alert.showAndWait();
+            }
+        });
+    }
+
     public void gameInit(Stage primaryStage){
         gameStage = primaryStage;
         gameStage.setScene(new MainMenu().getScene());
@@ -95,12 +121,6 @@ public class Game {
     public void setCurrentGameScreen(GameScreen gameScreen)
     {
         this.currentGameScreen = gameScreen;
-    }
-
-    public void showBattleResults(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results)
-    {
-        if (currentGameScreen == null) return;
-        //currentGameScreen.showBattleResults(attackerDice, defenderDice,results);
     }
 
     public void updateScreen()
