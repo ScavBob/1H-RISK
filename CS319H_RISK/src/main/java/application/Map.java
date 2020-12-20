@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Map implements Serializable{
-    private int mapID;
     private String mapName;
     private boolean [][] adjacenyMatrix;
     private Region[] regionList;
@@ -15,23 +14,10 @@ public class Map implements Serializable{
     private int[] continentBonus;
     private int[] continentRegionNumbers;
     private String[] continentNames;
-    private int firstRegion,secondRegion;
-    private int totalRegionCount, regionCount,regionID,regionX,regionY,continentID;
 
     public Map(String mapName, String mapPath) {
         this.mapName = mapName;
         initializeRegions(mapPath);
-    }
-
-    public int getContinetBonus(Player player){
-        int continentBonus = 0;
-        return continentBonus;
-    }
-
-    public void printRegions(){
-        for( Region i : regionList){
-            System.out.println(i.getRegionName() + i.RegionID() + i.getxCoordinate()+i.getyCoordinate());
-        }
     }
 
     /**
@@ -47,7 +33,7 @@ public class Map implements Serializable{
         continentCount = scanner.nextInt();
         mapContinentCount = continentCount;
         continentNames = new String[mapContinentCount];
-        totalRegionCount = scanner.nextInt();
+        int totalRegionCount = scanner.nextInt();
         mapRegionCount = totalRegionCount;
         String regionName,continentName;
         regionList = new Region[totalRegionCount];
@@ -56,19 +42,19 @@ public class Map implements Serializable{
         continentRegionNumbers = new int[continentCount];
 
         for (int i = 0; i < continentCount; i++){
-            continentID = scanner.nextInt();
-            regionCount = scanner.nextInt();
+            int continentID = scanner.nextInt();
+            int regionCount = scanner.nextInt();
             continentRegionNumbers[i] = regionCount;
             continentBonus[i] = scanner.nextInt();
             continentNames[i] = scanner.next();
 
             for (int j = 0; j < regionCount; j++){
-                regionID = scanner.nextInt();
-                regionX = scanner.nextInt();
-                regionY = scanner.nextInt();
+                int regionID = scanner.nextInt();
+                int regionX = scanner.nextInt();
+                int regionY = scanner.nextInt();
                 regionName = scanner.next();
                 regionName = regionName.replaceAll("_", " ");
-                Region tmpRegion = new Region(regionID,regionName,regionX,regionY, continentID);
+                Region tmpRegion = new Region(regionID,regionName, regionX, regionY, continentID);
                 regionList[regionCounter++]= tmpRegion;
             }
         }
@@ -80,8 +66,8 @@ public class Map implements Serializable{
             }
         }
         while (scanner.hasNextInt()){
-            firstRegion =  scanner.nextInt();
-            secondRegion = scanner.nextInt();
+            int firstRegion = scanner.nextInt();
+            int secondRegion = scanner.nextInt();
             adjacenyMatrix[firstRegion][secondRegion] = true;
             adjacenyMatrix[secondRegion][firstRegion] = true;
         }
@@ -168,7 +154,7 @@ public class Map implements Serializable{
 
 
     /**
-     * @param Region region that is the target region
+     * @param r region that is the target region
      * @return ArrayList<Region> neighbour regions of the region parameter
      */
     public ArrayList<Region> getNeighbourOf(Region r){

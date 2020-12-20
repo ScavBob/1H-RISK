@@ -26,7 +26,7 @@ public class AIMoveGenerator {
         else if (phase == GameController.FORTIFY_PHASE)
             getFortifyAction(controller, level);
         else
-            System.err.println("Incorrect phase given to awaitAIAction()");
+            ;//Not do anything.
 
         //TODO
     }
@@ -119,7 +119,6 @@ public class AIMoveGenerator {
         }
 
         int difference = 0;
-        int totalEnemyUnitCount = 0;
         for(Region r:currentPlayer.getRegions()){
             int tempDifference;
             int tempEnemyUnit = 0;
@@ -165,11 +164,7 @@ public class AIMoveGenerator {
             return;
         }
 
-
-
-
         int difference = 0;
-        int totalEnemyUnitCount = 0;
         for(Region r:currentPlayer.getRegions()){
             int tempDifference;
             int tempEnemyUnit = 0;
@@ -200,7 +195,6 @@ public class AIMoveGenerator {
 
     public static void sendDelayedAction(GameController controller, int delayMs, PlayerAction playerAction)
     {
-        System.out.println("here " + playerAction);
         Timer timer = new Timer(delayMs, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

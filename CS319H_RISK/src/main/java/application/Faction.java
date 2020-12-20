@@ -73,12 +73,4 @@ public class Faction implements Serializable {
         return music;
     }
 
-    // Faction name is the symbl of the function, getSymbol gives the name of the function. 
-    public String getFactionSymbol(){
-        return factionName;
-    }
-
-    // Could not decide the return type so choosed void as default 
-     public void getFactionBonus(){}
-
 }

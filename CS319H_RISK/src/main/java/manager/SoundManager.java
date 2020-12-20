@@ -74,20 +74,6 @@ public class SoundManager {
         clickSound.setVolume(volumeConverter(x));
     }
 
-    public void playRandomBattle()
-    {
-        pausePlayMusic();
-
-        int random = (int) (Math.random() * NUM_OF_BATTLE_SOUNDS ) + 1;
-        String randomBattleMusicPath = getClass().getResource("/musics/battle/battle" + random + ".mp3").toExternalForm();
-        System.out.println(randomBattleMusicPath);
-        Media randomBattleMusic = new Media(randomBattleMusicPath);
-        MediaPlayer randomBattleMusicPlayer = new MediaPlayer(randomBattleMusic);
-        randomBattleMusicPlayer.seek(Duration.ZERO);
-        randomBattleMusicPlayer.setVolume(Game.getInstance().getGameManager().getSettingsManager().getVolume());
-        randomBattleMusicPlayer.play();
-    }
-
     public void playFactionBattleMusic(Faction faction)
     {
         Media factionMusic = faction.getFactionBattleMusic();

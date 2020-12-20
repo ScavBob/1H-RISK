@@ -11,18 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player implements Serializable {
-    Match currentMatch;
+
     private static int ids = 1;
     private int playerID;
     private Faction faction;
-    private int reinforcementNum;
     private ArrayList<Region> regions;
-    private Region capital;
     private ArrayList<Card> unusedCards;
     private Mission mission;
     private int totalUnitCount;
     private PlayStrategy strategy;
-    private ArrayList<Player> allies;
     private String name;
     private String color;
     private int availableReinforcements;
@@ -51,27 +48,9 @@ public class Player implements Serializable {
 
     }
 
-    public void addCurrentMatch(Match match){
-        currentMatch = match;
-    }
-    public void addAlly(Player aPlayer){
-        allies.add(aPlayer);
-    }
     public void addRegion(Region aRegion){
         regions.add(aRegion);
         aRegion.setOwner(this);
-        refreshUnitCount();
-    }
-
-    public void passAction(){}
-    public void attack(int unitCount, Region baseRegion,Region target){
-        currentMatch.attackCommand(unitCount, baseRegion, target);
-    }
-    public void addReinforcement(int unitCount,Card target){
-    }
-    public void addExtraReinforcement(Card card1,Card card2, Card card3){}
-    private void refreshUnitCount(){
-        reinforcementNum = regions.size()%3;
     }
 
     public void update(Map m){
@@ -120,18 +99,6 @@ public class Player implements Serializable {
         this.availableReinforcements = availableReinforcements;
     }
 
-
-    public boolean isAccessible(Region r1, Region r2){
-        boolean accessibility = false;
-        int startNode = r1.RegionID();
-        int endNode = r2.RegionID();
-
-        //Do a bfs starting from startNode to endNode
-
-
-        return accessibility;
-    }
-
     public int checkForContinentBonuses(){
         Map map = Game.getInstance().getGameManager().getMatch().getMap();
         int continentBonuses = 0;
@@ -150,7 +117,6 @@ public class Player implements Serializable {
         Map map = Game.getInstance().getGameManager().getMatch().getMap();
         boolean[] continents = new boolean[map.getMapContinentCount()];
 
-        int bonusReinforcements = 0;
         boolean rowAllOccupied = true;
         int[] continentBonus = map.getContinentBonus();
         int[][] temp;
@@ -215,10 +181,6 @@ public class Player implements Serializable {
     }
 
     public int tradeInCards(){
-
-
-        //System.out.println(currentMatch.getTotalCardTrades());
-
         int result = Card.tradeCards(unusedCards, Game.getInstance().getGameManager().getMatch().getTotalCardTrades());
         if(result <= 0)
             return 0;

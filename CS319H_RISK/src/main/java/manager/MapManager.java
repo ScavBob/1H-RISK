@@ -31,9 +31,4 @@ public class MapManager
     {
         region.setUnitCount(region.getUnitCount() + increasetAmount);
     }
-
-    public void updateRegion(Region region, int newArmyCount, Player newOwner)
-    {
-        //TODO
-    }
 }

@@ -135,19 +135,4 @@ public class StorageManager
 
         return true;
     }
-
-    //Test Main
-    /*
-    public static void main(String[] args)
-    {
-        StorageManager s = new StorageManager();
-        Properties p = new Properties();
-
-        p.setProperty("isim", "Ruzgar");
-        System.out.println(s.saveSettings(p));
-
-        System.out.println(s.readSettings(p));
-        System.out.println(p.getProperty("isim"));
-    }
-     */
 }

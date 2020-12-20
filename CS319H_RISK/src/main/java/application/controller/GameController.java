@@ -51,14 +51,6 @@ public class GameController implements Serializable {
         return remainingTime;
     }
 
-    // Timer limits each player. It must be given as a attribute to the constructor.
-    public GameController(int maxTurnTime, BattleInitiator battleInitiator, StateManager stateManager){
-        //turnTimer = new Timer();
-        this.maxTurnTime = maxTurnTime;
-        this.battleInitiator = battleInitiator;
-        this.stateManager = stateManager;
-    }
-
     public void startGameLoop()
     {
         getNextPlayerAction();
@@ -81,12 +73,9 @@ public class GameController implements Serializable {
 
     public void takePlayerAction(PlayerAction playerAction)
     {
-        System.out.println("Retrieved action: " + playerAction);
-
         if (playerAction.getPhase() != stateManager.getPhase())
         {
             //This should not happen.
-            System.err.println("Wrong phase played.");
         }
         performPlayerAction(playerAction);
         match.update();
