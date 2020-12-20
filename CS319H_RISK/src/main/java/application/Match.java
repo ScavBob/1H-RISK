@@ -213,17 +213,17 @@ public class Match implements Serializable {
     }
 
     public void giveTradeCard(){
-        System.out.println("kart verdim");
+
         int chance = (int)(Math.random()*100);
         Card c;
         if(chance < 30)
-            c = new Card(getRandomRegion(),0);
+            c = new Card(0);
         else if(chance < 60)
-            c = new Card(getRandomRegion(),1);
+            c = new Card(1);
         else if(chance < 90)
-            c = new Card((getRandomRegion()),2);
+            c = new Card(2);
         else
-            c = new Card(getRandomRegion(),3);
+            c = new Card(3);
         currentPlayer.addTradeCard(c);
     }
 

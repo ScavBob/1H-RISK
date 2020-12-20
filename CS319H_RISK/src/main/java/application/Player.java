@@ -36,7 +36,7 @@ public class Player implements Serializable {
         playerID = ids++;
         regions = new ArrayList<Region>();
         totalUnitCount = 0;
-        allies = new ArrayList<Player>();
+
         totalUnitCount = 40;
         this.faction = faction;
 
