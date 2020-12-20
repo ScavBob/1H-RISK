@@ -24,9 +24,9 @@ public class MainMenu extends Menu {
 	    public Scene getScene() {
 	        Group root = new Group();
 	        Scene scene = new Scene(root, 1280, 720, Color.BLACK);
-			setBackground(root, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Background.png");
+			setBackground(root, getClass().getResource( "/Menu/Background.png").toExternalForm(), "");
 		   	addButtons(root);
-		   	drawImage(StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\Label.png", 302, 66);
+		   	drawImage(getClass().getResource("/MainMenu/Label.png").toExternalForm(), 302, 66, "");
 	        return scene;
 	    }
 

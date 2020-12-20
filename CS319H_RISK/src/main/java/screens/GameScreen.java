@@ -62,8 +62,14 @@ public class GameScreen implements UpdatableScreen{
 
     private void runTimer() {
         int remainingTime = Game.getInstance().getGameManager().getMatch().getRemainingTime();
+        timer = new Text();
+        timer.setX(1180);
+        timer.setY(50);
+        timer.setFont(Font.font("Helvenica", 30));
+        timer.setFill(Paint.valueOf("white"));
+        root.getChildren().add(timer);
         if(remainingTime <= 50000) {
-            timer = new Text();
+
             String time = "";
             if (remainingTime / 60 < 10)
                 time += "0" + remainingTime / 60;
@@ -74,13 +80,9 @@ public class GameScreen implements UpdatableScreen{
                 time += "0" + remainingTime % 60;
             else
                 time += remainingTime % 60;
-
             timer.setText(time);
-            timer.setX(1180);
-            timer.setY(50);
-            timer.setFont(Font.font("Helvenica", 30));
-            timer.setFill(Paint.valueOf("white"));
-            root.getChildren().add(timer);
+        }else{
+            timer.setText("  ∞");
         }
     }
 

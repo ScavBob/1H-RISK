@@ -20,6 +20,17 @@ public abstract class Menu implements Screen {
 		canvas = new Canvas(1280.0, 720.0);
 	}
 
+	public void setBackground(Group root, String backgroundPath, String difference){
+		addCanvas();
+		drawImage(backgroundPath, 0, 0, difference);
+		root.getChildren().add(canvas);
+	}
+
+	public void drawImage(String imagePath, int x, int y, String diff){
+		Image label = new Image(Paths.get(imagePath).toUri().toString());
+		canvas.getGraphicsContext2D().drawImage(label, x, y);
+	}
+
 	public void setBackground(Group root, String backgroundPath){
 		addCanvas();
 		drawImage(backgroundPath, 0, 0);

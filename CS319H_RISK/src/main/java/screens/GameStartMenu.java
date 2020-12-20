@@ -32,7 +32,7 @@ public class GameStartMenu extends Menu {
     private String[] colors = {"Red", "Green", "Blue", "Yellow", "Purple", "Black", "Pink"};
     private int map;
     private Slot[] slots = new Slot[7];
-    private int gameMode;
+    private boolean gameMode;
     private int AILevel;
     private int turnTime;
 
@@ -153,6 +153,8 @@ public class GameStartMenu extends Menu {
     }
 
     public GameStartMenu(int map) {
+        this.gameMode = true;
+        this.turnTime = 1;
         this.map = map;
     }
 
@@ -190,14 +192,14 @@ public class GameStartMenu extends Menu {
         addButtons(root, "", 746, 430, 143, 50, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\GameMode\\WorldDomination.png", new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                gameMode = 0;
+                gameMode = true;
                 Game.getInstance().getGameManager().getSoundManager().playClick();
             }
         });
         addButtons(root, "", 899, 430, 143, 50, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\GameMode\\SecretMission.png", new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                gameMode = 1;
+                gameMode = false;
                 Game.getInstance().getGameManager().getSoundManager().playClick();
             }
         });
@@ -219,10 +221,13 @@ public class GameStartMenu extends Menu {
                 AILevel = 3;
             }
         });
-        int[] times = {0, 1, 2, 3, 5, 10, 15, 30};
+        int[] times = {100000, 1, 2, 3, 5, 10, 15, 30};
         for(int i = 0; i < times.length; i++){
-            addButtons(root, (times[i] == 0 ? "∞" : times[i] + ""), 679 + 53*i, 610, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\Timer\\Time.png", event -> {
-                System.out.println(((Button)event.getSource()).getText());
+            addButtons(root, (i == 0 ? "∞" : times[i] + ""), 679 + 53*i, 610, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\Timer\\Time.png", event -> {
+                if( ((Button)event.getSource()).getText() == "∞" )
+                    turnTime = 100000;
+                else
+                    turnTime = Integer.parseInt(((Button)event.getSource()).getText());
             });
         }
     }
@@ -236,7 +241,7 @@ public class GameStartMenu extends Menu {
             }
         }
         if (playerList.size() >= 2) {
-            Game.getInstance().getGameManager().startMatch(map, playerList, 600, true);
+            Game.getInstance().getGameManager().startMatch(map, playerList, turnTime*60, gameMode);
             Game.getInstance().setScreen(new GameScreen());
         }
         else{
