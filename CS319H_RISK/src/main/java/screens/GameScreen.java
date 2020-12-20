@@ -105,38 +105,41 @@ public class GameScreen implements UpdatableScreen{
             canvas.getGraphicsContext2D().drawImage(dice, 425, 60 + (280/attacking)*i);
         }
         root.getChildren().add(canvas);
-        Button confirmationButton = new Button("Accept");
-        confirmationButton.setLayoutX(170);
-        confirmationButton.setLayoutY(240);
-        confirmationButton.setMinSize(75, 25);
-        Button denialButton = new Button("Deny");
-        denialButton.setLayoutX(255);
-        denialButton.setLayoutY(240);
-        denialButton.setMinSize(75, 25);
-        confirmationButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                confirmation = true;
-                dialog.close();
-                System.out.println(confirmation);
-            }
-        });
-        denialButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                confirmation = false;
-                dialog.close();
-                System.out.println(confirmation);
-            }
-        });
         if(showButtons) {
+            Button confirmationButton = new Button("Accept");
+            confirmationButton.setLayoutX(170);
+            confirmationButton.setLayoutY(240);
+            confirmationButton.setMinSize(75, 25);
+            Button denialButton = new Button("Deny");
+            denialButton.setLayoutX(255);
+            denialButton.setLayoutY(240);
+            denialButton.setMinSize(75, 25);
+            confirmationButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    confirmation = true;
+                    dialog.close();
+                }
+            });
+            denialButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    confirmation = false;
+                    dialog.close();
+                }
+            });
             root.getChildren().add(confirmationButton);
             root.getChildren().add(denialButton);
             addText(root, "Confirm Attack?", 175, 220, new Font("Helvenica", 20), "white");
         }else{
-            addButton(root, "Close", 175, 220, 75, 25, "", event -> {
-               dialog.close();
+            Button close = new Button("Close");
+            close.setLayoutX(175);
+            close.setLayoutY(220);
+            close.setMinSize(75,25);
+            close.setOnAction(event -> {
+                dialog.close();
             });
+            root.getChildren().add(close);
         }
         addText(root, "Attacking Armies", 10, 30, new Font("Impact", 25), "white");
         addText(root, "Defending Armies", 310, 30, new Font("Impact", 25), "white");
