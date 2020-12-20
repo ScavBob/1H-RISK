@@ -302,7 +302,7 @@ public class GameScreen implements UpdatableScreen {
         addText("It's the " + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getFaction().getFactionName() + " Turn (" + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getName() + ")", 50, 50, 25);
         Region region = Game.getInstance().getGameManager().getInputManager().getFirstRegion();
         Player player = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
-        addButton(root, "Show Cards", 90, 380, 50, 30, "", event -> {
+        addButton(root, "Show Cards", 110, 380, 50, 30, "", event -> {
             Game.getInstance().showInformationMessage(player.getName() + "'s Cards", player.getName() + "'s Cards",
                     "Player Infantry card count: " + player.getInfantryCardCount() +
                             "\nPlayer Cavalry card count: " + player.getCavalaryCardCount() +
@@ -312,13 +312,14 @@ public class GameScreen implements UpdatableScreen {
             addButton(root, "Use Cards", 20, 380, 50, 30, "", event -> {
                 int tradedCards = player.tradeInCards();
                 if(tradedCards > 0)
-                    Game.getInstance().showInformationMessage("Traded Cards!", player.getName() + "has recieved " + tradedCards + " many units", "");
+                    Game.getInstance().showInformationMessage("Traded Cards!", player.getName() + " has recieved " + tradedCards + " many units", "");
                 else
                     Game.getInstance().showWarningMessage("No Cards Traded!", player.getName() + " has no cards that can be traded",
                             player.getName() + "'s current Card list: "
                                     +"\nInfantry Card count: " + player.getInfantryCardCount()
                                     +"\nCavalry Card count: " + player.getCavalaryCardCount()
-                                    +"\nArtillery Card count: " + player.getArtilleryCardCount());
+                                    +"\nArtillery Card count: " + player.getArtilleryCardCount()
+                                    +"\nWildcard count:" + player.getWildCardCount());
             });
 
             if(region == null)
