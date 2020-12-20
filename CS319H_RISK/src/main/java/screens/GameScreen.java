@@ -462,7 +462,7 @@ public class GameScreen implements UpdatableScreen {
         scene.getStylesheets().add("style.css");
         Canvas canvas = new Canvas(500, players.size() * 90);
         scoreboard.setScene(scene);
-        Image image = new Image(getClass().getResource("/Menu/Background.png").toExternalForm(), 500 , players.size() * 90, false, false);
+        Image image = new Image(getClass().getResource("/Menu/Background.png").toExternalForm(), 500, players.size() * 90, false, false);
         canvas.getGraphicsContext2D().drawImage(image, 0, 0);
         root.getChildren().add(canvas);
         Collections.sort(players, new Comparator<Player>() {
