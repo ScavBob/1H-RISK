@@ -219,4 +219,8 @@ public class Player implements Serializable {
         return (strategy instanceof AI);
     }
 
+    public boolean isAlive(){
+        return !(regions.isEmpty());
+    }
+
 }

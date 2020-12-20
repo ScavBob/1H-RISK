@@ -43,6 +43,7 @@ public class Match implements Serializable {
     public void nextTurn() {
         //TODO
         //Skip dead (?) players.
+
         if (round < maxRound) {
             round++;
             currentPlayer = players.get(round % players.size());
