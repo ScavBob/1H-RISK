@@ -289,21 +289,16 @@ public class GameScreen implements UpdatableScreen{
         canvas.getGraphicsContext2D().fillRect(15, 15, 400, 50);
         addText("It's the " + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getFaction().getFactionName() + " Turn (" + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getName() + ")", 50, 50, 25);
         Region region = Game.getInstance().getGameManager().getInputManager().getFirstRegion();
-<<<<<<< HEAD
-        if(phase == 0){
-            /*addButton(root, "Use Cards", 25, 380, 50, 30, "", event -> {
 
-            });*/
-=======
         addButton(root, "Show Cards", 90, 380, 50, 30, "", event -> {
-
+            
         });
         if(phase == 0){
             addButton(root, "Use Cards", 20, 380, 50, 30, "", event -> {
                 Player player = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
                 Game.getInstance().showInformationMessage(player.getName() + "'s Cards", "Cards", "Cards here");
             });
->>>>>>> 81d62eb1be8e459b1bb8e1eb9603ae0b2abea870
+
             if(region == null)
                 addText("No region selected.", 0, 460, 20);
             else {
