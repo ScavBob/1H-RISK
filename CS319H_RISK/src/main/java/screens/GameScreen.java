@@ -43,17 +43,19 @@ public class GameScreen implements UpdatableScreen{
         armyCount = Game.getInstance().getGameManager().getInputManager().getArmyCount();
         root = new Group();
         scene = new Scene(root, 1280, 720);
+        battleLog = new Text();
         update();
 
         Game.getInstance().subscribeForUpdate(this);
         Game.getInstance().setCurrentGameScreen(this);
+
+        setBattleLog("Game Started...");
     }
 
     public void update(){
         currentArmyCount = 0;
         root.getChildren().clear();
         canvas = new Canvas(1280, 720);
-        battleLog = new Text();
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage(new Image(getClass().getResource("/GameResources/" + Game.getInstance().getGameManager().getMatch().getMap().getMapName() + "Map.png").toExternalForm()), 0, 0, 1280, 720);
         gc.drawImage(new Image(getClass().getResource("/GameResources/Phases/" + Game.getInstance().getGameManager().getMatch().getCurrentPhase() + ".png").toExternalForm()), 495, 1, 291, 60);
@@ -63,7 +65,6 @@ public class GameScreen implements UpdatableScreen{
         gc.setFill(Paint.valueOf("#0000007f"));
         gc.fillRect(757, 694, 523, 26);
         drawBattleLog();
-        setBattleLog("Game Started...");
         root.getChildren().add(battleLog);
         populateScreen();
         runTimer();
@@ -74,7 +75,7 @@ public class GameScreen implements UpdatableScreen{
         armyCount = 0;
     }
 
-    public void setBattleLog(String log){
+    public void setBattleLog(String log)
         battleLog.setText(log);
     }
 
