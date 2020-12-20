@@ -207,6 +207,7 @@ public class Player implements Serializable {
         if(result <= 0)
             return 0;
         currentMatch.increaseNumberOfTrades();
+        reinforcementNum += result;
         return result;
     }
 
@@ -270,6 +271,10 @@ public class Player implements Serializable {
                 answer ++;
         }
         return answer;
+    }
+
+    public boolean isAlive(){
+        return !(regions.isEmpty());
     }
 
 }
