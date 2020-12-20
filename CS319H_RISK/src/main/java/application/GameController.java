@@ -68,7 +68,7 @@ public class GameController implements Serializable {
     {
         if (match.isMatchOver())
         {
-            System.out.println("Game has ended.");
+            System.out.println("GameResources has ended.");
             return;
         }
 

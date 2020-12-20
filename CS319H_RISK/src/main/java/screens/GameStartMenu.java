@@ -70,8 +70,8 @@ public class GameStartMenu extends Menu {
             y = 60 + i*90;
             addButton(addPlayer, x-20, y, 495, 77, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\AddPlayerButton.png");
             addButton(type, x-20, y, 495, 77, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Type.png");
-            addButton(faction, x -10, y + 9, 60, 60, StorageManager.RESOURCES_FOLDER_NAME + "Game\\Factions\\" + (i+1) + ".png");
-            addButton(color, x + 60, y + 25, 40, 26,  StorageManager.RESOURCES_FOLDER_NAME + "Game\\Colors\\" + playerColor + ".png");
+            addButton(faction, x -10, y + 9, 60, 60, StorageManager.RESOURCES_FOLDER_NAME + "GameResources\\Factions\\" + (i+1) + ".png");
+            addButton(color, x + 60, y + 25, 40, 26,  StorageManager.RESOURCES_FOLDER_NAME + "GameResources\\Colors\\" + playerColor + ".png");
             addButton(delete, x + 400, y + 13, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Delete.png");
             addButton(changeType, x + 320, y + 8, 68, 60, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\HUMAN.png");
             name.setLayoutX(x + 110);
@@ -219,8 +219,12 @@ public class GameStartMenu extends Menu {
                 AILevel = 3;
             }
         });
-        //addButtons(root, "", )
-
+        int[] times = {0, 1, 2, 3, 5, 10, 15, 30};
+        for(int i = 0; i < times.length; i++){
+            addButtons(root, (times[i] == 0 ? "∞" : times[i] + ""), 679 + 53*i, 610, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\Timer\\Time.png", event -> {
+                System.out.println(((Button)event.getSource()).getText());
+            });
+        }
     }
 
     private void startGame() {
