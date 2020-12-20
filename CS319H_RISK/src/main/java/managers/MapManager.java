@@ -6,7 +6,6 @@ import application.Region;
 
 import java.io.File;
 import java.net.URL;
-import java.nio.file.Paths;
 
 public class MapManager
 {
@@ -16,9 +15,9 @@ public class MapManager
     public Map getMap(int map){
         URL url = null;
         if (map == WORLD_MAP)
-            url = getClass().getResource("/Game/worldmapdata.txt");
+            url = getClass().getResource("/GameResources/worldmapdata.txt");
         else if (map == BILKENT_MAP)
-            url = getClass().getResource("/Game/bilkentmapdata.txt");
+            url = getClass().getResource("/GameResources/bilkentmapdata.txt");
 
         if (url == null)
             return null;
