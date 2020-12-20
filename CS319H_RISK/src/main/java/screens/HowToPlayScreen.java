@@ -68,9 +68,9 @@ public class HowToPlayScreen extends Menu {
     }
 
     /**
-     * A method tha initializes scene
      * @return Scene returns the scene object for display
      */
+    @Override
     public Scene getScene() {
         return scene;
     }

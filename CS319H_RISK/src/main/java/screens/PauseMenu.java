@@ -19,6 +19,9 @@ public class PauseMenu extends Menu {
     Scene scene;
     TextInputDialog saveWindow;
 
+    /**
+     * PauseMenu constructor
+     */
     PauseMenu() {
         root = new Group();
         scene = new Scene(root, SWIDTH, SHEIGHT, Color.BLACK);
@@ -31,17 +34,28 @@ public class PauseMenu extends Menu {
         saveWindow.setHeaderText("");
     }
 
+    /**
+     * @return Scene returns the scene object for display
+     */
     @Override
     public Scene getScene() {
 
         return scene;
     }
 
+    /**
+     * A method that creates transition buttons, adds the to the roots and returns the roots
+     * @param root returns a Group object named root
+     */
     private void addTransitionButtons(Group root){
         addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT - 71, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new GameScreen());
         addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT+71, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new MainMenu());
     }
 
+    /**
+     * A method that creates event buttons, adds the to the roots and returns the roots
+     * @param root returns a Group object named root
+     */
     private void addEventButtons(Group root){
         addButtons(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\Exit.png", new EventHandler<ActionEvent>() {
             @Override
