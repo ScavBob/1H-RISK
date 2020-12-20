@@ -42,6 +42,8 @@ public class Player implements Serializable {
         else
             strategy = new AI();
         availableReinforcements = 0;
+        unusedCards = new ArrayList<Card>();
+        takenTradeCardAlready = false;
     }
 
     public void addCurrentMatch(Match match){
@@ -77,6 +79,11 @@ public class Player implements Serializable {
         if(temp.size() != regions.size())
             regions = temp;
     }
+
+    public boolean isAlive(){
+        return !(regions.isEmpty());
+    }
+
     public List<Region> getRegions(){
         return regions;
     }
@@ -203,6 +210,8 @@ public class Player implements Serializable {
     }
 
     public int tradeInCards(){
+        if(unusedCards.size() < 3)
+            return 0;
         int result = Card.tradeCards(unusedCards,currentMatch.getTotalTrades());
         if(result <= 0)
             return 0;

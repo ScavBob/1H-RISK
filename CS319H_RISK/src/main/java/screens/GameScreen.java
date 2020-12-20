@@ -131,7 +131,7 @@ public class GameScreen implements UpdatableScreen{
             canvas.getGraphicsContext2D().drawImage(dice, 5, 40 + (240/attacking)*i);
         }
         for(int i = 0; i < defending; i++){
-            canvas.getGraphicsContext2D().drawImage(dice, 425, 60 + (280/attacking)*i);
+            canvas.getGraphicsContext2D().drawImage(dice, 425, 40 + (240/attacking)*i);
         }
         root.getChildren().add(canvas);
         if(showButtons) {
@@ -171,9 +171,9 @@ public class GameScreen implements UpdatableScreen{
             root.getChildren().add(close);
         }
         addText(root, "Attacking Armies", 10, 30, new Font("Impact", 25), "white");
-        addText(root, "From " + firstRegion,  60, 30, new Font("Impact", 25), "white");
+        addText(root, firstRegion.replaceAll("_", " "),  70, 70, new Font("Helvenica", 20), "white");
         addText(root, "Defending Armies", 310, 30, new Font("Impact", 25), "white");
-        addText(root, "From " + firstRegion,  60, 30, new Font("Impact", 25), "white");
+        addText(root, secondRegion.replaceAll("_", " "),  330, 70, new Font("Helvenica", 20), "white");
         dialog.showAndWait();
         return confirmation;
     }
@@ -197,7 +197,7 @@ public class GameScreen implements UpdatableScreen{
             Image dice = new Image(getClass().getResource("/GameResources/RollingDice/" + attackerDice.get(i) + ".png").toExternalForm());
             canvas.getGraphicsContext2D().drawImage(dice, x, y);
             dice = new Image(getClass().getResource("/GameResources/RollingDice/" + defenderDice.get(i) + ".png").toExternalForm());
-            canvas.getGraphicsContext2D().drawImage(dice, x + 335, y);
+            canvas.getGraphicsContext2D().drawImage(dice, x + 400, y);
             String image = (results.get(i)? "Won.png" : "Lost.png");
             canvas.getGraphicsContext2D().drawImage(new Image(getClass().getResource("/GameResources/RollingDice/" + image).toExternalForm(), 70, 70, false,false ), x + 50, y - 15);
         }
@@ -253,8 +253,8 @@ public class GameScreen implements UpdatableScreen{
             root.getChildren().add(close);
         }
 
-        addText(root, "Attacking Armies", 10, 30, new Font("Impact", 25), "white");
-        addText(root, "Defending Armies", 310, 30, new Font("Impact", 25), "white");
+        addText(root, "Armies in " + firstRegion.replaceAll("_", " "), 10, 30, new Font("Impact", 20), "white");
+        addText(root, "Armies in " + secondRegion.replaceAll("_", " "), 350, 30, new Font("Impact", 20), "white");
         dialog.showAndWait();
         return currentArmyCount;
     }
@@ -289,14 +289,24 @@ public class GameScreen implements UpdatableScreen{
         canvas.getGraphicsContext2D().fillRect(15, 15, 400, 50);
         addText("It's the " + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getFaction().getFactionName() + " Turn (" + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getName() + ")", 50, 50, 25);
         Region region = Game.getInstance().getGameManager().getInputManager().getFirstRegion();
-
+        Player player = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
         addButton(root, "Show Cards", 90, 380, 50, 30, "", event -> {
-            
+            Game.getInstance().showInformationMessage(player.getName() + "'s Cards", player.getName() + "'s Cards",
+                    "Player Infantry card count: " + player.getInfantryCardCount() +
+                            "\nPlayer Cavalry card count: " + player.getCavalaryCardCount() +
+                            "\nPlayer Artillery card count: " + player.getArtilleryCardCount());
         });
         if(phase == 0){
             addButton(root, "Use Cards", 20, 380, 50, 30, "", event -> {
-                Player player = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
-                Game.getInstance().showInformationMessage(player.getName() + "'s Cards", "Cards", "Cards here");
+                int tradedCards = player.tradeInCards();
+                if(tradedCards > 0)
+                    Game.getInstance().showInformationMessage("Traded Cards!", player.getName() + "has recieved " + tradedCards + "many units", "");
+                else
+                    Game.getInstance().showWarningMessage("No Cards Traded!", player.getName() + " has no cards that can be traded",
+                            player.getName() + "'s current Card list: "
+                                    +"\nInfantry Card count: " + player.getInfantryCardCount()
+                                    +"\nCavalry Card count: " + player.getCavalaryCardCount()
+                                    +"\nArtillery Card count: " + player.getArtilleryCardCount());
             });
 
             if(region == null)
@@ -380,7 +390,6 @@ public class GameScreen implements UpdatableScreen{
             }
         });
         addButton(root, "", 175, 650, 50, 50, getClass().getResource("/GameResources/UI/Source-Destination/Learn.png").toExternalForm(), event -> {
-            Player player = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
             Game.getInstance().showInformationMessage(player.getName()+ "'s Mission",player.getMission().getMissionName(),  player.getMission().getMissionDetails());
         });
     }
