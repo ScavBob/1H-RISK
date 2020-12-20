@@ -86,8 +86,8 @@ public class GameScreen implements UpdatableScreen{
         }
     }
 
-    public boolean confirmBattle(int attacking, int defending){
-        confirmation = false;
+    public boolean confirmBattle(int attacking, int defending, boolean showButtons){
+        confirmation = true;
         Stage dialog = new Stage();
         dialog.setResizable(false);
         dialog.initStyle(StageStyle.UTILITY);
@@ -130,8 +130,10 @@ public class GameScreen implements UpdatableScreen{
                 System.out.println(confirmation);
             }
         });
-        root.getChildren().add(confirmationButton);
-        root.getChildren().add(denialButton);
+        if(showButtons) {
+            root.getChildren().add(confirmationButton);
+            root.getChildren().add(denialButton);
+        }
         addText(root, "Attacking Armies", 10, 30, new Font("Impact", 25), "white");
         addText(root, "Defending Armies", 310, 30, new Font("Impact", 25), "white");
         dialog.showAndWait();
