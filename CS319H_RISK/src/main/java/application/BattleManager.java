@@ -24,7 +24,7 @@ public class BattleManager implements Serializable {
         int defendingArmyCount = Math.min(2, defRegion.getUnitCount());
 
         boolean attackerIsAI = currentPlayer.isAI();
-        boolean battleConfirmed = Game.getInstance().confirmBattle(attackingArmyCount, defendingArmyCount, !attackerIsAI);
+        boolean battleConfirmed = Game.getInstance().confirmBattle(attackingArmyCount, defendingArmyCount, atkRegion.getRegionName(), defRegion.getRegionName(), !attackerIsAI);
 
         if (!battleConfirmed)
         {
@@ -94,7 +94,9 @@ public class BattleManager implements Serializable {
                 defRegion.setOwner(currentPlayer);
             }
 
-            int armiesToMove = Game.getInstance().showBattleResult(attackerDice, defenderDice, results, playerWon, atkRegion.getUnitCount() - 1, attackerIsAI);
+            int armiesToMove = Game.getInstance().showBattleResult(attackerDice, defenderDice, results,
+                    atkRegion.getRegionName(), defRegion.getRegionName(), playerWon, atkRegion.getUnitCount() - 1, attackerIsAI);
+            
             if (attackerIsAI)
             {
                 armiesToMove = atkRegion.getUnitCount() - 1;
@@ -103,6 +105,11 @@ public class BattleManager implements Serializable {
             if (playerWon) {
                 mapManager.increaseArmyCount(atkRegion, -armiesToMove);
                 mapManager.increaseArmyCount(defRegion, +armiesToMove);
+                if (!currentPlayer.isTakenTradeCardAlready())
+                {
+                    Game.getInstance().getGameManager().getMatch().giveTradeCard();
+                    currentPlayer.setTakenTradeCardAlready(true);
+                }
             }
         }
     }

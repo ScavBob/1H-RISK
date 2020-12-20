@@ -55,7 +55,7 @@ public class GameManager
         match.startGameLoop();
     }
 
-    public void startMatch(int map, ArrayList<Player> players, int maxTurnTime, boolean isWorldDomination)
+    public void startMatch(int map, ArrayList<Player> players, int maxTurnTime, boolean isWorldDomination, int AILevel)
     {
         match = new Match(maxTurnTime);
 
@@ -69,8 +69,8 @@ public class GameManager
         else
             match.assignMissionSecretMission();
 
-        match.initialize();
-
+        match.initialize(AILevel);
+        Game.getInstance().setScreen(new GameScreen());
     }
 
     public Match getMatch() {

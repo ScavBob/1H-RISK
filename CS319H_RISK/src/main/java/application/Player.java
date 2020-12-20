@@ -12,29 +12,26 @@ public class Player implements Serializable {
     private static int ids = 1;
     private int playerID;
     private Faction faction;
-    private int reinforcementNum;
     private ArrayList<Region> regions;
     private Region capital;
     private ArrayList<Card> unusedCards;
     private Mission mission;
-    private int totalUnitCount;
     private PlayStrategy strategy;
     private ArrayList<Player> allies;
     private String name;
     private String color;
     private int availableReinforcements;
-
-
+    private boolean takenTradeCardAlready;
 
     public Player(String name, String color, boolean isHuman, Faction faction){
         this.name = name;
         this.color = color;
         playerID = ids++;
         regions = new ArrayList<Region>();
-        totalUnitCount = 0;
         allies = new ArrayList<Player>();
-        totalUnitCount = 40;
         this.faction = faction;
+        takenTradeCardAlready = false;
+        unusedCards = new ArrayList<>();
 
         if(isHuman)
             strategy = new Human();
@@ -43,27 +40,9 @@ public class Player implements Serializable {
         availableReinforcements = 0;
     }
 
-    public void addCurrentMatch(Match match){
-        currentMatch = match;
-    }
-    public void addAlly(Player aPlayer){
-        allies.add(aPlayer);
-    }
     public void addRegion(Region aRegion){
         regions.add(aRegion);
         aRegion.setOwner(this);
-        refreshUnitCount();
-    }
-
-    public void passAction(){}
-    public void attack(int unitCount, Region baseRegion,Region target){
-        currentMatch.attackCommand(unitCount, baseRegion, target);
-    }
-    public void addReinforcement(int unitCount,Card target){
-    }
-    public void addExtraReinforcement(Card card1,Card card2, Card card3){}
-    private void refreshUnitCount(){
-        reinforcementNum = regions.size()%3;
     }
 
     public void update(Map m){
@@ -107,6 +86,13 @@ public class Player implements Serializable {
         this.availableReinforcements = availableReinforcements;
     }
 
+    public void setTakenTradeCardAlready(boolean takenTradeCardAlready) {
+        this.takenTradeCardAlready = takenTradeCardAlready;
+    }
+
+    public boolean isTakenTradeCardAlready() {
+        return takenTradeCardAlready;
+    }
 
     public boolean isAccessible(Region r1, Region r2){
         boolean accessibility = false;

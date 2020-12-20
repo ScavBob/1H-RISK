@@ -115,7 +115,7 @@ public class GameScreen implements UpdatableScreen{
         }
     }
 
-    public boolean confirmBattle(int attacking, int defending, boolean showButtons){
+    public boolean confirmBattle(int attacking, int defending, String firstRegion, String secondRegion, boolean showButtons){
         confirmation = true;
         Stage dialog = new Stage();
         dialog.setResizable(false);
@@ -171,12 +171,14 @@ public class GameScreen implements UpdatableScreen{
             root.getChildren().add(close);
         }
         addText(root, "Attacking Armies", 10, 30, new Font("Impact", 25), "white");
+        addText(root, "From " + firstRegion,  60, 30, new Font("Impact", 25), "white");
         addText(root, "Defending Armies", 310, 30, new Font("Impact", 25), "white");
+        addText(root, "From " + firstRegion,  60, 30, new Font("Impact", 25), "white");
         dialog.showAndWait();
         return confirmation;
     }
 
-    public int showBattleResults(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results, boolean won, int maxMovableArmies, boolean isAI){
+    public int showBattleResults(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results, String firstRegion, String secondRegion, boolean won, int maxMovableArmies, boolean isAI){
         currentArmyCount = 1;
         Stage dialog = new Stage();
         dialog.setResizable(false);
@@ -195,7 +197,9 @@ public class GameScreen implements UpdatableScreen{
             Image dice = new Image(getClass().getResource("/GameResources/RollingDice/" + attackerDice.get(i) + ".png").toExternalForm());
             canvas.getGraphicsContext2D().drawImage(dice, x, y);
             dice = new Image(getClass().getResource("/GameResources/RollingDice/" + defenderDice.get(i) + ".png").toExternalForm());
-            canvas.getGraphicsContext2D().drawImage(dice, x + 385, y);
+            canvas.getGraphicsContext2D().drawImage(dice, x + 335, y);
+            String image = (results.get(i)? "Won.png" : "Lost.png");
+            canvas.getGraphicsContext2D().drawImage(new Image(getClass().getResource("/GameResources/RollingDice/" + image).toExternalForm(), 70, 70, false,false ), x + 50, y - 15);
         }
         root.getChildren().add(canvas);
         if(!isAI) {
@@ -285,10 +289,21 @@ public class GameScreen implements UpdatableScreen{
         canvas.getGraphicsContext2D().fillRect(15, 15, 400, 50);
         addText("It's the " + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getFaction().getFactionName() + " Turn (" + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getName() + ")", 50, 50, 25);
         Region region = Game.getInstance().getGameManager().getInputManager().getFirstRegion();
+<<<<<<< HEAD
         if(phase == 0){
             /*addButton(root, "Use Cards", 25, 380, 50, 30, "", event -> {
 
             });*/
+=======
+        addButton(root, "Show Cards", 90, 380, 50, 30, "", event -> {
+
+        });
+        if(phase == 0){
+            addButton(root, "Use Cards", 20, 380, 50, 30, "", event -> {
+                Player player = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
+                Game.getInstance().showInformationMessage(player.getName() + "'s Cards", "Cards", "Cards here");
+            });
+>>>>>>> 81d62eb1be8e459b1bb8e1eb9603ae0b2abea870
             if(region == null)
                 addText("No region selected.", 0, 460, 20);
             else {
@@ -371,7 +386,7 @@ public class GameScreen implements UpdatableScreen{
         });
         addButton(root, "", 175, 650, 50, 50, getClass().getResource("/GameResources/UI/Source-Destination/Learn.png").toExternalForm(), event -> {
             Player player = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
-            Game.getInstance().showInformationMessage(player.getName()+ "'s Mission",player.getMission().getMissionName(),  player.getMission().getMissionDetails(), getClass().getResource("/GameResources/Factions/" + player.getFaction().getFactionID() + ".png").toExternalForm());
+            Game.getInstance().showInformationMessage(player.getName()+ "'s Mission",player.getMission().getMissionName(),  player.getMission().getMissionDetails());
         });
     }
 
@@ -408,9 +423,10 @@ public class GameScreen implements UpdatableScreen{
 
     private Button addButton(Group root, String title, int x, int y, int width, int height, String imagePath, EventHandler<ActionEvent> event){
         Button button = new Button(title);
-        Image image = new Image(imagePath);
-        if(image != null)
+        if(imagePath != "") {
+            Image image = new Image(imagePath);
             button.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        }
         button.setLayoutX(x);
         button.setLayoutY(y);
         button.setMinSize(width, height);

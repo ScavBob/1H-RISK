@@ -82,7 +82,7 @@ public class Game {
             }
         });
     }
-    public void showInformationMessage(String title, String header, String content, String imagePath)
+    public void showInformationMessage(String title, String header, String content)
     {
         Platform.runLater(new Runnable() {
             public void run() {
@@ -91,7 +91,6 @@ public class Game {
                 alert.setTitle(title);
                 alert.setHeaderText(header);
                 alert.showAndWait();
-                alert.setGraphic(new ImageView(new Image(imagePath)));
             }
         });
     }
@@ -109,13 +108,13 @@ public class Game {
         subscribedScreens.add(screen);
     }
 
-    public boolean confirmBattle(int attackingArmyCount, int defendingArmyCount, boolean showButtons)
+    public boolean confirmBattle(int attackingArmyCount, int defendingArmyCount, String atkRegionName, String defRegionName, boolean showButtons)
     {
         if (currentGameScreen == null) return false;
         final FutureTask query = new FutureTask(new Callable() {
             @Override
             public Object call() throws Exception {
-                return currentGameScreen.confirmBattle(attackingArmyCount, defendingArmyCount, showButtons);
+                return currentGameScreen.confirmBattle(attackingArmyCount, defendingArmyCount, atkRegionName, defRegionName, showButtons);
             }
         });
         Platform.runLater(query);
@@ -152,13 +151,14 @@ public class Game {
     }
 
     public int showBattleResult(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results,
+                                String atkRegionName, String defRegionName,
                                 boolean won, int maxChoosableArmyCount, boolean isAttackAI) {
         if (currentGameScreen == null) return -1;
         final FutureTask query = new FutureTask(new Callable() {
             @Override
             public Object call() throws Exception {
-                return currentGameScreen.showBattleResults(attackerDice, defenderDice, results, won,
-                        maxChoosableArmyCount,isAttackAI);
+                return currentGameScreen.showBattleResults(attackerDice, defenderDice, results,
+                        atkRegionName, defRegionName, won, maxChoosableArmyCount, isAttackAI);
             }
         });
         Platform.runLater(query);
