@@ -45,16 +45,15 @@ public class BattleManager implements Serializable {
         Player currentPlayer = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
         int defendingArmyCount = Math.min(2, defRegion.getUnitCount());
 
-        boolean battleConfirmed = Game.getInstance().confirmBattle(attackingArmyCount, defendingArmyCount);
+        boolean attackerIsAI = currentPlayer.isAI();
+        boolean battleConfirmed = Game.getInstance().confirmBattle(attackingArmyCount, defendingArmyCount, !attackerIsAI);
 
         if (!battleConfirmed)
         {
-            System.out.println("Battle is denied.");
             return;
         }
         else
         {
-            System.out.println("Battle is confirmed.");
             List<Integer> attackerDice = new ArrayList<>();
             List<Integer> defenderDice = new ArrayList<>();
             List<Boolean> results = new ArrayList<>();
@@ -117,7 +116,14 @@ public class BattleManager implements Serializable {
                 defRegion.setOwner(currentPlayer);
             }
 
-            int armiesToMove = Game.getInstance().showBattleResult(attackerDice, defenderDice, results, playerWon, atkRegion.getUnitCount() - 1);
+            int armiesToMove;
+            if (attackerIsAI)
+                armiesToMove = Game.getInstance().showBattleResult(attackerDice, defenderDice, results, playerWon, atkRegion.getUnitCount() - 1);
+            else {
+                armiesToMove = Game.getInstance().showBattleResult(attackerDice, defenderDice, results, false, atkRegion.getUnitCount() - 1);
+                armiesToMove = atkRegion.getUnitCount() - 1;
+            }
+
             if (playerWon) {
                 mapManager.increaseArmyCount(atkRegion, -armiesToMove);
                 mapManager.increaseArmyCount(defRegion, +armiesToMove);

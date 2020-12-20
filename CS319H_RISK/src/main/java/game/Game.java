@@ -75,13 +75,13 @@ public class Game {
         subscribedScreens.add(screen);
     }
 
-    public boolean confirmBattle(int attackingArmyCount, int defendingArmyCount)
+    public boolean confirmBattle(int attackingArmyCount, int defendingArmyCount, boolean showButtons)
     {
         if (currentGameScreen == null) return false;
         final FutureTask query = new FutureTask(new Callable() {
             @Override
             public Object call() throws Exception {
-                return currentGameScreen.confirmBattle(attackingArmyCount, defendingArmyCount);
+                return currentGameScreen.confirmBattle(attackingArmyCount, defendingArmyCount, showButtons);
             }
         });
         Platform.runLater(query);

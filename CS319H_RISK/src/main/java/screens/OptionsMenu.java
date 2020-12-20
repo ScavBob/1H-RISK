@@ -63,6 +63,8 @@ public class OptionsMenu extends Menu{
         box.setPadding(new Insets(100,400,0,490));
         root.getChildren().add(box);
 
+        //TODO
+        drawImage(getClass().getResource("/Options/SoundLevels.png").toExternalForm(), 540, 175);
 
         addButtons(root, "", 565, 400, 150, 52, getClass().getResource("/Options/SaveFolder.png").toExternalForm(), new EventHandler<ActionEvent>() {
             @Override
