@@ -105,7 +105,6 @@ public class GameScreen implements UpdatableScreen{
             canvas.getGraphicsContext2D().drawImage(dice, 425, 60 + (280/attacking)*i);
         }
         root.getChildren().add(canvas);
-        addText(root, "Confirm Attack?", 175, 220, new Font("Helvenica", 20), "white");
         Button confirmationButton = new Button("Accept");
         confirmationButton.setLayoutX(170);
         confirmationButton.setLayoutY(240);
@@ -133,6 +132,11 @@ public class GameScreen implements UpdatableScreen{
         if(showButtons) {
             root.getChildren().add(confirmationButton);
             root.getChildren().add(denialButton);
+            addText(root, "Confirm Attack?", 175, 220, new Font("Helvenica", 20), "white");
+        }else{
+            addButton(root, "Close", 175, 220, 75, 25, "", event -> {
+               dialog.close();
+            });
         }
         addText(root, "Attacking Armies", 10, 30, new Font("Impact", 25), "white");
         addText(root, "Defending Armies", 310, 30, new Font("Impact", 25), "white");
