@@ -5,12 +5,15 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import application.Faction;
 import game.Game;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 public class SoundManager {
+
+    private static final int NUM_OF_BATTLE_SOUNDS = 1;
 
     private String musicFilePath;
     private Media musicFile;
@@ -29,6 +32,8 @@ public class SoundManager {
     private MediaPlayer clickSound;
 
     private ArrayList<Media> backgroundMusic = new ArrayList<Media>();
+
+    private MediaPlayer currentBattleMediaPlayer;
 
     public SoundManager()
     {
@@ -51,6 +56,8 @@ public class SoundManager {
         backgroundMusic.add(musicFile);
         backgroundMusic.add(alternative_music);
 
+        currentBattleMediaPlayer = null;
+
         setVolume(10);
     }
 
@@ -60,12 +67,43 @@ public class SoundManager {
         clickSound.setVolume(0);
     }
 
+    private double volumeConverter(int x)
+    {
+        return (x + 0.0) / 30;
+    }
+
     public void setVolume(int x )
     {
-        // x : 0 - 10
-        System.out.println("x:  " + x);
-        background_theme.setVolume((x + 0.0) / 30 );
-        clickSound.setVolume((x + 0.0) / 30 );
+        background_theme.setVolume(volumeConverter(x));
+        clickSound.setVolume(volumeConverter(x));
+    }
+
+    public void playRandomBattle()
+    {
+        pausePlayMusic();
+
+        int random = (int) (Math.random() * NUM_OF_BATTLE_SOUNDS ) + 1;
+        String randomBattleMusicPath = getClass().getResource("/musics/battle/battle" + random + ".mp3").toExternalForm();
+        System.out.println(randomBattleMusicPath);
+        Media randomBattleMusic = new Media(randomBattleMusicPath);
+        MediaPlayer randomBattleMusicPlayer = new MediaPlayer(randomBattleMusic);
+        randomBattleMusicPlayer.seek(Duration.ZERO);
+        randomBattleMusicPlayer.setVolume(Game.getInstance().getGameManager().getSettingsManager().getVolume());
+        randomBattleMusicPlayer.play();
+    }
+
+    public void playFactionBattleMusic(Faction faction)
+    {
+        Media factionMusic = faction.getFactionBattleMusic();
+        currentBattleMediaPlayer = new MediaPlayer(factionMusic);
+        currentBattleMediaPlayer.seek(Duration.ZERO);
+        currentBattleMediaPlayer.setVolume(volumeConverter(Game.getInstance().getGameManager().getSettingsManager().getVolume()));
+        currentBattleMediaPlayer.play();
+    }
+
+    public void pauseFactionBattleMusic()
+    {
+        currentBattleMediaPlayer.pause();
     }
 
     public void updateSoundVolumeInitialPosition() {
@@ -77,6 +115,14 @@ public class SoundManager {
     public void startPlayMusic() {
         background_theme.setCycleCount(Integer.MAX_VALUE);
         background_theme.seek(Duration.ZERO);
+        background_theme.play();
+    }
+
+    public void pausePlayMusic() {
+        background_theme.pause();
+    }
+
+    public void resumePlayMusic() {
         background_theme.play();
     }
 

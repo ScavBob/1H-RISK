@@ -23,6 +23,9 @@ public class BattleManager implements Serializable {
         Player currentPlayer = Game.getInstance().getGameManager().getMatch().getCurrentPlayer();
         int defendingArmyCount = Math.min(2, defRegion.getUnitCount());
 
+        Game.getInstance().getGameManager().getSoundManager().pausePlayMusic();
+        Game.getInstance().getGameManager().getSoundManager().playFactionBattleMusic(currentPlayer.getFaction());
+
         boolean attackerIsAI = currentPlayer.isAI();
         boolean battleConfirmed = Game.getInstance().confirmBattle(attackingArmyCount, defendingArmyCount, atkRegion.getRegionName(), defRegion.getRegionName(), !attackerIsAI);
 
@@ -96,7 +99,7 @@ public class BattleManager implements Serializable {
 
             int armiesToMove = Game.getInstance().showBattleResult(attackerDice, defenderDice, results,
                     atkRegion.getRegionName(), defRegion.getRegionName(), playerWon, atkRegion.getUnitCount() - 1, attackerIsAI);
-            
+
             if (attackerIsAI)
             {
                 armiesToMove = atkRegion.getUnitCount() - 1;
@@ -112,6 +115,8 @@ public class BattleManager implements Serializable {
                 }
             }
         }
+        Game.getInstance().getGameManager().getSoundManager().pauseFactionBattleMusic();
+        Game.getInstance().getGameManager().getSoundManager().resumePlayMusic();
     }
 }
 
