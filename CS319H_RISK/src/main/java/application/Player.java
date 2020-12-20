@@ -43,16 +43,7 @@ public class Player implements Serializable {
             strategy = new AI();
         availableReinforcements = 0;
         unusedCards = new ArrayList<Card>();
-        Card c1 = new Card(1);
-        Card c2 = new Card(1);
-        Card c3 = new Card(1);
-        Card c4 = new Card(2);
-        Card c5 = new Card(2);
-        unusedCards.add(c1);
-        unusedCards.add(c3);
-        unusedCards.add(c2);
-        unusedCards.add(c4);
-        unusedCards.add(c5);
+
         takenTradeCardAlready = false;
 
     }
