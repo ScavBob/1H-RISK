@@ -4,7 +4,6 @@ import application.Player;
 import application.Region;
 import gamelauncher.Game;
 
-import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -173,8 +172,8 @@ public class GameScreen implements UpdatableScreen {
             addText(root, "Confirm Attack?", 175, 220, new Font("Helvenica", 20), "white");
         }else{
             Button close = new Button("Close");
-            close.setLayoutX(175);
-            close.setLayoutY(220);
+            close.setLayoutX(217);
+            close.setLayoutY(225);
             close.setMinSize(75,25);
             close.setOnAction(event -> {
                 dialog.close();
@@ -190,8 +189,6 @@ public class GameScreen implements UpdatableScreen {
     }
 
     public int showBattleResults(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results, String firstRegion, String secondRegion, boolean won, int maxMovableArmies, boolean isAI){
-        System.out.println(won +", "+maxMovableArmies);
-        System.out.println(defenderDice.size());
         currentArmyCount = 1;
         Stage dialog = new Stage();
         dialog.setResizable(false);
@@ -203,8 +200,7 @@ public class GameScreen implements UpdatableScreen {
         dialog.setScene(scene);
         Image background = new Image(getClass().getResource("/GameResources/RollingDice/Background.png").toExternalForm());
         canvas.getGraphicsContext2D().drawImage(background, 0, 0);
-        Timeline timeline = new Timeline();
-        for(int i = 0; i < defenderDice.size(); i++){
+        for(int i = 0; i < Math.min(defenderDice.size(), attackerDice.size()); i++){
             int x = 25;
             int y = 40 + (240/defenderDice.size())*i;
             Image dice = new Image(getClass().getResource("/GameResources/RollingDice/" + attackerDice.get(i) + ".png").toExternalForm());
@@ -217,8 +213,10 @@ public class GameScreen implements UpdatableScreen {
         root.getChildren().add(canvas);
         if(!isAI) {
             if (won) {
-                if(maxMovableArmies <= 1) {
-                    Slider armySlider = new Slider(1, Math.max(maxMovableArmies,1), 1);
+                Slider armySlider;
+                Text armyCount = new Text(String.valueOf(currentArmyCount));
+                if(maxMovableArmies > 1) {
+                    armySlider = new Slider(1, Math.max(maxMovableArmies, 1), 1);
                     armySlider.setSnapToTicks(true);
                     armySlider.setMinWidth(100);
                     armySlider.setLayoutX(185);
@@ -230,8 +228,6 @@ public class GameScreen implements UpdatableScreen {
                     armySlider.setShowTickLabels(true);
                     armySlider.getStyleClass().setAll("slider");
 
-                    addText(root, "# of Armies to move:", 150, 100, new Font("Helvetica", 20), "white");
-                    Text armyCount = new Text(String.valueOf(currentArmyCount));
                     armySlider.valueProperty().addListener(new ChangeListener<Number>() {
                         @Override
                         public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -239,13 +235,14 @@ public class GameScreen implements UpdatableScreen {
                             armyCount.setText(currentArmyCount + "");
                         }
                     });
-                    armyCount.setLayoutX(250);
-                    armyCount.setLayoutY(150);
-                    armyCount.setFill(Paint.valueOf("white"));
-                    armyCount.setFont(new Font("Helvetica", 25));
                     root.getChildren().add(armySlider);
-                    root.getChildren().add(armyCount);
                 }
+                addText(root, "# of Armies to move:", 150, 100, new Font("Helvetica", 20), "white");
+                armyCount.setLayoutX(250);
+                armyCount.setLayoutY(150);
+                armyCount.setFill(Paint.valueOf("white"));
+                armyCount.setFont(new Font("Helvetica", 25));
+                root.getChildren().add(armyCount);
             }
             Button confirm = new Button("Confirm");
             confirm.setLayoutX(217);
