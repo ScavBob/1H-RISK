@@ -467,11 +467,11 @@ public class GameScreen implements UpdatableScreen {
             @Override
             public int compare(Player o1, Player o2) {
                 if(o1.getRegions().size() > o2.getRegions().size())
-                    return 1;
+                    return -1;
                 else if(o1.getRegions().size() == o2.getRegions().size())
                     return 0;
                 else
-                    return -1;
+                    return 1;
             }
         });
         for(int i = 0; i < players.size(); i++){
