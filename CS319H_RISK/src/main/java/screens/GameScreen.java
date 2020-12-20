@@ -144,7 +144,7 @@ public class GameScreen implements UpdatableScreen{
         return confirmation;
     }
 
-    public int showBattleResults(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results, boolean won, int maxMovableArmies){
+    public int showBattleResults(List<Integer> attackerDice, List<Integer> defenderDice, List<Boolean> results, boolean won, int maxMovableArmies, boolean isAI){
         currentArmyCount = 1;
         Stage dialog = new Stage();
         dialog.setResizable(false);
@@ -166,42 +166,54 @@ public class GameScreen implements UpdatableScreen{
             canvas.getGraphicsContext2D().drawImage(dice, x + 385, y);
         }
         root.getChildren().add(canvas);
-        if(won) {
-            Slider armySlider = new Slider(1, maxMovableArmies, 1);
-            armySlider.setSnapToTicks(true);
-            armySlider.setMinWidth(100);
-            armySlider.setLayoutX(185);
-            armySlider.setLayoutY(185);
-            armySlider.setMinorTickCount(0);
-            armySlider.setMajorTickUnit(1);
-            armySlider.setSnapToTicks(true);
-            armySlider.setShowTickMarks(true);
-            armySlider.setShowTickLabels(true);
-            armySlider.getStyleClass().setAll("slider");
-            addText(root, "# of Armies to move:", 150, 100, new Font("Helvetica", 20), "white");
-            Text armyCount = new Text(String.valueOf(currentArmyCount));
-            armySlider.valueProperty().addListener(new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                    currentArmyCount = newValue.intValue();
-                    armyCount.setText(currentArmyCount + "");
-                }
+        if(isAI) {
+            if (won) {
+                Slider armySlider = new Slider(1, maxMovableArmies, 1);
+                armySlider.setSnapToTicks(true);
+                armySlider.setMinWidth(100);
+                armySlider.setLayoutX(185);
+                armySlider.setLayoutY(185);
+                armySlider.setMinorTickCount(0);
+                armySlider.setMajorTickUnit(1);
+                armySlider.setSnapToTicks(true);
+                armySlider.setShowTickMarks(true);
+                armySlider.setShowTickLabels(true);
+                armySlider.getStyleClass().setAll("slider");
+                addText(root, "# of Armies to move:", 150, 100, new Font("Helvetica", 20), "white");
+                Text armyCount = new Text(String.valueOf(currentArmyCount));
+                armySlider.valueProperty().addListener(new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                        currentArmyCount = newValue.intValue();
+                        armyCount.setText(currentArmyCount + "");
+                    }
+                });
+                armyCount.setLayoutX(250);
+                armyCount.setLayoutY(150);
+                armyCount.setFill(Paint.valueOf("white"));
+                armyCount.setFont(new Font("Helvetica", 25));
+                root.getChildren().add(armySlider);
+                root.getChildren().add(armyCount);
+            }
+            Button confirm = new Button("Confirm");
+            confirm.setLayoutX(217);
+            confirm.setLayoutY(225);
+            confirm.setMinSize(75, 25);
+            confirm.setOnAction(event -> {
+                dialog.close();
             });
-            armyCount.setLayoutX(250);
-            armyCount.setLayoutY(150);
-            armyCount.setFill(Paint.valueOf("white"));
-            armyCount.setFont(new Font("Helvetica", 25));
-            root.getChildren().add(armySlider);
-            root.getChildren().add(armyCount);
+            root.getChildren().add(confirm);
+        }else{
+            Button close = new Button("Close");
+            close.setLayoutX(217);
+            close.setLayoutY(225);
+            close.setMinSize(75, 25);
+            close.setOnAction(event -> {
+                dialog.close();
+            });
+            root.getChildren().add(close);
         }
-        Button confirm = new Button("Confirm");
-        confirm.setLayoutX(217);
-        confirm.setLayoutY(225);
-        confirm.setMinSize(75, 25);
-        confirm.setOnAction(event -> {
-            dialog.close();
-        });
-        root.getChildren().add(confirm);
+
         addText(root, "Attacking Armies", 10, 30, new Font("Impact", 20), "white");
         addText(root, "Defending Armies", 310, 30, new Font("Impact", 20), "white");
         dialog.showAndWait();
