@@ -27,9 +27,10 @@ import java.io.File;
 
 public class OptionsMenu extends Menu{
 
-    public OptionsMenu()
+    private Menu previous;
+    public OptionsMenu(Menu previous)
     {
-
+        this.previous = previous;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class OptionsMenu extends Menu{
         scene.getStylesheets().add("style.css");
         setBackground(root, getClass().getResource("/Menu/Background.png").toExternalForm());
         drawImage(getClass().getResource("/Options/Label.png").toExternalForm(), 485, 10);
-        addTransitionButton(root, "", 495, 561, 294, 51, getClass().getResource("/Menu/Back.png").toExternalForm(), new MainMenu());
+        addTransitionButton(root, "", 495, 561, 294, 51, getClass().getResource("/Menu/Back.png").toExternalForm(), previous);
 
         HBox box = new HBox();
         //box.setBackground(new Background(new BackgroundFill(Paint.valueOf("#92D0507f")), CornerRadii.EMPTY, Insets.EMPTY));
