@@ -17,7 +17,7 @@ public class TwoContinentWin implements CheckWinStrategy, Serializable {
         continent1 = (int)(Math.random() * names.length);
         do{
             continent2 = (int)(Math.random()*names.length);
-        }while(continent1 != continent2);
+        }while(continent1 == continent2);
         continent1Name = names[continent1];
         continent2Name = names[continent2];
     }

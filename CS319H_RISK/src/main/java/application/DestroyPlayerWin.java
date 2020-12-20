@@ -15,7 +15,7 @@ public class DestroyPlayerWin implements CheckWinStrategy, Serializable {
         do {
             int number = (int) (Math.random() * list.size());
             target = list.get(number);
-        }while(target != p && !used.contains(target));
+        }while(target == p && used.contains(target));
 
         used.add(target);
     }
