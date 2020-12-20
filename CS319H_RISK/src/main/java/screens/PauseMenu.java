@@ -48,7 +48,7 @@ public class PauseMenu extends Menu {
      * @param root returns a Group object named root
      */
     private void addTransitionButtons(Group root){
-        addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT - 71, 294, 51, getClass().getResource("/GameResources/PauseMenu/ResumeGame.png").toExternalForm(), new GameScreen());
+        addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT - 71, 294, 51, getClass().getResource("/GameResources/PauseMenu/Resume.png").toExternalForm(), new GameScreen());
         addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT+71, 294, 51, getClass().getResource("/GameResources/PauseMenu/BackToMenu.png").toExternalForm(), new MainMenu());
     }
 
@@ -57,7 +57,7 @@ public class PauseMenu extends Menu {
      * @param root returns a Group object named root
      */
     private void addEventButtons(Group root){
-        addButtons(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT, 294, 51, getClass().getResource("/MainMenu/Exit.png").toExternalForm(), new EventHandler<ActionEvent>() {
+        addButtons(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT, 294, 51, getClass().getResource("/GameResources/PauseMenu/SaveGame.png").toExternalForm(), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 saveWindow.showAndWait();
