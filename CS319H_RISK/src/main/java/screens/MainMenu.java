@@ -40,7 +40,7 @@ public class MainMenu extends Menu {
 			}
 		});
 		addTransitionButton(root, "", 495, 447, 294, 51, getClass().getResource("/MainMenu/Options.png").toExternalForm(), new OptionsMenu(this));
-		addTransitionButton(root, "", 495, 504, 294, 51, getClass().getResource("/MainMenu/HowToPlay.png").toExternalForm(),  new HowToPlayScreen());
+		addTransitionButton(root, "", 495, 504, 294, 51, getClass().getResource("/MainMenu/HowToPlay.png").toExternalForm(),  new EndgameScreen(new Player("Cankat", "Red", true, Faction.Ottoman)));
 		addButtons(root, "", 495, 561, 294, 51, getClass().getResource("/MainMenu/Exit.png").toExternalForm(), new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {

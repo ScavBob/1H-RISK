@@ -200,7 +200,7 @@ public class GameScreen implements UpdatableScreen{
         root.getChildren().add(canvas);
         if(!isAI) {
             if (won) {
-                if(maxMovableArmies == 1) {
+                if(maxMovableArmies != 1) {
                     Slider armySlider = new Slider(1, maxMovableArmies, 1);
                     armySlider.setSnapToTicks(true);
                     armySlider.setMinWidth(100);
@@ -286,6 +286,9 @@ public class GameScreen implements UpdatableScreen{
         addText("It's the " + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getFaction().getFactionName() + " Turn (" + Game.getInstance().getGameManager().getMatch().getCurrentPlayer().getName() + ")", 50, 50, 25);
         Region region = Game.getInstance().getGameManager().getInputManager().getFirstRegion();
         if(phase == 0){
+            addButton(root, "Use Cards", 25, 380, 50, 30, "", event -> {
+
+            });
             if(region == null)
                 addText("No region selected.", 0, 460, 20);
             else {
