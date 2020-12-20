@@ -1,5 +1,8 @@
 package application;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 import java.awt.*;
 import java.io.Serializable;
 import java.util.*;
@@ -62,6 +65,13 @@ public class Faction implements Serializable {
     }
 
     public int getFactionID(){return factionID;}
+
+    public Media getFactionBattleMusic()
+    {
+        String musicPath = getClass().getResource("/musics/battle/factionMusic" + factionID + ".mp3").toExternalForm();
+        Media music = new javafx.scene.media.Media(musicPath);
+        return music;
+    }
 
     // Faction name is the symbl of the function, getSymbol gives the name of the function. 
     public String getFactionSymbol(){

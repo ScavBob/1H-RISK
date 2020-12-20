@@ -24,14 +24,7 @@ public class BattleManager implements Serializable {
         int defendingArmyCount = Math.min(2, defRegion.getUnitCount());
 
         Game.getInstance().getGameManager().getSoundManager().pausePlayMusic();
-        if (currentPlayer.getFaction().equals(Faction.Ottoman))
-        {
-            Game.getInstance().getGameManager().getSoundManager().playDombra();
-        }
-        else
-        {
-            Game.getInstance().getGameManager().getSoundManager().playRandomBattle();
-        }
+        Game.getInstance().getGameManager().getSoundManager().playFactionBattleMusic(currentPlayer.getFaction());
 
         boolean attackerIsAI = currentPlayer.isAI();
         boolean battleConfirmed = Game.getInstance().confirmBattle(attackingArmyCount, defendingArmyCount, atkRegion.getRegionName(), defRegion.getRegionName(), !attackerIsAI);
@@ -122,7 +115,7 @@ public class BattleManager implements Serializable {
                 }
             }
         }
-        Game.getInstance().getGameManager().getSoundManager().pauseDombra();
+        Game.getInstance().getGameManager().getSoundManager().pauseFactionBattleMusic();
         Game.getInstance().getGameManager().getSoundManager().resumePlayMusic();
     }
 }

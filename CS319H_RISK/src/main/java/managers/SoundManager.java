@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import application.Faction;
 import game.Game;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -17,10 +18,6 @@ public class SoundManager {
     private String musicFilePath;
     private Media musicFile;
     private MediaPlayer background_theme;
-
-    private String dombraPath;
-    private Media dombraMusic;
-    private MediaPlayer dombraMusicPlayer;
 
     private String alternativePath;
     private Media alternative_music;
@@ -35,6 +32,8 @@ public class SoundManager {
     private MediaPlayer clickSound;
 
     private ArrayList<Media> backgroundMusic = new ArrayList<Media>();
+
+    private MediaPlayer currentBattleMediaPlayer;
 
     public SoundManager()
     {
@@ -54,12 +53,10 @@ public class SoundManager {
         click = new Media(clickPath);
         clickSound = new MediaPlayer(click);
 
-        dombraPath = getClass().getResource("/musics/battle/dombra.mp3").toExternalForm();
-        dombraMusic = new Media(dombraPath);
-        dombraMusicPlayer = new MediaPlayer(dombraMusic);
-
         backgroundMusic.add(musicFile);
         backgroundMusic.add(alternative_music);
+
+        currentBattleMediaPlayer = null;
 
         setVolume(10);
     }
@@ -70,12 +67,15 @@ public class SoundManager {
         clickSound.setVolume(0);
     }
 
+    private double volumeConverter(int x)
+    {
+        return (x + 0.0) / 30;
+    }
+
     public void setVolume(int x )
     {
-        // x : 0 - 10
-        System.out.println("x:  " + x);
-        background_theme.setVolume((x + 0.0) / 30 );
-        clickSound.setVolume((x + 0.0) / 30 );
+        background_theme.setVolume(volumeConverter(x));
+        clickSound.setVolume(volumeConverter(x));
     }
 
     public void playRandomBattle()
@@ -92,16 +92,18 @@ public class SoundManager {
         randomBattleMusicPlayer.play();
     }
 
-    public void playDombra()
+    public void playFactionBattleMusic(Faction faction)
     {
-        dombraMusicPlayer.seek(Duration.ZERO);
-        dombraMusicPlayer.setVolume(Game.getInstance().getGameManager().getSettingsManager().getVolume());
-        dombraMusicPlayer.play();
+        Media factionMusic = faction.getFactionBattleMusic();
+        currentBattleMediaPlayer = new MediaPlayer(factionMusic);
+        currentBattleMediaPlayer.seek(Duration.ZERO);
+        currentBattleMediaPlayer.setVolume(volumeConverter(Game.getInstance().getGameManager().getSettingsManager().getVolume()));
+        currentBattleMediaPlayer.play();
     }
 
-    public void pauseDombra()
+    public void pauseFactionBattleMusic()
     {
-        dombraMusicPlayer.pause();
+        currentBattleMediaPlayer.pause();
     }
 
     public void updateSoundVolumeInitialPosition() {
