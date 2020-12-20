@@ -58,8 +58,24 @@ public class BattleManager implements Serializable {
             List<Integer> attackerDice = new ArrayList<>();
             List<Integer> defenderDice = new ArrayList<>();
             List<Boolean> results = new ArrayList<>();
-            for (int i = 0; i < attackingArmyCount; i++) attackerDice.add(rollDice());
-            for (int i = 0; i < defendingArmyCount; i++) defenderDice.add(rollDice());
+
+            int attackerDiceBonus = currentPlayer.getFaction().getAttackDiceBonus();
+            int defenderDiceBonus = defRegion.getOwner().getFaction().getDefenceDiceBonus();
+
+            for (int i = 0; i < attackingArmyCount; i++)
+            {
+                if (attackerDiceBonus >= 0)
+                    attackerDice.add(Math.min(rollDice() + attackerDiceBonus, 6));
+                else
+                    attackerDice.add(Math.max(rollDice() + attackerDiceBonus, 1));
+            }
+            for (int i = 0; i < defendingArmyCount; i++)
+            {
+                if (defenderDiceBonus >= 0)
+                defenderDice.add(Math.min(rollDice() + defenderDiceBonus, 6));
+            else
+                defenderDice.add(Math.max(rollDice() + defenderDiceBonus, 1));
+            }
 
             Collections.sort(attackerDice, Collections.reverseOrder());
             Collections.sort(defenderDice, Collections.reverseOrder());
@@ -76,7 +92,7 @@ public class BattleManager implements Serializable {
                 results.add(false);
             }
 
-            if (defendingArmyCount == 2)
+            if (defendingArmyCount == 2 && attackingArmyCount >= 2)
             {
                 if (attackerDice.get(1) > defenderDice.get(1)) {
                     defenderLoss++;
