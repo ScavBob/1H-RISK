@@ -103,6 +103,11 @@ public class BattleManager implements Serializable {
             if (playerWon) {
                 mapManager.increaseArmyCount(atkRegion, -armiesToMove);
                 mapManager.increaseArmyCount(defRegion, +armiesToMove);
+                if (!currentPlayer.isTakenTradeCardAlready())
+                {
+                    Game.getInstance().getGameManager().getMatch().giveTradeCard();
+                    currentPlayer.setTakenTradeCardAlready(true);
+                }
             }
         }
     }

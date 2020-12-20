@@ -43,8 +43,18 @@ public class Match implements Serializable {
            return false;
     }
 
+    public Player winner(){
+        for(Player p: players){
+            if(p.checkWin())
+                return p;
+        }
+        return null;
+    }
+
     //skips to the next player in line
     public void nextTurn() {
+        currentPlayer.setTakenTradeCardAlready(false);
+
         //TODO
         //Skip dead (?) players.
         if (round < maxRound) {
@@ -196,7 +206,8 @@ public class Match implements Serializable {
         return map;
     }
 
-    private void giveTradeCard(){
+    public void giveTradeCard(){
+        System.out.println("kart verdim");
         int chance = (int)(Math.random()*100);
         Card c;
         if(chance < 30)
@@ -222,7 +233,6 @@ public class Match implements Serializable {
     public void increaseNumberOfTrades(){
         numberOfCardTrades++;
     }
-
 
     public void assignMissionSecretMission(){
         for (int i = 0; i < players.size(); i++) {
