@@ -55,12 +55,11 @@ public class Match implements Serializable {
     public void nextTurn() {
         currentPlayer.setTakenTradeCardAlready(false);
 
-        //TODO
-        //Skip dead (?) players.
-
         if (round < maxRound) {
             round++;
-            currentPlayer = players.get(round % players.size());
+            do {
+                currentPlayer = players.get(round % players.size());
+            }while(!currentPlayer.isAlive());
         }
         giveInitialReinforcement(currentPlayer);
     }
