@@ -26,7 +26,7 @@ public class PauseMenu extends Menu {
         root = new Group();
         scene = new Scene(root, SWIDTH, SHEIGHT, Color.BLACK);
         saveWindow = new TextInputDialog("");
-        setBackground(root, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Background.png");
+        setBackground(root, getClass().getResource("/Menu/Background.png").toExternalForm());
         addTransitionButtons(root);
         addEventButtons(root);
         saveWindow.setTitle("Save File");
@@ -48,8 +48,8 @@ public class PauseMenu extends Menu {
      * @param root returns a Group object named root
      */
     private void addTransitionButtons(Group root){
-        addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT - 71, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new GameScreen());
-        addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT+71, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Back.png", new MainMenu());
+        addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT - 71, 294, 51, getClass().getResource("/Menu/Back.png").toExternalForm(), new GameScreen());
+        addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT+71, 294, 51, getClass().getResource("/Menu/Back.png").toExternalForm(), new MainMenu());
     }
 
     /**
@@ -57,7 +57,7 @@ public class PauseMenu extends Menu {
      * @param root returns a Group object named root
      */
     private void addEventButtons(Group root){
-        addButtons(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "MainMenu\\Exit.png", new EventHandler<ActionEvent>() {
+        addButtons(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT, 294, 51, getClass().getResource("/MainMenu/Exit.png").toExternalForm(), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 saveWindow.showAndWait();

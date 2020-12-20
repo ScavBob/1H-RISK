@@ -163,59 +163,59 @@ public class GameStartMenu extends Menu {
         Group root = new Group();
         Scene scene = new Scene(root, 1280, 720, Color.BLACK);
         Canvas canvas = new Canvas();
-        setBackground(root, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Background.png");
+        setBackground(root, getClass().getResource("/Menu/Background.png").toExternalForm());
         drawRect("#b4c7e77f", 38, 38, 540, 654);
         root.getChildren().add(canvas);
         for(int i = 0; i < 7; i++) {
             slots[i] = new Slot(root, i, colors[i]);
         }
-        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\MapPreview\\" + map + "Preview.png", 600, 40);   //591x270
-        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\MapPreview\\MapPreview.png", 598, 38);   //594x273
+        drawImage(getClass().getResource("/GameStartMenu/MapPreview/" + map + "Preview.png").toExternalForm(), 600, 40);   //591x270
+        drawImage(getClass().getResource("/GameStartMenu/MapPreview/MapPreview.png").toExternalForm(), 598, 38);   //594x273
         drawRect("#bfbfbf7f", 598, 331, 594, 361);
         drawRect("0000007f", 607, 341, 574, 341);
-        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\GameRules.png", 776, 346);
-        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\GameMode\\GameMode.png", 836, 400);
-        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\AI\\AIDifficulty.png", 836, 490);
-        drawImage(StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\Timer\\TurnTimer.png", 836, 580);
+        drawImage(getClass().getResource("/GameStartMenu/GameRules/GameRules.png").toExternalForm(), 776, 346);
+        drawImage(getClass().getResource("/GameStartMenu/GameRules/GameMode/GameMode.png").toExternalForm(), 836, 400);
+        drawImage(getClass().getResource("/GameStartMenu/GameRules/AI/AIDifficulty.png").toExternalForm(), 836, 490);
+        drawImage(getClass().getResource("/GameStartMenu/GameRules/Timer/TurnTimer.png").toExternalForm(), 836, 580);
         addButtons(root);
         return scene;
     }
 
     private void addButtons(Group root) {
-        addButtons(root, "", 1220, 50, 55, 50, StorageManager.RESOURCES_FOLDER_NAME + "GameStartMenu\\Start.png", new EventHandler<ActionEvent>() {
+        addButtons(root, "", 1220, 50, 55, 50, getClass().getResource("/GameStartMenu/Start.png").toExternalForm(), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 startGame();
                 Game.getInstance().getGameManager().getSoundManager().playClick();
             }
         });
-        addButtons(root, "", 746, 430, 143, 50, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\GameMode\\WorldDomination.png", new EventHandler<ActionEvent>() {
+        addButtons(root, "", 746, 430, 143, 50, getClass().getResource("/GameStartMenu/GameRules/GameMode/WorldDomination.png").toExternalForm(), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 gameMode = true;
                 Game.getInstance().getGameManager().getSoundManager().playClick();
             }
         });
-        addButtons(root, "", 899, 430, 143, 50, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\GameMode\\SecretMission.png", new EventHandler<ActionEvent>() {
+        addButtons(root, "", 899, 430, 143, 50, getClass().getResource("/GameStartMenu/GameRules/GameMode/SecretMission.png").toExternalForm(), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 gameMode = false;
                 Game.getInstance().getGameManager().getSoundManager().playClick();
             }
         });
-        addButtons(root, "", 823, 520, 143, 49, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\AI\\2.png", new EventHandler<ActionEvent>() {
+        addButtons(root, "", 823, 520, 143, 49, getClass().getResource("/GameStartMenu/GameRules/AI/2.png").toExternalForm(), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 AILevel = 2;
             }
         });
-        addButtons(root, "", 675, 520, 143, 49, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\AI\\1.png", new EventHandler<ActionEvent>() {
+        addButtons(root, "", 675, 520, 143, 49, getClass().getResource("/GameStartMenu/GameRules/AI/1.png").toExternalForm(), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 AILevel = 1;
             }
         });
-        addButtons(root, "", 971, 520, 143, 49, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\AI\\3.png", new EventHandler<ActionEvent>() {
+        addButtons(root, "", 971, 520, 143, 49, getClass().getResource("/GameStartMenu/GameRules/AI/3.png").toExternalForm(), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 AILevel = 3;
@@ -223,7 +223,7 @@ public class GameStartMenu extends Menu {
         });
         int[] times = {100000, 1, 2, 3, 5, 10, 15, 30};
         for(int i = 0; i < times.length; i++){
-            addButtons(root, (i == 0 ? "∞" : times[i] + ""), 679 + 53*i, 610, 50, 50, StorageManager.RESOURCES_FOLDER_NAME + "\\GameStartMenu\\GameRules\\Timer\\Time.png", event -> {
+            addButtons(root, (i == 0 ? "∞" : times[i] + ""), 679 + 53*i, 610, 50, 50, getClass().getResource("/GameStartMenu/GameRules/Timer/Time.png").toExternalForm(), event -> {
                 if( ((Button)event.getSource()).getText() == "∞" )
                     turnTime = 100000;
                 else

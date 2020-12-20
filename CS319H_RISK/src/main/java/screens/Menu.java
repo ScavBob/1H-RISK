@@ -20,25 +20,18 @@ public abstract class Menu implements Screen {
 		canvas = new Canvas(1280.0, 720.0);
 	}
 
-	public void setBackground(Group root, String backgroundPath, String difference){
-		addCanvas();
-		drawImage(backgroundPath, 0, 0, difference);
-		root.getChildren().add(canvas);
-	}
-
-	public void drawImage(String imagePath, int x, int y, String diff){
-		Image label = new Image(Paths.get(imagePath).toUri().toString());
-		canvas.getGraphicsContext2D().drawImage(label, x, y);
-	}
-
 	public void setBackground(Group root, String backgroundPath){
 		addCanvas();
+		System.out.println("hi");
 		drawImage(backgroundPath, 0, 0);
+		System.out.println("hi1");
 		root.getChildren().add(canvas);
 	}
 
 	public void drawImage(String imagePath, int x, int y){
-		Image label = new Image(Paths.get(imagePath).toUri().toString());
+		System.out.println("here1");
+		Image label = new Image(imagePath);
+		System.out.println("here2");
 		canvas.getGraphicsContext2D().drawImage(label, x, y);
 	}
 
@@ -71,7 +64,7 @@ public abstract class Menu implements Screen {
 			button.setMinWidth(width);
 		if(eventHandler != null)
 			button.setOnAction(eventHandler);
-		Image image = new Image(Paths.get(imagePath).toUri().toString(), width, height, false, false);
+		Image image = new Image(imagePath, width, height, false, false);
 		if(image != null)
 			button.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 		root.getChildren().add(button);
