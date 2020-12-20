@@ -63,25 +63,27 @@ public class GameScreen implements UpdatableScreen{
     }
 
     private void runTimer() {
-        timer = new Text();
         int remainingTime = Game.getInstance().getGameManager().getMatch().getRemainingTime();
-        String time = "";
-        if(remainingTime/60 < 10)
-            time+="0"+remainingTime/60;
-        else
-            time+=remainingTime/60;
-        time += ":";
-        if(remainingTime%60 < 10)
-            time += "0" + remainingTime%60;
-        else
-            time += remainingTime%60;
+        if(remainingTime <= 50000) {
+            timer = new Text();
+            String time = "";
+            if (remainingTime / 60 < 10)
+                time += "0" + remainingTime / 60;
+            else
+                time += remainingTime / 60;
+            time += ":";
+            if (remainingTime % 60 < 10)
+                time += "0" + remainingTime % 60;
+            else
+                time += remainingTime % 60;
 
-        timer.setText(time);
-        timer.setX(1180);
-        timer.setY(50);
-        timer.setFont(Font.font("Helvenica",30));
-        timer.setFill(Paint.valueOf("white"));
-        root.getChildren().add(timer);
+            timer.setText(time);
+            timer.setX(1180);
+            timer.setY(50);
+            timer.setFont(Font.font("Helvenica", 30));
+            timer.setFill(Paint.valueOf("white"));
+            root.getChildren().add(timer);
+        }
     }
 
     public boolean confirmBattle(int attacking, int defending){
@@ -95,8 +97,6 @@ public class GameScreen implements UpdatableScreen{
         dialog.setScene(scene);
         Image background = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "GameResources\\RollingDice\\Background.png").toUri().toString());
         canvas.getGraphicsContext2D().drawImage(background, 0, 0);
-        addText(root, "Attacking Armies", 10, 30, new Font("Impact", 25), "white");
-        addText(root, "Defending Armies", 310, 30, new Font("Impact", 25), "white");
         Image dice = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "GameResources\\RollingDice\\qm.png").toUri().toString());
         for(int i = 0; i < attacking; i++){
             canvas.getGraphicsContext2D().drawImage(dice, 5, 40 + (240/attacking)*i);
@@ -132,6 +132,8 @@ public class GameScreen implements UpdatableScreen{
         });
         root.getChildren().add(confirmationButton);
         root.getChildren().add(denialButton);
+        addText(root, "Attacking Armies", 10, 30, new Font("Impact", 25), "white");
+        addText(root, "Defending Armies", 310, 30, new Font("Impact", 25), "white");
         dialog.showAndWait();
         return confirmation;
     }
@@ -143,12 +145,11 @@ public class GameScreen implements UpdatableScreen{
         dialog.initStyle(StageStyle.UTILITY);
         Group root = new Group();
         Scene scene = new Scene(root, 500, 270, Color.BLACK);
+        scene.getStylesheets().add("style.css");
         Canvas canvas = new Canvas(500, 270);
         dialog.setScene(scene);
         Image background = new Image(Paths.get(StorageManager.RESOURCES_FOLDER_NAME + "GameResources\\RollingDice\\Background.png").toUri().toString());
         canvas.getGraphicsContext2D().drawImage(background, 0, 0);
-        addText(root, "Attacking Armies", 10, 30, new Font("Impact", 25), "white");
-        addText(root, "Defending Armies", 310, 30, new Font("Impact", 25), "white");
         Timeline timeline = new Timeline();
         for(int i = 0; i < defenderDice.size(); i++){
             int x = 25;
@@ -170,7 +171,6 @@ public class GameScreen implements UpdatableScreen{
             armySlider.setSnapToTicks(true);
             armySlider.setShowTickMarks(true);
             armySlider.setShowTickLabels(true);
-            armySlider.getStyleClass().setAll("slider");
             armySlider.getStyleClass().setAll("slider");
             addText(root, "# of Armies to move:", 150, 100, new Font("Helvetica", 20), "white");
             Text armyCount = new Text(String.valueOf(currentArmyCount));
@@ -196,6 +196,8 @@ public class GameScreen implements UpdatableScreen{
             dialog.close();
         });
         root.getChildren().add(confirm);
+        addText(root, "Attacking Armies", 10, 30, new Font("Impact", 20), "white");
+        addText(root, "Defending Armies", 310, 30, new Font("Impact", 20), "white");
         dialog.showAndWait();
         return currentArmyCount;
     }
