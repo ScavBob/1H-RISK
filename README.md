@@ -51,6 +51,10 @@ We are still considering our approach on how to implement a board game to a digi
 + [Analysis Report](Reports/Iteration_1/AnalysisReport_CS319_Group1-H_I2_.pdf.pdf)
 + [Design Report](Reports/Iteration_1/DesignReport_CS319_Group1-H_I2.pdf.pdf)
 
+### Final:
+- - -
++ [Final Report](Report/Final/CS319_Group1-H_FinalReport_I1.pdf)
+
 ## References:
 Reference link to original Risk :  
 https://www.hasbro.com/common/instruct/risk.pdf
