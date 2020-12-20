@@ -41,7 +41,7 @@ public class HowToPlayScreen extends Menu {
     HowToPlayScreen(){
         root = new Group();
         scene = new Scene(root, SWIDTH, SHEIGHT, Color.BLACK);
-        setBackground(root, StorageManager.RESOURCES_FOLDER_NAME + "Menu\\Background.png");
+        setBackground(root, getClass().getResource("/Menu/Background.png").toExternalForm());
         addButtons(root);
         initImageArray();
         pageNumberDisplay = new Label();
@@ -82,14 +82,14 @@ public class HowToPlayScreen extends Menu {
      */
     public void addButtons(Group root){
 
-        addTransitionButton(root, "", 495, 561, 294, 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", new MainMenu());
-        addButtons(root, "", 0 , 400 , 51 , 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", event ->{
+        addTransitionButton(root, "", 495, 561, 294, 51, getClass().getResource("/Menu/Back.png").toExternalForm(), new MainMenu());
+        addButtons(root, "", 0 , 400 , 51 , 51, getClass().getResource("/Menu/Back.png").toExternalForm(), event ->{
             currentImageNumber = (currentImageNumber - 1 )% HowToPlayImgNum;
             if (currentImageNumber < 0) {currentImageNumber += HowToPlayImgNum; }
             imageView.setImage(imageArray[currentImageNumber]);
             pageNumberDisplay.setText(currentImageNumber+1 + "/" + HowToPlayImgNum);
         } );
-        addButtons(root, "", SWIDTH-51 , 400 , 51 , 51, StorageManager.RESOURCES_FOLDER_NAME + "\\Menu\\Back.png", event ->{
+        addButtons(root, "", SWIDTH-51 , 400 , 51 , 51, getClass().getResource("/Menu/Back.png").toExternalForm(), event ->{
             currentImageNumber = (currentImageNumber + 1 )% HowToPlayImgNum;
             imageView.setImage(imageArray[currentImageNumber]);
             pageNumberDisplay.setText(currentImageNumber+1 + "/" + HowToPlayImgNum);
