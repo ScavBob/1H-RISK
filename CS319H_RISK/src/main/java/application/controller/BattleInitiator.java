@@ -28,11 +28,7 @@ public class BattleInitiator implements Serializable {
         boolean attackerIsAI = currentPlayer.isAI();
         boolean battleConfirmed = Game.getInstance().confirmBattle(attackingArmyCount, defendingArmyCount, atkRegion.getRegionName(), defRegion.getRegionName(), !attackerIsAI);
 
-        if (!battleConfirmed)
-        {
-            return;
-        }
-        else
+        if (battleConfirmed)
         {
             List<Integer> attackerDice = new ArrayList<>();
             List<Integer> defenderDice = new ArrayList<>();
