@@ -51,7 +51,6 @@ public class GameScreen implements UpdatableScreen{
 
     public void update(){
         currentArmyCount = 0;
-        armyCount = 0;
         root.getChildren().clear();
         canvas = new Canvas(1280, 720);
         battleLog = new Text();
@@ -68,6 +67,11 @@ public class GameScreen implements UpdatableScreen{
         root.getChildren().add(battleLog);
         populateScreen();
         runTimer();
+    }
+
+    public void nextPhaseInScreen()
+    {
+        armyCount = 0;
     }
 
     public void setBattleLog(String log){

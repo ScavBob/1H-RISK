@@ -65,6 +65,11 @@ public class Game {
         gameStage.setScene(screen.getScene());
     }
 
+    public void nextPhaseInScreen()
+    {
+        currentGameScreen.nextPhaseInScreen();
+    }
+
     public void showWarningMessage(String title, String header, String content)
     {
         Platform.runLater(new Runnable() {
@@ -152,5 +157,9 @@ public class Game {
         } catch (InterruptedException | ExecutionException e) {
             return -1;
         }
+    }
+
+    public void setBattleLog(String battleLog) {
+        currentGameScreen.setBattleLog(battleLog);
     }
 }

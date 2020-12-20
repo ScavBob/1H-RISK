@@ -18,7 +18,7 @@ public class StateManager implements Serializable {
         else if (currentPhase == GameController.ATTACK_PHASE) currentPhase = GameController.FORTIFY_PHASE;
         else if (currentPhase == GameController.FORTIFY_PHASE) currentPhase = GameController.REINFORCEMENT_PHASE;
 
-        Game.getInstance().updateScreen();
+        Game.getInstance().nextPhaseInScreen();
     }
     public int getPhase(){
         return currentPhase;
