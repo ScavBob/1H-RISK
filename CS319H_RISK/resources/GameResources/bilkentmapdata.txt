@@ -1,0 +1,88 @@
+4 34
+0 8 7 Republic_Of_Engineers
+0 1134 450 Atalar_Head_Quarter
+1 1014 563 Main_Food_Court
+2 894 571 Side_Food_Court
+3 765 507 Midterm_Bunker
+4 765 462 Final_Bunker
+5 765 414 Project_Bunker
+6 930 440 Side_Shelter
+7 973 371 Main_Shelter
+1 12 16 Republic_Of_Social_Sciences
+8 640 411 Lang_Bunker
+9 591 515 Lang_Swamp
+10 556 332 Medic
+11 512 443 Urban_Bil
+12 499 380 Platin_Bil
+13 409 372 Bridge_Btw_Dep
+14 360 442 Walk_Of_Fame
+15 389 509 Starbucks_Zone
+16 294 475 Amphitheater
+17 261 359 Cult_Comb_Area
+18 360 610 Side_Hangar
+19 350 660 Main_Hangar
+2 7 35 Republic_Of_Architectures
+20 138 354 Arch_Shelter
+21 64 314 Holy_Place_Of_Arch
+22 19 253 Chapel_Of_Arch
+23 34 132 Arch_Garage
+24 106 137 Arch_Swamp
+25 69 200 NW_Court
+26 134 203 NE_Court
+3 7 11 Republic_Of_Science
+27 223 190 Sports_Center
+28 330 201 Ar-Ge_Labs
+29 418 190 Tekman_Shelter
+30 462 78 Sci_Bunker
+31 555 162 Sci_Shelter
+32 661 152 War-Zone
+33 677 96 VR_Center
+0 1
+0 6
+0 7
+1 2
+2 6
+2 3
+3 4
+3 9
+4 5
+4 8
+5 6
+5 8
+5 32
+6 7
+8 10
+8 9
+9 11
+11 12
+12 13
+12 10
+13 14
+13 29
+14 15
+14 16
+15 18
+18 19
+16 17
+16 20
+17 20
+20 21
+21 22
+22 25
+22 23
+23 24
+23 25
+24 26
+25 26
+27 24
+27 26
+27 28
+28 17
+28 29
+29 30
+29 31
+30 31
+31 10
+31 32
+32 33
+
