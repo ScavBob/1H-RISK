@@ -38,6 +38,7 @@ public class Map implements Serializable{
      * @param mapData takes the location of the file includes the map settings.
      */
     private void initializeRegions(File mapData){
+        System.out.println(mapData);
 
         Scanner scanner = null;
         try {
