@@ -48,8 +48,8 @@ public class PauseMenu extends Menu {
      * @param root returns a Group object named root
      */
     private void addTransitionButtons(Group root){
-        addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT - 71, 294, 51, getClass().getResource("/Menu/Back.png").toExternalForm(), new GameScreen());
-        addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT+71, 294, 51, getClass().getResource("/Menu/Back.png").toExternalForm(), new MainMenu());
+        addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT - 71, 294, 51, getClass().getResource("/GameResources/PauseMenu/ResumeGame.png").toExternalForm(), new GameScreen());
+        addTransitionButton(root, "", BUTTONXLAYOUT, BUTTONYLAYOUT+71, 294, 51, getClass().getResource("/GameResources/PauseMenu/BackToMenu.png").toExternalForm(), new MainMenu());
     }
 
     /**
