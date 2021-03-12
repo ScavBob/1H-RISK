@@ -9,14 +9,14 @@
 * [License](#license)
 
 ## Group Members
-| Member | Student ID |
-| ----------- | ----------- |
-|Kaan Atakan Aray | 21703187|
-|Rüzgar Ayan | 21801984|
-|Emre Derman	| 21703508|
-|Kamil Kaan Erkan | 21601166|
-|Cankat Anday Kadim | 21802988|
-|Umut Ada Yürüten | 21802410|
+| Member | 
+| ----------- | 
+|Kaan Atakan Aray | 
+|Rüzgar Ayan | 
+|Emre Derman	|
+|Kamil Kaan Erkan | 
+|Cankat Anday Kadim 
+|Umut Ada Yürüten | 
 
 
 ## Description of Project
