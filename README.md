@@ -36,9 +36,8 @@ We are still considering our approach on how to implement a board game to a digi
   As the original game of RISK is more than 50 years old we assumed the rules and the gameplay has been refined to a state where the game is both fun and fair for all the players. Although we are still considering changes on the gameplay front we are considerate of breaking the delicate balance of RISK.
  
 ## Modifications
-1. In game footage (battle scenes)
-2. Different countries with individual starting bonuses instead of basic teams teams (clans, different symbols for each team)
-3. Adding different maps to the game (Bilkent University map)
+1. Different countries with individual starting bonuses instead of basic teams teams (clans, different symbols for each team)
+2. Adding different maps to the game (Bilkent University map)
 
 ## Reports
 ###   Iteration 1:
